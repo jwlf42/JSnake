@@ -1,0 +1,18 @@
+#ifndef DRAW_JPROGRAMM_H
+#define DRAW_JPROGRAMM_H
+
+#include "jconfig.h"
+
+gamestatus CheckDDE();
+
+void InitField();
+
+void Draw_Sgame();
+
+void DrawStaticGame();
+
+void DrawBlock(int size, int x, int y, color farbe, int w);
+
+void PlaceTextDynamic(int x, int y, char* text, richtung modus);
+
+#endif
