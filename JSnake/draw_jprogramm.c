@@ -10,7 +10,6 @@
 
 #include <stdio.h>
 #include <windows.h>
-#include "jconfig.h"
 #include "simple_draw.h"
 #include "draw_jprogramm.h"
 

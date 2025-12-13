@@ -58,6 +58,7 @@ void InitWindow()
 	Rand_Links = 2 * Rast;
 	Rand_Oben = 8 * Rast;
 
+	controll = COLOR_SNAKEGREEN;
 
 	ResizeGraphic(0, 0, client.Width, client.Height);
 

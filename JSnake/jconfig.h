@@ -85,6 +85,8 @@ typedef enum Speilstatus
 
 extern gamestatus gamestate;
 
+extern color controll;
+
 extern const color COLOR_WHITE;
 extern const color COLOR_LIGHTGREEN;
 extern const color COLOR_DARKGRAY;
