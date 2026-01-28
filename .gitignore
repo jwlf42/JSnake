@@ -53,3 +53,29 @@ dkms.conf
 
 # debug information files
 *.dwo
+
+# ===== Visual Studio =====
+.vs/
+
+# Build output
+Debug/
+Release/
+x64/
+Win32/
+
+# Visual Studio user files
+*.vcxproj.user
+*.suo
+
+# Visual Studio logs / temp
+*.log
+*.tlog
+*.aps
+
+# Other generated files
+*.cache
+
+# ===== JSnake generated files =====
+JSnake/RC*
+JSnake/snakecore
+JSnake/snakecore/
