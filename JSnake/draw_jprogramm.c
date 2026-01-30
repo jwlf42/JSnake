@@ -9,11 +9,10 @@
 #define _CRT_SECURE_NO_WARNINGS
 
 #include <stdio.h>
+#include <stdlib.h>
 #include <windows.h>
 #include "simple_draw.h"
 #include "draw_jprogramm.h"
-
-
 
 int Pixel_Breite;
 int Pixel_Hoehe;
@@ -26,12 +25,10 @@ const color COLOR_LIGHTGREEN = { 144, 238, 144 };
 const color COLOR_DARKGRAY = { 50, 50, 50 };
 const color COLOR_SNAKEGREEN = { 50, 205, 50 };
 const color COLOR_APPLERED = { 255, 0, 0 };
-const color COLOR_HELBLUE = { 173, 216, 230 };  // hellblau
-const color COLOR_LILA = { 186, 85, 211 };      // lila
+const color COLOR_HELBLUE = { 173, 216, 230 }; 
+const color COLOR_LILA = { 186, 85, 211 };     
 const color COLOR_LIGHTGRAY = { 211, 211, 211 };
 const color COLOR_DARKBLUE = { 25, 25, 112 };
-
-
 
 
 /*******************************************************
@@ -75,11 +72,12 @@ gamestatus CheckDDE()
         }
         else
         {
-            return exidgame; // Nein -> sauber beenden
+            return exitgame; // Nein -> sauber beenden
         }
     }
     return running;
 }
+
 
 
 /*******************************************************
@@ -170,9 +168,10 @@ void DrawBlock(int size, int x, int y, color farbe, int w)
 }
 
 
+
 /******************************************************
  Hilfsfunktion Textausrichtung steureung mit typdef enum
-rechts / mittig / links B?ndig
+ rechts / mittig / links Buendig
 *******************************************************/
 void PlaceTextDynamic(int x, int y, char* text, richtung modus)
 {

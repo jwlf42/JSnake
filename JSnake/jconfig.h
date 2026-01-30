@@ -19,7 +19,7 @@ typedef struct Koordinaten
 {
 	int x;
 	int y;
-}ordinate;
+}coordinates;
 
 
 typedef struct abmessung
@@ -45,8 +45,8 @@ typedef enum Ausrichtung
 
 typedef struct Schlangensegmente
 {
-	ordinate position;
-	ordinate direction;
+	coordinates position;
+	coordinates direction;
 	color farbe;
 }snakeseg;
 
@@ -55,20 +55,20 @@ typedef struct Schlange
 {
 	snakeseg seg[MAX_SEG];
 	snakeseg target;
-	ordinate headpix;
-	ordinate pixtail;
+	coordinates headpix;
+	coordinates pixtail;
 	int length;
 }Snake;
 
 
 typedef struct Schaltfläche
 {
-	ordinate position;
+	coordinates position;
 	dimension size;
 	richtung alignment;
 	color normalcolor;
 	color hoveredcolor;
-	char* text;
+	const char* text;
 	int needsredraw;
 	int hovered;
 	int clicked;
@@ -80,12 +80,12 @@ typedef enum Speilstatus
 	running,
 	option,
 	gameover,
-	exidgame
+	exitgame
 }gamestatus;
 
 extern gamestatus gamestate;
 
-extern color controll;
+extern color controlColor;
 
 extern const color COLOR_WHITE;
 extern const color COLOR_LIGHTGREEN;
@@ -101,7 +101,7 @@ extern dimension screen;
 extern dimension client;
 
 extern Snake Jsnake;
-extern ordinate food;
+extern coordinates food;
 
 extern button Neustart;
 extern button Pause;

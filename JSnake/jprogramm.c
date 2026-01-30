@@ -13,7 +13,6 @@
 #include "function_snake.h"
 #include "draw_jprogramm.h"
 #include "jbutton.h"
-
 #include "simple_draw.h"
 
 gamestatus gamestate = menue;
@@ -22,15 +21,15 @@ dimension client;
 
 
 /******************************************************
-   Programm Initialisierung einmalig bei Proramm start
-
+   Bei Programmstart Anlegen einer log Datei
+   mit umgehnder umleitung des standartfehlerkanals stderr
 *******************************************************/
 void InitLog()
 {
 	FILE* datei = freopen("JSnake_errors.log", "w", stderr);
 
 	if (datei == NULL)
-		perror("\nDatei konnte nicht geöffnet werden");
+		perror("InitLog: freopen fehlgeschlagen");
 	else
 		fprintf(stderr, "Programm gestartet\n");
 }
@@ -38,8 +37,8 @@ void InitLog()
 
 
 /******************************************************
-   Programm Initialisierung einmalig bei Proramm start
-
+   Fenster goeße für simple draw zu Vollbild anpassen
+   Spielfeld, Buttons und Highscore Initialisieren
 *******************************************************/
 void InitWindow()
 {
@@ -58,7 +57,7 @@ void InitWindow()
 	Rand_Links = 2 * Rast;
 	Rand_Oben = 8 * Rast;
 
-	controll = COLOR_SNAKEGREEN;
+	controlColor = COLOR_SNAKEGREEN;
 
 	ResizeGraphic(0, 0, client.Width, client.Height);
 
@@ -76,7 +75,7 @@ void InitWindow()
 
 /******************************************************
    Startbildschrim Hauptmenue
-
+   
 *******************************************************/
 void MenueLoop()
 {
@@ -94,7 +93,7 @@ void MenueLoop()
 	{
 		gamestate = CheckDDE();
 
-		if (gamestate == exidgame || gamestate == menue)
+		if (gamestate == exitgame || gamestate == menue)
 			 break; 
 
 		DrawButtons(MenueButtons, NUM_GO_BUTTONS);
@@ -115,7 +114,7 @@ void MenueLoop()
 		if (Beenden.clicked & 2)
 		{
 			ClearGraphic();
-			gamestate = exidgame;
+			gamestate = exitgame;
 			break;
 		}
 	}
@@ -125,7 +124,7 @@ void MenueLoop()
 
 
 /******************************************************
-   Speie schleife
+   Speiel schleife
 
 *******************************************************/
 void GameLoop()
@@ -172,39 +171,39 @@ void OptionLoop()
 	{
 		gamestate = CheckDDE();
 
-		if (gamestate == exidgame || gamestate == menue)
+		if (gamestate == exitgame || gamestate == menue)
 			break;  // sofort rau
 
 		DrawButtons(OptionButtons, NUM_GO_BUTTONS);
 
 		if (gruen.clicked & 2)
 		{
-			controll = gruen.normalcolor;
+			controlColor = gruen.normalcolor;
 		}
 
 		if (blau.clicked & 2)
 		{
-			controll = blau.normalcolor;
+			controlColor = blau.normalcolor;
 		}
 
 		if (lila.clicked & 2)
 		{
-			controll = lila.normalcolor;
+			controlColor = lila.normalcolor;
 		}
 
 		if (rot.clicked & 2)
 		{
-			controll = rot.normalcolor;
+			controlColor = rot.normalcolor;
 		}
 
 		if (hellgrau.clicked & 2)
 		{
-			controll = hellgrau.normalcolor;
+			controlColor = hellgrau.normalcolor;
 		}
 
 		if (dunkelblau.clicked & 2)
 		{
-			controll = dunkelblau.normalcolor;
+			controlColor = dunkelblau.normalcolor;
 		}
 
 		if (Hauptmenue1.clicked & 2)
@@ -215,7 +214,7 @@ void OptionLoop()
 		}
 
 		PlaceText(client.Width / 2 + 150, 150, "Anzeige:");
-		DrawBlock(OP_BUTTON, client.Width / 2 + 220, 128, controll, 1);
+		DrawBlock(OP_BUTTON, client.Width / 2 + 220, 128, controlColor, 1);
 	}
 	return;
 }
@@ -242,8 +241,8 @@ void GameoverLoop()
 	{
 		gamestate = CheckDDE();
 
-		if (gamestate == exidgame || gamestate == menue)
-			break;  // sofort rau
+		if (gamestate == exitgame || gamestate == menue)
+			break;  // sofort raus
 
 		DrawButtons(GameOverButtons, NUM_GO_BUTTONS);
 
@@ -264,7 +263,7 @@ void GameoverLoop()
 			{
 				gamestate = CheckDDE();
 
-				if (gamestate == exidgame || gamestate == menue)
+				if (gamestate == exitgame || gamestate == menue)
 					break;  // sofort rau
 
 				PlaceText(((FELD_WIDTH / 2) * Rast) + Rand_Links, ((FELD_HEIGHT / 2) * Rast) + Rand_Oben, "\"|| Pause\" druecke Taste für weiter ->");

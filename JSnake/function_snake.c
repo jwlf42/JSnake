@@ -19,8 +19,8 @@
 
 
 Snake Jsnake;
-ordinate food;
-color controll;
+coordinates food;
+color controlColor;
 
 int score;
 int highscore=0;
@@ -28,8 +28,10 @@ int last_score;
 int last_highscore;
 int start_snake;
 
+
 /******************************************************
-   Spiel initialisierung
+   Spiel Initialisierung
+
 *******************************************************/
 void InitGame()
 {   
@@ -38,7 +40,7 @@ void InitGame()
     last_highscore = -1;
     start_snake = 0;
 
-    InitSnake(&Jsnake, controll, 3);
+    InitSnake(&Jsnake, controlColor, 3);
 
     srand(time(NULL));
 
@@ -48,7 +50,8 @@ void InitGame()
 
 
 /******************************************************
-   Schlange initialisierung
+   Schlange initialisierung Übergabe als Pointer 
+   Funktion soll später mehrere Objekte initialisieren
 *******************************************************/
 void InitSnake(Snake *snake, color farbe, int length)
 {
@@ -86,6 +89,7 @@ void InitSnake(Snake *snake, color farbe, int length)
 }
 
 
+
 /******************************************************
   Animations update pro frame und berechnung.
   prüfung ob schlange zum raster animiert wurde
@@ -120,6 +124,7 @@ void UpdateLogic()
 {
     int taste, i;
 
+        // Steuerung mit "W,S,A,D" Tasten 
         taste = GetKey();
 
         switch (taste)
@@ -159,7 +164,7 @@ void UpdateLogic()
         }
 
         if(start_snake==0)
-            InitSnake(&Jsnake, controll, 3);
+            InitSnake(&Jsnake, controlColor, 3);
     
     if (Jsnake.seg[0].position.x == Jsnake.target.position.x && Jsnake.seg[0].position.y == Jsnake.target.position.y)
     {
@@ -208,7 +213,7 @@ void UpdateLogic()
 
 
 /******************************************************
-    Funktion Essen generieren
+    Funktion Food für Schlange generieren
     zufallszahl im feld und nicht auf der Schlange
 *******************************************************/
 void GenFood()
@@ -250,8 +255,11 @@ void GenFood()
     DrawLine(foodpix_x + 12, foodpix_y + 8, foodpix_x + 12, foodpix_y+2);
 }
 
+
+
 /******************************************************
-   Datei einlesen und erstellen
+   Binaerdatei für Highscore lesen oder erstellen
+
 *******************************************************/
 void LoadHighscore()
 {
@@ -288,8 +296,11 @@ void LoadHighscore()
     }
 }
 
+
+
 /******************************************************
    Highscore speichern
+
 *******************************************************/
 void SaveScore()
 {

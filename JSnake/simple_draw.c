@@ -3,6 +3,8 @@
 
 	Autor: Martin Gräfe, martin.e.graefe@iem.thm.de
 	mit Erweiterungen von Christian Loew
+	
+	Änderungen für "JSnake" von Joel Woelfel mit "#####" gekennzeichnet
 */
 
 #define _CRT_SECURE_NO_WARNINGS
@@ -267,7 +269,7 @@ int GetMouseX(void)
 	if (hDDE_data == NULL)										// Fehlerabfrage
 	{
 		fprintf(stderr, "\n*** Abfrage der Daten von SimpleDraw DDE fehlgeschlagen!\n");
-		hConversation = NULL;
+		hConversation = NULL; //####
 		return 0;
 	}
 

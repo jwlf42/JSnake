@@ -1,9 +1,4 @@
 
-
-/*
-*   Headerdatei alle funktionen der gammelogik
-*/
-
 #ifndef FUNCTION_SNAKE_H
 #define FUNCTION_SNAKE_H
 

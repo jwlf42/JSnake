@@ -6,13 +6,11 @@
   Autor:                       Joel Wölfel
 */
 
-#define CRT_SECURE_NO_WARNINGS
+#define _CRT_SECURE_NO_WARNINGS
 
 #include <stdio.h>
-#include <time.h>
 #include <windows.h>
 #include "jprogramm.h"
-#include "simple_draw.h"
 #include "function_snake.h"
 
 
@@ -21,7 +19,7 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine
 	InitLog();
 	InitWindow();
 	
-	while(gamestate!=exidgame)
+	while(gamestate!=exitgame)
 	{
 		switch (gamestate)
 		{
@@ -37,10 +35,12 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine
 		case gameover:
 			GameoverLoop();
 			break;
+		default:
+			fprintf(stderr, "\nFehler: Kein gültiger Programmstatus: %d", gamestate);
+			gamestate = menue;
 		}
 	}
 	SaveScore();
 	fprintf(stderr, "\nProgramm beendet\n");
-	fclose(stderr);
 	return 0;
 }
