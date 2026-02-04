@@ -31,6 +31,7 @@ const color COLOR_LIGHTGRAY = { 211, 211, 211 };
 const color COLOR_DARKBLUE = { 25, 25, 112 };
 
 
+
 /*******************************************************
   Üpferprüft ob die Verbindung zu Simple Draw steht.
   gibt eine Windows fehlermeldung aus wenn nicht
@@ -125,8 +126,8 @@ void Draw_Sgame()
         last_highscore = highscore;
     }
     
-    //Schlangenblock ?bermalen
-    DrawBlock(Rast, Jsnake.pixtail.x, Jsnake.pixtail.y, Jsnake.seg[Jsnake.length - 1].farbe, 2);
+    //Schlangenblock uebermalen
+    DrawBlock(Rast, Jsnake.pixtail.x, Jsnake.pixtail.y, COLOR_WHITE, 2);
 
     //Schlangenkopf malen
     DrawBlock(Rast, Jsnake.headpix.x, Jsnake.headpix.y, Jsnake.seg[0].farbe, 2);

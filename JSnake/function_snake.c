@@ -17,7 +17,6 @@
 #include "function_snake.h"
 #include "jprogramm.h"
 
-
 Snake Jsnake;
 coordinates food;
 color controlColor;
@@ -26,7 +25,7 @@ int score;
 int highscore=0;
 int last_score;
 int last_highscore;
-int start_snake;
+
 
 
 /******************************************************
@@ -38,13 +37,12 @@ void InitGame()
     score = 0;
     last_score = -1;
     last_highscore = -1;
-    start_snake = 0;
-
-    InitSnake(&Jsnake, controlColor, 3);
 
     srand(time(NULL));
 
     DrawStaticGame();
+
+    GenFood();
 }
 
 
@@ -53,29 +51,23 @@ void InitGame()
    Schlange initialisierung Übergabe als Pointer 
    Funktion soll später mehrere Objekte initialisieren
 *******************************************************/
-void InitSnake(Snake *snake, color farbe, int length)
+void InitSnake(Snake *snake, coordinates dir, color farbe, int length)
 {
     int i;
     snake->length = length;
 
-    snake->target.direction.x=0;
-    snake->target.direction.y=0;
+    snake->target.direction.x=dir.x;
+    snake->target.direction.y=dir.y;
 
     for (i = 0; i < MAX_SEG; i++)
     {
-        snake->seg[i].position.x = ((FELD_WIDTH / 2) + Rand_Links/Rast)-i;
-        snake->seg[i].position.y = ((FELD_HEIGHT / 2) + Rand_Oben/Rast);
+        snake->seg[i].position.x = ((FELD_WIDTH / 2) + Rand_Links / Rast) - (dir.x * i);
+        snake->seg[i].position.y = ((FELD_HEIGHT / 2) + Rand_Oben / Rast) - (dir.y * i);
         snake->seg[i].direction.x = 0;
         snake->seg[i].direction.y = 0;
-        snake->seg[i].farbe = COLOR_WHITE;
-    }
-
-    for (i = 0; i < snake->length; i++)
-    {
-        //snake->seg[i].direction.x = snake->target.direction.x;
-        //snake->seg[i].direction.y = snake->target.direction.y;
         snake->seg[i].farbe = farbe;
     }
+
     snake->pixtail.x = snake->seg[snake->length - 1].position.x * Rast;
     snake->pixtail.y = snake->seg[snake->length - 1].position.y * Rast;
 
@@ -110,7 +102,6 @@ void UpdateAnimation()
              Jsnake.seg[i] = Jsnake.seg[i - 1];
         }  
         Jsnake.seg[0].position = Jsnake.target.position;
-        Jsnake.seg[Jsnake.length - 1].farbe = COLOR_WHITE;
     }
 }
 
@@ -122,50 +113,10 @@ void UpdateAnimation()
 *******************************************************/
 void UpdateLogic()
 {
-    int taste, i;
-
-        // Steuerung mit "W,S,A,D" Tasten 
-        taste = GetKey();
-
-        switch (taste)
-        {
-        case 87: //W
-            if (Jsnake.target.direction.y != 1)
-            {
-                Jsnake.target.direction.y = -1;
-                Jsnake.target.direction.x = 0;
-                start_snake = 1;
-            }
-            break;
-        case 83://S
-            if (Jsnake.target.direction.y != -1)
-            {
-                Jsnake.target.direction.y = 1;
-                Jsnake.target.direction.x = 0;
-                start_snake = 1;
-            }
-            break;
-        case 65: //A
-            if (Jsnake.target.direction.x != 1)
-            {
-                Jsnake.target.direction.y = 0;
-                Jsnake.target.direction.x = -1;
-                start_snake = 1;
-            }
-            break;
-        case 68: //D
-            if (Jsnake.target.direction.x != -1)
-            {
-                Jsnake.target.direction.y = 0;
-                Jsnake.target.direction.x = 1;
-                start_snake = 1;
-            }
-            break;
-        }
-
-        if(start_snake==0)
-            InitSnake(&Jsnake, controlColor, 3);
+    int i;
     
+    InputControl(&Jsnake.target.direction);
+
     if (Jsnake.seg[0].position.x == Jsnake.target.position.x && Jsnake.seg[0].position.y == Jsnake.target.position.y)
     {
         Jsnake.seg[0].direction = Jsnake.target.direction;
@@ -177,7 +128,7 @@ void UpdateLogic()
         if (Jsnake.seg[Jsnake.length - 1].direction.x != Jsnake.seg[Jsnake.length - 2].direction.x || Jsnake.seg[Jsnake.length - 1].direction.y != Jsnake.seg[Jsnake.length - 2].direction.y)
         {
             Jsnake.seg[Jsnake.length - 1].direction = Jsnake.seg[Jsnake.length - 2].direction;
-
+            
             Jsnake.seg[Jsnake.length - 1].position = Jsnake.seg[Jsnake.length - 2].position;
 
             Jsnake.pixtail.x = Jsnake.seg[Jsnake.length - 1].position.x * Rast - Jsnake.seg[Jsnake.length - 1].direction.x * Rast;
@@ -208,6 +159,48 @@ void UpdateLogic()
                 highscore = score;
         }  
     }
+}
+
+
+
+/******************************************************
+    Steuerung mit "W,A,S,D" Tasten. Gibt 0 zurück, wenn 
+    keine Taste gedrückt oder die gegenteilige gedrückt wurde
+*******************************************************/
+int InputControl(coordinates *dir)
+{
+    coordinates current = *dir;
+    int taste;
+
+    // Steuerung mit "W,S,A,D" Tasten 
+    taste = GetKey();
+
+    switch (taste)
+    {
+    case 87: //W
+        current.x = 0;
+        current.y = -1;
+        break;
+    case 83://S
+        current.x = 0;
+        current.y = 1;
+        break;
+    case 65: //A
+        current.x = -1;
+        current.y = 0;
+        break;
+    case 68: //D
+        current.x = 1;
+        current.y = 0;
+        break;
+    }
+
+    if (current.x != -dir->x || current.y != -dir->y)
+    {
+        *dir = current;
+        return taste;
+    }
+    return 0;
 }
 
 

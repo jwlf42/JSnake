@@ -10,6 +10,8 @@ void InitWindow();
 
 void MenueLoop();
 
+void GameReadyLoop();
+
 void GameLoop();
 
 void OptionLoop();

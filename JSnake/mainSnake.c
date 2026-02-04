@@ -14,6 +14,7 @@
 #include "function_snake.h"
 
 
+
 int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine, int nCmdShow)
 {
 	InitLog();
@@ -25,6 +26,9 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine
 		{
 		case menue:
 			MenueLoop();
+			break;
+		case ready:
+			GameReadyLoop();
 			break;
 		case running:
 			GameLoop();

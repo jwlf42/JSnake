@@ -77,6 +77,7 @@ typedef struct Schaltfläche
 typedef enum Speilstatus
 {
 	menue,
+	ready,
 	running,
 	option,
 	gameover,

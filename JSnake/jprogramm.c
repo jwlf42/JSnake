@@ -5,6 +5,7 @@
   Datei:                       Jprogramm.c
   Autor:                       Joel Wölfel
 */
+
 #define _CRT_SECURE_NO_WARNINGS
 
 #include <stdio.h>
@@ -18,6 +19,7 @@
 gamestatus gamestate = menue;
 dimension screen;
 dimension client;
+
 
 
 /******************************************************
@@ -61,6 +63,8 @@ void InitWindow()
 
 	ResizeGraphic(0, 0, client.Width, client.Height);
 
+	ClearGraphic();
+
 	InitField();
 
 	InitButtons();
@@ -68,7 +72,6 @@ void InitWindow()
 	LoadHighscore();
 
 	return;
-
 }
 
 
@@ -100,7 +103,8 @@ void MenueLoop()
 
 		if(Starten.clicked & 2)
 		{
-			gamestate = running;
+			ClearGraphic();
+			gamestate = ready;
 			break;
 		}
 
@@ -124,14 +128,60 @@ void MenueLoop()
 
 
 /******************************************************
+   Warten aud Eingabe Bildschirm
+
+*******************************************************/
+void GameReadyLoop()
+{
+	button* GameReadyButtons[] = {&Hauptmenue};
+	coordinates taste = {0,0};
+	const int NUM_GO_BUTTONS = 1;
+
+	for (int i = 0; i < NUM_GO_BUTTONS; i++)
+	{
+		GameReadyButtons[i]->needsredraw = 1;
+	}
+
+	InitGame();
+	InitSnake(&Jsnake, (coordinates){0,0}, controlColor, 7);
+	Draw_Sgame();
+
+	PlaceTextDynamic(field_x2 + 40, field_y1 + 168, "Spielen mit den Tasten\"W, A ,S, D\"", richtung_L);
+
+	while(gamestate==ready)
+	{
+		gamestate = CheckDDE();
+
+		if (gamestate == exitgame || gamestate == menue)
+			break;
+		gamestate = ready;
+
+		DrawButtons(GameReadyButtons, NUM_GO_BUTTONS);
+
+		if (InputControl(&taste)!=0)
+		{
+			gamestate = running;
+			InitSnake(&Jsnake, taste, controlColor, 7);
+			DrawBlock(225, field_x2 + 40, (client.Height / 2) - 75, COLOR_WHITE, 45);
+		}
+
+		if (Hauptmenue.clicked & 2)
+		{
+			ClearGraphic();
+			gamestate = menue;
+		}
+	}
+	return;
+}
+
+
+
+/******************************************************
    Speiel schleife
 
 *******************************************************/
 void GameLoop()
-{
-	InitGame();
-	GenFood();
-
+{	
 	for(;;)
 	{
 		gamestate = CheckDDE();
@@ -236,6 +286,7 @@ void GameoverLoop()
 	}
 
 	PlaceText(((FELD_WIDTH / 2) * Rast)+Rand_Links, ((FELD_HEIGHT / 2) * Rast)+Rand_Oben, "GAME OVER");
+	PlaceTextDynamic(field_x2 + 40, field_y1 + 168, "________________________            ", richtung_L);
 
 	for (;;)
 	{
@@ -254,7 +305,7 @@ void GameoverLoop()
 		}
 		if (Neustart.clicked & 2)
 		{
-			gamestate = running;
+			gamestate = ready;
 			break;
 		}
 		if (Pause.clicked & 2)
@@ -275,4 +326,3 @@ void GameoverLoop()
 	}
 	return;
 }
-
