@@ -143,10 +143,10 @@ void GameReadyLoop()
 	}
 
 	InitGame();
-	InitSnake(&Jsnake, (coordinates){0,0}, controlColor, 7);
+	InitSnake(&Jsnake, (coordinates){0,0}, controlColor, 1);
 	Draw_Sgame();
 
-	PlaceTextDynamic(field_x2 + 40, field_y1 + 168, "Spielen mit den Tasten\"W, A ,S, D\"", richtung_L);
+	PlaceTextDynamic(field_x2 + 40, field_y1 + 168, "Spielen mit den Tasten \"W, A ,S, D\"", richtung_L);
 
 	while(gamestate==ready)
 	{
@@ -161,7 +161,7 @@ void GameReadyLoop()
 		if (InputControl(&taste)!=0)
 		{
 			gamestate = running;
-			InitSnake(&Jsnake, taste, controlColor, 7);
+			InitSnake(&Jsnake, taste, controlColor, 3);
 			DrawBlock(225, field_x2 + 40, (client.Height / 2) - 75, COLOR_WHITE, 45);
 		}
 

@@ -26,6 +26,7 @@ button dunkelblau;
 button Hauptmenue1;
 
 
+
 /******************************************************
   Zuweisung der Buttons mit Startwerten im struct
   zeiger auf buttons
