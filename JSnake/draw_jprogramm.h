@@ -3,7 +3,7 @@
 
 #include "jconfig.h"
 
-gamestatus CheckDDE();
+int CheckDDE(gamestatus* state);
 
 void InitField();
 

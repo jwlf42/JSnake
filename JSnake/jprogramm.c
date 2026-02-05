@@ -92,13 +92,8 @@ void MenueLoop()
 
 	PlaceTextDynamic(60, 150, "JSNAKE", richtung_M);
 
-	for(;;)
+	while(CheckDDE(&gamestate)==0)
 	{
-		gamestate = CheckDDE();
-
-		if (gamestate == exitgame || gamestate == menue)
-			 break; 
-
 		DrawButtons(MenueButtons, NUM_GO_BUTTONS);
 
 		if(Starten.clicked & 2)
@@ -145,17 +140,10 @@ void GameReadyLoop()
 	InitGame();
 	InitSnake(&Jsnake, (coordinates){0,0}, controlColor, 1);
 	Draw_Sgame();
-
 	PlaceTextDynamic(field_x2 + 40, field_y1 + 168, "Spielen mit den Tasten \"W, A ,S, D\"", richtung_L);
 
-	while(gamestate==ready)
+	while(CheckDDE(&gamestate)==0)
 	{
-		gamestate = CheckDDE();
-
-		if (gamestate == exitgame || gamestate == menue)
-			break;
-		gamestate = ready;
-
 		DrawButtons(GameReadyButtons, NUM_GO_BUTTONS);
 
 		if (InputControl(&taste)!=0)
@@ -163,12 +151,14 @@ void GameReadyLoop()
 			gamestate = running;
 			InitSnake(&Jsnake, taste, controlColor, 3);
 			DrawBlock(225, field_x2 + 40, (client.Height / 2) - 75, COLOR_WHITE, 45);
+			break;
 		}
 
 		if (Hauptmenue.clicked & 2)
 		{
 			ClearGraphic();
 			gamestate = menue;
+			break;
 		}
 	}
 	return;
@@ -182,10 +172,8 @@ void GameReadyLoop()
 *******************************************************/
 void GameLoop()
 {	
-	for(;;)
+	while(CheckDDE(&gamestate)==0)
 	{
-		gamestate = CheckDDE();
-		
 		UpdateLogic();
 		if (gamestate != running)
 			break;
@@ -207,24 +195,18 @@ void OptionLoop()
 	button* OptionButtons[] = { &gruen, &blau, &lila, &rot, &hellgrau, &dunkelblau, &Hauptmenue1 };
 	const int NUM_GO_BUTTONS = 7;
 
-	
-
 	for (int i = 0; i < NUM_GO_BUTTONS; i++)
 	{
 		OptionButtons[i]->needsredraw = 1;
 	}
 	
+	PlaceTextDynamic(60, 150, "Schlangenfarbe wählen", richtung_M);
+	PlaceText(client.Width / 2 + 150, 150, "Anzeige:");
 	
-	PlaceTextDynamic(60, 150, "Schlangenfarbe waehlen", richtung_M);
-
-	for (;;)
+	while(CheckDDE(&gamestate)==0)
 	{
-		gamestate = CheckDDE();
-
-		if (gamestate == exitgame || gamestate == menue)
-			break;  // sofort rau
-
 		DrawButtons(OptionButtons, NUM_GO_BUTTONS);
+		DrawBlock(OP_BUTTON, client.Width / 2 + 220, 128, controlColor, 3);
 
 		if (gruen.clicked & 2)
 		{
@@ -262,9 +244,6 @@ void OptionLoop()
 			gamestate = menue;
 			break;
 		}
-
-		PlaceText(client.Width / 2 + 150, 150, "Anzeige:");
-		DrawBlock(OP_BUTTON, client.Width / 2 + 220, 128, controlColor, 1);
 	}
 	return;
 }
@@ -288,13 +267,8 @@ void GameoverLoop()
 	PlaceText(((FELD_WIDTH / 2) * Rast)+Rand_Links, ((FELD_HEIGHT / 2) * Rast)+Rand_Oben, "GAME OVER");
 	PlaceTextDynamic(field_x2 + 40, field_y1 + 168, "________________________            ", richtung_L);
 
-	for (;;)
+	while(CheckDDE(&gamestate)==0)
 	{
-		gamestate = CheckDDE();
-
-		if (gamestate == exitgame || gamestate == menue)
-			break;  // sofort raus
-
 		DrawButtons(GameOverButtons, NUM_GO_BUTTONS);
 
 		if (Hauptmenue.clicked & 2)

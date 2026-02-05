@@ -216,9 +216,7 @@ void GenFood()
     int collesion=0;
     int i;
     color apple = COLOR_APPLERED;
-    
-    CheckDDE();
-
+ 
     do
     {
         // Zuf�llige X-Position:

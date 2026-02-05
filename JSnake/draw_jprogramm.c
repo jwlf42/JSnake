@@ -36,7 +36,7 @@ const color COLOR_DARKBLUE = { 25, 25, 112 };
   Üpferprüft ob die Verbindung zu Simple Draw steht.
   gibt eine Windows fehlermeldung aus wenn nicht
 *******************************************************/
-gamestatus CheckDDE()
+int CheckDDE(gamestatus* state)
 {
     if (hConversation == NULL)
     {
@@ -69,14 +69,16 @@ gamestatus CheckDDE()
                 exit(1);
             }
             ResizeGraphic(0, 0, client.Width, client.Height);
-            return menue;
+            *state=menue;
+            return 1;
         }
         else
         {
-            return exitgame; // Nein -> sauber beenden
+            *state=exitgame; // Nein -> sauber beenden
+            return 1;
         }
     }
-    return running;
+    return 0;
 }
 
 
