@@ -200,9 +200,9 @@ void OptionLoop()
 		OptionButtons[i]->needsredraw = 1;
 	}
 	
-	PlaceTextDynamic(60, 150, "Schlangenfarbe w√§hlen", richtung_M);
+	PlaceTextDynamic(60, 150, "Schlangenfarbe w‰hlen", richtung_M);
 	PlaceText(client.Width / 2 + 150, 150, "Anzeige:");
-	
+
 	while(CheckDDE(&gamestate)==0)
 	{
 		DrawButtons(OptionButtons, NUM_GO_BUTTONS);
@@ -256,8 +256,8 @@ void OptionLoop()
 *******************************************************/
 void GameoverLoop()
 {
-	button* GameOverButtons[] = {&Neustart, &Pause, &Hauptmenue};
-	const int NUM_GO_BUTTONS = 3;
+	button* GameOverButtons[] = {&Neustart, &Hauptmenue};
+	const int NUM_GO_BUTTONS = 2;
 
 	for (int i = 0; i < NUM_GO_BUTTONS; i++)
 	{
@@ -280,21 +280,6 @@ void GameoverLoop()
 		if (Neustart.clicked & 2)
 		{
 			gamestate = ready;
-			break;
-		}
-		if (Pause.clicked & 2)
-		{
-			while (KeyPressed() == 0)
-			{
-				gamestate = CheckDDE();
-
-				if (gamestate == exitgame || gamestate == menue)
-					break;  // sofort rau
-
-				PlaceText(((FELD_WIDTH / 2) * Rast) + Rand_Links, ((FELD_HEIGHT / 2) * Rast) + Rand_Oben, "\"|| Pause\" druecke Taste f¸r weiter ->");
-			}
-			PlaceText(((FELD_WIDTH / 2) * Rast) + Rand_Links, ((FELD_HEIGHT / 2) * Rast) + Rand_Oben, "                                       ");
-
 			break;
 		}
 	}

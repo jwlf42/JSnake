@@ -56,7 +56,6 @@ void InitButtons()
     //Gameoverbuttons
     InitButton(&Neustart, COLOR_WHITE, COLOR_LIGHTGREEN, "Neustart", field_x2 + 48, (client.Height / 2) - 200, 200, 80);
     InitButton(&Hauptmenue, COLOR_WHITE, COLOR_LIGHTGRAY, "Hauptmenue", field_x2 + 48, (client.Height / 2) - 75, 200, 80);
-    InitButton(&Pause, COLOR_WHITE, COLOR_LIGHTGRAY, "Pause", field_x2 + 48, (client.Height / 2) + 48, 200, 80);
 
     //Hauptmenuebutton
     InitButton(&Starten, COLOR_WHITE, COLOR_DARKGRAY, "Spiel Starten", (client.Width / 2) - 125, 200, 250, 100);
