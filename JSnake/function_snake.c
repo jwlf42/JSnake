@@ -18,6 +18,7 @@
 #include "jprogramm.h"
 
 Snake Jsnake;
+field spielfeld;
 coordinates food;
 color controlColor;
 
@@ -37,6 +38,14 @@ void InitGame()
     score = 0;
     last_score = -1;
     last_highscore = -1;
+
+    Rand_Links = 2 * Rast;
+    Rand_Oben = 8 * Rast;
+    controlColor = COLOR_SNAKEGREEN;
+
+    InitField();
+
+    LoadHighscore();
 
     srand(time(NULL));
 
@@ -61,8 +70,8 @@ void InitSnake(Snake *snake, coordinates dir, color farbe, int length)
 
     for (i = 0; i < MAX_SEG; i++)
     {
-        snake->seg[i].position.x = ((FELD_WIDTH / 2) + Rand_Links / Rast) - (dir.x * i);
-        snake->seg[i].position.y = ((FELD_HEIGHT / 2) + Rand_Oben / Rast) - (dir.y * i);
+        snake->seg[i].position.x = ((FIELD_WIDTH / 2) + Rand_Links / Rast) - (dir.x * i);
+        snake->seg[i].position.y = ((FIELD_HEIGHT / 2) + Rand_Oben / Rast) - (dir.y * i);
         snake->seg[i].direction.x = 0;
         snake->seg[i].direction.y = 0;
         snake->seg[i].farbe = farbe;
@@ -135,7 +144,7 @@ void UpdateLogic()
             Jsnake.pixtail.y = Jsnake.seg[Jsnake.length - 1].position.y * Rast - Jsnake.seg[Jsnake.length - 1].direction.y * Rast;
         }
 
-        if (Jsnake.target.position.x < 2 || Jsnake.target.position.x > FELD_WIDTH + 1 || Jsnake.target.position.y <= 7 || Jsnake.target.position.y >= FELD_HEIGHT + 8)
+        if (Jsnake.target.position.x < 2 || Jsnake.target.position.x > FIELD_WIDTH + 1 || Jsnake.target.position.y <= 7 || Jsnake.target.position.y >= FIELD_HEIGHT + 8)
         { 
             gamestate=gameover;
 
@@ -221,10 +230,10 @@ void GenFood()
     do
     {
         // Zuf�llige X-Position:
-        food_x = (rand() % FELD_WIDTH) + 2;
+        food_x = (rand() % FIELD_WIDTH) + 2;
 
         // Zuf�llige Y-Position:
-        food_y = (rand() % FELD_HEIGHT) + 8;
+        food_y = (rand() % FIELD_HEIGHT) + 8;
 
         collesion = 0;
 
@@ -273,7 +282,6 @@ void LoadHighscore()
             }
             fclose(datei);
         }
-
     }
     else
     { 

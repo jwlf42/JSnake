@@ -11,6 +11,6 @@ void RenderButton(button* b);
 
 void UpdateButtonState(button* b);
 
-void InitButton(button* Button, color normal, color hovered, const char* text, int x, int y, int w, int h);
+void InitButton(button* Button, color normal, color hovered, coordinates size, const char* text, int x, int y);
 
 #endif

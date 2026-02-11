@@ -17,8 +17,9 @@
 #include "simple_draw.h"
 
 gamestatus gamestate = menue;
-dimension screen;
-dimension client;
+coordinates screen;
+coordinates client;
+coordinates clientcenter;
 
 
 
@@ -48,28 +49,20 @@ void InitWindow()
 	int title = GetSystemMetrics(SM_CYCAPTION);  // Titelleiste oben
 	int menu = GetSystemMetrics(SM_CYMENU);    
 
-	screen.Width = GetSystemMetrics(SM_CXSCREEN);
-	screen.Height = GetSystemMetrics(SM_CYSCREEN);
+	screen.x = GetSystemMetrics(SM_CXSCREEN);
+	screen.y = GetSystemMetrics(SM_CYSCREEN);
 
-	client.Width = screen.Width - 2 * border;     // clientWidth =bildschirmbreite minus rand rechts links
-	client.Height = screen.Height - title - border - menu;
+	client.x = screen.x - 2 * border;     // clientWidth =bildschirmbreite minus rand rechts links
+	client.y = screen.y - title - border - menu;
 
-	Pixel_Breite = FELD_WIDTH * Rast;
-	Pixel_Hoehe = FELD_HEIGHT * Rast;
-	Rand_Links = 2 * Rast;
-	Rand_Oben = 8 * Rast;
+	clientcenter.x = client.x / 2;
+	clientcenter.y = client.y / 2;
 
-	controlColor = COLOR_SNAKEGREEN;
-
-	ResizeGraphic(0, 0, client.Width, client.Height);
+	ResizeGraphic(0, 0, client.x, client.y);
 
 	ClearGraphic();
 
-	InitField();
-
 	InitButtons();
-
-	LoadHighscore();
 
 	return;
 }
@@ -140,7 +133,6 @@ void GameReadyLoop()
 	InitGame();
 	InitSnake(&Jsnake, (coordinates){0,0}, controlColor, 1);
 	Draw_Sgame();
-	PlaceTextDynamic(field_x2 + 40, field_y1 + 168, "Spielen mit den Tasten \"W, A ,S, D\"", richtung_L);
 
 	while(CheckDDE(&gamestate)==0)
 	{
@@ -149,8 +141,9 @@ void GameReadyLoop()
 		if (InputControl(&taste)!=0)
 		{
 			gamestate = running;
+			ClearGraphic();
 			InitSnake(&Jsnake, taste, controlColor, 3);
-			DrawRectFill((coordinates){255,255}, field_x2 + 40, (client.Height / 2) - 75, COLOR_WHITE, 45);
+			//DrawRectFill((coordinates){255,255}, spielfeld.size.x + 40, clientcenter.y - 75, COLOR_WHITE, 45);
 			break;
 		}
 
@@ -172,6 +165,9 @@ void GameReadyLoop()
 *******************************************************/
 void GameLoop()
 {	
+	Draw_Sgame();
+	DrawStaticGame();
+
 	while(CheckDDE(&gamestate)==0)
 	{
 		UpdateLogic();
@@ -202,12 +198,12 @@ void OptionLoop()
 	}
 	
 	PlaceTextDynamic(60, 150, "Schlangenfarbe wählen", richtung_M);
-	PlaceText(client.Width / 2 + 150, 150, "Anzeige:");
+	PlaceText(client.x / 2 + 150, 150, "Anzeige:");
 
 	while(CheckDDE(&gamestate)==0)
 	{
 		DrawButtons(OptionButtons, NUM_GO_BUTTONS);
-		DrawRectFill(size, client.Width / 2 + 220, 128, controlColor, 3);
+		DrawRectFill(size, client.x / 2 + 220, 128, controlColor, 3);
 
 		if (gruen.clicked & 2)
 		{
@@ -265,8 +261,8 @@ void GameoverLoop()
 		GameOverButtons[i]->needsredraw = 1;
 	}
 
-	PlaceText(((FELD_WIDTH / 2) * Rast)+Rand_Links, ((FELD_HEIGHT / 2) * Rast)+Rand_Oben, "GAME OVER");
-	PlaceTextDynamic(field_x2 + 40, field_y1 + 168, "________________________            ", richtung_L);
+	PlaceText(((FIELD_WIDTH / 2) * Rast)+Rand_Links, ((FIELD_HEIGHT / 2) * Rast)+Rand_Oben, "GAME OVER");
+	PlaceTextDynamic(spielfeld.size.x + 40, spielfeld.position.y + 168, "________________________            ", richtung_L);
 
 	while(CheckDDE(&gamestate)==0)
 	{
@@ -280,6 +276,7 @@ void GameoverLoop()
 		}
 		if (Neustart.clicked & 2)
 		{
+			ClearGraphic();
 			gamestate = ready;
 			break;
 		}

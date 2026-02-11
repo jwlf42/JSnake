@@ -5,8 +5,8 @@
 #include <windows.h>
 
 #define Rast 24
-#define FELD_WIDTH 34
-#define FELD_HEIGHT 20
+#define FIELD_WIDTH 34
+#define FIELD_HEIGHT 20
 
 #define SPEED 6
 #define MAX_SEG 690
@@ -22,13 +22,6 @@ typedef struct Koordinaten
 }coordinates;
 
 
-typedef struct abmessung
-{
-	int Height;
-	int Width;
-}dimension;
-
-
 typedef struct Farben
 {
 	int r, g, b;
@@ -41,6 +34,13 @@ typedef enum Ausrichtung
 	richtung_M,
 	richtung_R
 } richtung;
+
+
+typedef struct Feld
+{
+	coordinates position;
+	coordinates size;
+}field;
 
 
 typedef struct Schlangensegmente
@@ -64,7 +64,7 @@ typedef struct Schlange
 typedef struct Schaltfläche
 {
 	coordinates position;
-	dimension size;
+	coordinates size;
 	richtung alignment;
 	color normalcolor;
 	color hoveredcolor;
@@ -73,6 +73,7 @@ typedef struct Schaltfläche
 	int hovered;
 	int clicked;
 }button;
+
 
 typedef enum Speilstatus
 {
@@ -86,24 +87,12 @@ typedef enum Speilstatus
 
 extern gamestatus gamestate;
 
-extern color controlColor;
-
-extern const color COLOR_WHITE;
-extern const color COLOR_BLACK;
-extern const color COLOR_LIGHTGREEN;
-extern const color COLOR_DARKGRAY;
-extern const color COLOR_SNAKEGREEN;
-extern const color COLOR_APPLERED;
-extern const color COLOR_HELBLUE;
-extern const color COLOR_LILA;
-extern const color COLOR_LIGHTGRAY;
-extern const color COLOR_DARKBLUE;
-
-extern dimension screen;
-extern dimension client;
+extern HCONV hConversation;
+extern DWORD sd_idInst;
+extern HSZ sd_hsz_service;
+extern HSZ sd_hsz_topic;
 
 extern Snake Jsnake;
-extern coordinates food;
 
 extern button Neustart;
 extern button Pause;
@@ -122,17 +111,27 @@ extern button dunkelblau;
 extern button hellgrau;
 extern button Hauptmenue1;
 
-extern HCONV hConversation;
-extern DWORD sd_idInst;
-extern HSZ sd_hsz_service;
-extern HSZ sd_hsz_topic;
+extern field spielfeld;
 
+extern coordinates screen;
+extern coordinates client;
+extern coordinates clientcenter;
+extern coordinates food;
 
-extern int Pixel_Breite;
-extern int Pixel_Hoehe;
+extern color controlColor;
+extern const color COLOR_WHITE;
+extern const color COLOR_BLACK;
+extern const color COLOR_LIGHTGREEN;
+extern const color COLOR_DARKGRAY;
+extern const color COLOR_SNAKEGREEN;
+extern const color COLOR_APPLERED;
+extern const color COLOR_HELBLUE;
+extern const color COLOR_LILA;
+extern const color COLOR_LIGHTGRAY;
+extern const color COLOR_DARKBLUE;
+
 extern int Rand_Links;
 extern int Rand_Oben;
-extern int field_x1, field_y1, field_x2, field_y2;
 extern int score;
 extern int highscore;
 extern int last_score;

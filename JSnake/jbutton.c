@@ -32,12 +32,11 @@ button Hauptmenue1;
   Zuweisung der Buttons mit Startwerten im struct
   zeiger auf buttons
 *******************************************************/
-void InitButton(button* Button, color normal, color hovered, const char* text, int x, int y, int w, int h)
+void InitButton(button* Button, color normal, color hovered, coordinates size, const char* text, int x, int y)
 {
     Button->position.x = x;
     Button->position.y = y;
-    Button->size.Height = h;
-    Button->size.Width = w;
+    Button->size = size;
     Button->hoveredcolor = hovered;
     Button->normalcolor = normal;
     Button->text = text;
@@ -54,25 +53,30 @@ void InitButton(button* Button, color normal, color hovered, const char* text, i
 *******************************************************/
 void InitButtons()
 {
+    coordinates mainsize = { 250,100 };
+    coordinates mediumsize = { 200,80 };
+    coordinates minisize = { OP_BUTTON,OP_BUTTON };
+    coordinates bigsize = { 300,80 };
+
     //Gameoverbuttons
-    InitButton(&Neustart, COLOR_WHITE, COLOR_LIGHTGREEN, "Neustart", field_x2 + 48, (client.Height / 2) - 200, 200, 80);
-    InitButton(&Hauptmenue, COLOR_WHITE, COLOR_LIGHTGRAY, "Hauptmenue", field_x2 + 48, (client.Height / 2) - 75, 200, 80);
+    InitButton(&Neustart, COLOR_WHITE, COLOR_LIGHTGREEN, mediumsize, "Neustart", spielfeld.size.x+50, clientcenter.y - 200);
+    InitButton(&Hauptmenue, COLOR_WHITE, COLOR_LIGHTGRAY, mediumsize, "Hauptmenue", spielfeld.size.x + 50, clientcenter.y - 75);
 
     //Hauptmenuebutton
-    InitButton(&Starten, COLOR_WHITE, COLOR_DARKGRAY, "Spiel Starten", (client.Width / 2) - 125, 200, 250, 100);
-    InitButton(&Optionen, COLOR_WHITE, COLOR_DARKGRAY, "Optionen", (client.Width / 2) - 125, 348, 250, 100);
-    InitButton(&Beenden, COLOR_WHITE, COLOR_APPLERED, "Beenden", (client.Width / 2) - 125, 496, 250, 100);
+    InitButton(&Starten, COLOR_WHITE, COLOR_DARKGRAY, mainsize, "Spiel Starten", clientcenter.x - 125, 200);
+    InitButton(&Optionen, COLOR_WHITE, COLOR_DARKGRAY, mainsize, "Optionen", clientcenter.x - 125, 348);
+    InitButton(&Beenden, COLOR_WHITE, COLOR_APPLERED, mainsize, "Beenden", clientcenter.x - 125, 496);
 
     //Frabauswahlbuttons
-    InitButton(&gruen, COLOR_SNAKEGREEN, COLOR_SNAKEGREEN, "", (client.Width / 2) - 100 - (OP_BUTTON / 2), (4 * OP_BUTTON), OP_BUTTON, OP_BUTTON);
-    InitButton(&blau, COLOR_HELBLUE, COLOR_HELBLUE, "", (client.Width / 2) - 100 - (OP_BUTTON / 2), (5 * OP_BUTTON) + 30, OP_BUTTON, OP_BUTTON);
-    InitButton(&lila, COLOR_LILA, COLOR_LILA, "", (client.Width / 2) - 100 - (OP_BUTTON / 2), (6 * OP_BUTTON) + 60, OP_BUTTON, OP_BUTTON);
-    InitButton(&rot, COLOR_APPLERED, COLOR_APPLERED, "", (client.Width / 2) + 100 - (OP_BUTTON / 2), (4 * OP_BUTTON), OP_BUTTON, OP_BUTTON);
-    InitButton(&hellgrau, COLOR_LIGHTGRAY, COLOR_LIGHTGRAY, "", (client.Width / 2) + 100 - (OP_BUTTON / 2), (5 * OP_BUTTON) + 30, OP_BUTTON, OP_BUTTON);
-    InitButton(&dunkelblau, COLOR_DARKBLUE, COLOR_DARKBLUE, "", (client.Width / 2) + 100 - (OP_BUTTON / 2), (6 * OP_BUTTON) + 60, OP_BUTTON, OP_BUTTON);
+    InitButton(&gruen, COLOR_SNAKEGREEN, COLOR_SNAKEGREEN, minisize, "", clientcenter.x - 100 - (OP_BUTTON / 2), (4 * OP_BUTTON));
+    InitButton(&blau, COLOR_HELBLUE, COLOR_HELBLUE, minisize, "", clientcenter.x - 100 - (OP_BUTTON / 2), (5 * OP_BUTTON) + 30);
+    InitButton(&lila, COLOR_LILA, COLOR_LILA, minisize, "", clientcenter.x - 100 - (OP_BUTTON / 2), (6 * OP_BUTTON) + 60);
+    InitButton(&rot, COLOR_APPLERED, COLOR_APPLERED, minisize, "", clientcenter.x + 100 - (OP_BUTTON / 2), (4 * OP_BUTTON));
+    InitButton(&hellgrau, COLOR_LIGHTGRAY, COLOR_LIGHTGRAY, minisize, "", clientcenter.x + 100 - (OP_BUTTON / 2), (5 * OP_BUTTON) + 30);
+    InitButton(&dunkelblau, COLOR_DARKBLUE, COLOR_DARKBLUE, minisize, "", clientcenter.x + 100 - (OP_BUTTON / 2), (6 * OP_BUTTON) + 60);
 
     //Zurück zum Hauptmenue
-    InitButton(&Hauptmenue1, COLOR_WHITE, COLOR_DARKGRAY, "<-- zurueck", (client.Width / 2) - 150, (client.Height / 2) + 50, 300, 80);
+    InitButton(&Hauptmenue1, COLOR_WHITE, COLOR_DARKGRAY, bigsize, "<-- zurueck", clientcenter.x - 150, (7 * OP_BUTTON) + 60);
 }
 
 
@@ -104,8 +108,8 @@ void UpdateButtonState(button* b)
     int washov = b->hovered;
 
     // Hover prüfen
-    if (x_mouse > b->position.x && x_mouse < (b->position.x + b->size.Width) &&
-        y_mouse > b->position.y && y_mouse < (b->position.y + b->size.Height))
+    if (x_mouse > b->position.x && x_mouse < (b->position.x + b->size.x) &&
+        y_mouse > b->position.y && y_mouse < (b->position.y + b->size.y))
     {
         b->hovered = 1;
         b->clicked = GetMouseButton(); // 1 wenn gedrückt
@@ -128,21 +132,19 @@ void UpdateButtonState(button* b)
 void RenderButton(button* b)
 {
     color c;
-    coordinates size = { b->size.Width, b->size.Height };
-
     int textWidth = strlen(b->text) * 6;
     int textHeight = 8;
-    int center_x = b->position.x + (b->size.Width - textWidth) / 2;
-    int center_y = b->position.y + (b->size.Height - textHeight) / 2;
+    int center_x = b->position.x + (b->size.x - textWidth) / 2;
+    int center_y = b->position.y + (b->size.y - textHeight) / 2;
 
     if (b->needsredraw == 0)
         return;
    
     c = b->hovered ? b->hoveredcolor : b->normalcolor;
     
-    DrawRectFill(size, b->position.x, b->position.y, c, B_THICK);
-    DrawRect(size, b->position.x, b->position.y, b->hoveredcolor, B_THICK);
-    DrawRect(size, b->position.x, b->position.y, COLOR_BLACK, 5);
+    DrawRectFill(b->size, b->position.x, b->position.y, c, B_THICK);
+    DrawRect(b->size, b->position.x, b->position.y, b->hoveredcolor, B_THICK);
+    DrawRect(b->size, b->position.x, b->position.y, COLOR_BLACK, 5);
     PlaceText(center_x, center_y, b->text);
 
     b->needsredraw = 0;

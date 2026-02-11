@@ -69,7 +69,7 @@ int CheckDDE(gamestatus* state)
                     "JSnake", MB_OK | MB_ICONERROR);
                 exit(1);
             }
-            ResizeGraphic(0, 0, client.Width, client.Height);
+            ResizeGraphic(0, 0, client.x, client.y);
             *state=menue;
             return 1;
         }
@@ -90,7 +90,7 @@ int CheckDDE(gamestatus* state)
 *******************************************************/
 void InitField()
 {
-    field_x1 = Rand_Links;
+    /**field_x1 = Rand_Links;
     field_x2 = field_x1 + Pixel_Breite;
     field_y1 = Rand_Oben;
     field_y2 = field_y1 + Pixel_Hoehe;
@@ -100,7 +100,12 @@ void InitField()
     field_x1 -= (Rast / 2);
     field_y1 -= (Rast / 2)+1;
     field_x2 += (Rast / 2)+1;
-    field_y2 += (Rast / 2);
+    field_y2 += (Rast / 2);*/
+
+    spielfeld.position.x = Rand_Links;
+    spielfeld.position.y = Rand_Oben;
+    spielfeld.size.x = FIELD_WIDTH * Rast;
+    spielfeld.size.y = FIELD_HEIGHT * Rast;
 
     return;
 }
@@ -119,14 +124,14 @@ void Draw_Sgame()
     if (score != last_score)
     {
         sprintf(sbuffer, "Score: %d", score);
-        PlaceTextDynamic((field_x2 + 40), field_y1, sbuffer, richtung_L);
+        PlaceTextDynamic((spielfeld.size.x + 40), spielfeld.position.y, sbuffer, richtung_L);
         last_score = score;
     }
 
     if (highscore != last_highscore)
     {
         sprintf(sbuffer, "Highscore %d", highscore);
-        PlaceTextDynamic(field_x2 + 40, field_y1 + 24, sbuffer, richtung_L);
+        PlaceTextDynamic(spielfeld.size.x, spielfeld.position.y + 24, sbuffer, richtung_L);
         last_highscore = highscore;
     }
     
@@ -136,16 +141,9 @@ void Draw_Sgame()
     //Schlangenkopf malen
     DrawRectFill(snakesize, Jsnake.headpix.x, Jsnake.headpix.y, Jsnake.seg[0].farbe, 2);
 
-    if (Jsnake.seg[Jsnake.length - 1].position.x == 2 || Jsnake.seg[Jsnake.length - 1].position.x == FELD_WIDTH + 1 || Jsnake.seg[Jsnake.length - 1].position.y == 8 || Jsnake.seg[Jsnake.length - 1].position.y == FELD_HEIGHT + 7)
+    if (Jsnake.seg[Jsnake.length - 1].position.x == 2 || Jsnake.seg[Jsnake.length - 1].position.x == FIELD_WIDTH + 1 || Jsnake.seg[Jsnake.length - 1].position.y == 8 || Jsnake.seg[Jsnake.length - 1].position.y == FIELD_HEIGHT + 7)
     {
-        SetPen(0, 0, 0, Rast);
-
-        //Spielfeld
-        MoveTo(field_x1, field_y1);
-        DrawTo(field_x2, field_y1);
-        DrawTo(field_x2, field_y2);
-        DrawTo(field_x1, field_y2);
-        DrawTo(field_x1, field_y1);
+        DrawRect(spielfeld.size, spielfeld.position.x, spielfeld.position.y, COLOR_BLACK, Rast);
     }
     return;
 }
@@ -205,12 +203,12 @@ void PlaceTextDynamic(int x, int y, char* text, richtung modus)
     if (modus == richtung_M)
     {
         //printf("\nTextausrichtung modus Mitte");
-        PlaceText(client.Width / 2 - textWidth / 2, y, text);
+        PlaceText(client.x / 2 - textWidth / 2, y, text);
     }
     if (modus == richtung_R)
     {
         //printf("\nTextaurichtung modus Rechts");
-        PlaceText(client.Width - x - textWidth, y, text);
+        PlaceText(client.x - x - textWidth, y, text);
     }
 
     return;
@@ -223,18 +221,9 @@ Hilfsfunktion alle statischen elemente in Initialisierung
 *******************************************************/
 void DrawStaticGame()
 {
-    ClearGraphic();
-
-    SetPen(0, 0, 0, Rast);
-
     PlaceTextDynamic(60, 100, "JSnake", richtung_M);
-
-    //Spielfeld
-    MoveTo(field_x1, field_y1);
-    DrawTo(field_x2, field_y1);
-    DrawTo(field_x2, field_y2);
-    DrawTo(field_x1, field_y2);
-    DrawTo(field_x1, field_y1);
+    PlaceTextDynamic(spielfeld.size.x + 100, spielfeld.position.y + 168, "Spielen mit den Tasten \"W, A ,S, D\"", richtung_L);
+    DrawRect(spielfeld.size, spielfeld.position.x, spielfeld.position.y, COLOR_BLACK, Rast);
 
     return;
 }
