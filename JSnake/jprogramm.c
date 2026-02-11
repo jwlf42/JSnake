@@ -150,7 +150,7 @@ void GameReadyLoop()
 		{
 			gamestate = running;
 			InitSnake(&Jsnake, taste, controlColor, 3);
-			DrawBlock(225, field_x2 + 40, (client.Height / 2) - 75, COLOR_WHITE, 45);
+			DrawRectFill((coordinates){255,255}, field_x2 + 40, (client.Height / 2) - 75, COLOR_WHITE, 45);
 			break;
 		}
 
@@ -194,6 +194,7 @@ void OptionLoop()
 {
 	button* OptionButtons[] = { &gruen, &blau, &lila, &rot, &hellgrau, &dunkelblau, &Hauptmenue1 };
 	const int NUM_GO_BUTTONS = 7;
+	coordinates size = { OP_BUTTON,OP_BUTTON };
 
 	for (int i = 0; i < NUM_GO_BUTTONS; i++)
 	{
@@ -206,7 +207,7 @@ void OptionLoop()
 	while(CheckDDE(&gamestate)==0)
 	{
 		DrawButtons(OptionButtons, NUM_GO_BUTTONS);
-		DrawBlock(OP_BUTTON, client.Width / 2 + 220, 128, controlColor, 3);
+		DrawRectFill(size, client.Width / 2 + 220, 128, controlColor, 3);
 
 		if (gruen.clicked & 2)
 		{

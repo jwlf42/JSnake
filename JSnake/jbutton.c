@@ -8,6 +8,7 @@
 
 #include "jbutton.h"
 #include "simple_draw.h"
+#include "draw_jprogramm.h"
 
 button Neustart;
 button Pause;
@@ -127,44 +128,24 @@ void UpdateButtonState(button* b)
 void RenderButton(button* b)
 {
     color c;
-    int x1 = b->position.x;
-    int y1 = b->position.y;
-    int x2 = x1 + b->size.Width;
-    int y2 = y1 + b->size.Height;
+    coordinates size = { b->size.Width, b->size.Height };
 
     int textWidth = strlen(b->text) * 6;
     int textHeight = 8;
     int center_x = b->position.x + (b->size.Width - textWidth) / 2;
     int center_y = b->position.y + (b->size.Height - textHeight) / 2;
 
-    PlaceText(center_x, center_y, b->text);
-
     if (b->needsredraw == 0)
         return;
    
-
     c = b->hovered ? b->hoveredcolor : b->normalcolor;
-
-    SetPen(c.r, c.g, c.b, B_THICK);
-
-    for (int i = y1 + B_THICK / 2; i < y2; i += B_THICK)
-        DrawLine(x1 + 5, i, x2 - 5, i);
-
-
-    SetPen(b->hoveredcolor.r, b->hoveredcolor.g, b->hoveredcolor.b, 10);
-
-    MoveTo(x1, y1);
-    DrawTo(x2, y1);
-    DrawTo(x2, y2);
-    DrawTo(x1, y2);
-    DrawTo(x1, y1);
-
-    SetPen(0, 0, 0, 6);
-    MoveTo(x1 - 6, y1 - 6);
-    DrawTo(x2 + 6, y1 - 6);
-    DrawTo(x2 + 6, y2 + 6);
-    DrawTo(x1 - 6, y2 + 6);
-    DrawTo(x1 - 6, y1 - 6);
+    
+    DrawRectFill(size, b->position.x, b->position.y, c, B_THICK);
+    DrawRect(size, b->position.x, b->position.y, b->hoveredcolor, B_THICK);
+    DrawRect(size, b->position.x, b->position.y, COLOR_BLACK, 5);
+    PlaceText(center_x, center_y, b->text);
 
     b->needsredraw = 0;
+
+    return;
 }

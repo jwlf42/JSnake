@@ -11,7 +11,9 @@ void Draw_Sgame();
 
 void DrawStaticGame();
 
-void DrawBlock(int size, int x, int y, color farbe, int w);
+void DrawRectFill(coordinates size, int x, int y, color farbe, int w);
+
+void DrawRect(coordinates size, int x, int y, color farbe, int w);
 
 void PlaceTextDynamic(int x, int y, char* text, richtung modus);
 

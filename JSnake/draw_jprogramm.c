@@ -21,6 +21,7 @@ int Rand_Oben;
 int field_x1, field_y1, field_x2, field_y2;
 
 const color COLOR_WHITE = { 255, 255, 255 };
+const color COLOR_BLACK = { 0,0,0 };
 const color COLOR_LIGHTGREEN = { 144, 238, 144 };
 const color COLOR_DARKGRAY = { 50, 50, 50 };
 const color COLOR_SNAKEGREEN = { 50, 205, 50 };
@@ -113,6 +114,7 @@ void InitField()
 void Draw_Sgame()
 {
     char sbuffer[20];
+    coordinates snakesize = { Rast,Rast };
 
     if (score != last_score)
     {
@@ -129,10 +131,10 @@ void Draw_Sgame()
     }
     
     //Schlangenblock uebermalen
-    DrawBlock(Rast, Jsnake.pixtail.x, Jsnake.pixtail.y, COLOR_WHITE, 2);
+    DrawRectFill(snakesize, Jsnake.pixtail.x, Jsnake.pixtail.y, COLOR_WHITE, 2);
 
     //Schlangenkopf malen
-    DrawBlock(Rast, Jsnake.headpix.x, Jsnake.headpix.y, Jsnake.seg[0].farbe, 2);
+    DrawRectFill(snakesize, Jsnake.headpix.x, Jsnake.headpix.y, Jsnake.seg[0].farbe, 2);
 
     if (Jsnake.seg[Jsnake.length - 1].position.x == 2 || Jsnake.seg[Jsnake.length - 1].position.x == FELD_WIDTH + 1 || Jsnake.seg[Jsnake.length - 1].position.y == 8 || Jsnake.seg[Jsnake.length - 1].position.y == FELD_HEIGHT + 7)
     {
@@ -154,20 +156,35 @@ void Draw_Sgame()
   Zeichnet einen Quadrat in der größe size farbe
   und strichstärke --> beeinflusst die zeichengeschwindigkeit
 *******************************************************/
-void DrawBlock(int size, int x, int y, color farbe, int w)
+void DrawRectFill(coordinates size, int x, int y, color farbe, int w)
 {
-    
-    int x_size = x + size;
-    int y_size = y + size;
+    int x_size = x + size.x;
+    int y_size = y + size.y;
 
     SetPen(farbe.r, farbe.g, farbe.b, w);
 
     for (int i = y; i < y_size; i += w)
     {
-        DrawLine(x, i, x + size, i);
+        DrawLine(x, i, x_size, i);
     }
 
     return;
+}
+
+
+
+/******************************************************
+  Zeichnet einen Quadrat in der größe size farbe
+  und strichstärke --> beeinflusst die zeichengeschwindigkeit
+*******************************************************/
+void DrawRect(coordinates size, int x, int y, color farbe, int w)
+{
+    SetPen(farbe.r, farbe.g, farbe.b, w);
+    MoveTo(x, y);
+    DrawTo(x+size.x,y);
+    DrawTo(x+size.x,y+size.y);
+    DrawTo(x,y+size.y);
+    DrawTo(x,y);
 }
 
 

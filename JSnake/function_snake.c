@@ -216,6 +216,7 @@ void GenFood()
     int collesion=0;
     int i;
     color apple = COLOR_APPLERED;
+    coordinates size = { Rast - 6,Rast - 6 };
  
     do
     {
@@ -239,7 +240,7 @@ void GenFood()
     foodpix_x = food.x * Rast;
     foodpix_y = food.y * Rast;
     
-    DrawBlock(Rast-6, foodpix_x+3, foodpix_y+6, apple, 2);
+    DrawRectFill(size, foodpix_x+3, foodpix_y+6, apple, 2);
 
     //Apfelstiel
     SetPen(101, 67, 33, 5);

@@ -12,7 +12,7 @@
 #define MAX_SEG 690
 #define MASX_BUT 10
 #define OP_BUTTON 60
-#define B_THICK 20
+#define B_THICK 15
 
 
 typedef struct Koordinaten
@@ -89,6 +89,7 @@ extern gamestatus gamestate;
 extern color controlColor;
 
 extern const color COLOR_WHITE;
+extern const color COLOR_BLACK;
 extern const color COLOR_LIGHTGREEN;
 extern const color COLOR_DARKGRAY;
 extern const color COLOR_SNAKEGREEN;
