@@ -58,6 +58,8 @@ void InitWindow()
 	clientcenter.x = client.x / 2;
 	clientcenter.y = client.y / 2;
 
+	controlColor = COLOR_SNAKEGREEN;
+
 	ResizeGraphic(0, 0, client.x, client.y);
 
 	ClearGraphic();
@@ -131,8 +133,6 @@ void GameReadyLoop()
 	}
 
 	InitGame();
-	InitSnake(&Jsnake, (coordinates){0,0}, controlColor, 1);
-	Draw_Sgame();
 
 	while(CheckDDE(&gamestate)==0)
 	{
@@ -143,7 +143,6 @@ void GameReadyLoop()
 			gamestate = running;
 			ClearGraphic();
 			InitSnake(&Jsnake, taste, controlColor, 3);
-			//DrawRectFill((coordinates){255,255}, spielfeld.size.x + 40, clientcenter.y - 75, COLOR_WHITE, 45);
 			break;
 		}
 
@@ -165,8 +164,8 @@ void GameReadyLoop()
 *******************************************************/
 void GameLoop()
 {	
-	Draw_Sgame();
 	DrawStaticGame();
+	DrawGame();
 
 	while(CheckDDE(&gamestate)==0)
 	{
@@ -174,7 +173,7 @@ void GameLoop()
 		if (gamestate != running)
 			break;
 		UpdateAnimation();
-		Draw_Sgame();
+		DrawGame();
 		Sleep(14);
 	}
 	return;

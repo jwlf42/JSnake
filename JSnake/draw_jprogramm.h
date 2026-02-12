@@ -7,7 +7,7 @@ int CheckDDE(gamestatus* state);
 
 void InitField();
 
-void Draw_Sgame();
+void DrawGame();
 
 void DrawStaticGame();
 

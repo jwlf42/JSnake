@@ -6,7 +6,7 @@
 
 void InitGame();
 
-void InitSnake(Snake* snake, coordinates dir, color farbe, int length);
+void InitSnake(snakes* snake, coordinates dir, color farbe, int length);
 
 int InputControl(coordinates* dir);
 
@@ -14,7 +14,7 @@ void UpdateAnimation();
 
 void UpdateLogic();
 
-void GenFood();
+void GenFood(food* food);
 
 void SaveScore();
 

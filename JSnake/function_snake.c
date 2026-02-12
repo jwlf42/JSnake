@@ -17,9 +17,9 @@
 #include "function_snake.h"
 #include "jprogramm.h"
 
-Snake Jsnake;
+snakes Jsnake;
 field spielfeld;
-coordinates food;
+food apple;
 color controlColor;
 
 int score;
@@ -38,20 +38,22 @@ void InitGame()
     score = 0;
     last_score = -1;
     last_highscore = -1;
+    apple.value = 1;
+    apple.active = 0;
+    apple.size.x = Rast-8;
+    apple.size.y = Rast-8;
+    apple.farbe = COLOR_APPLERED;
 
     Rand_Links = 2 * Rast;
     Rand_Oben = 8 * Rast;
-    controlColor = COLOR_SNAKEGREEN;
 
     InitField();
-
+    InitSnake(&Jsnake, (coordinates) { 0, 0 }, controlColor, 1); 
     LoadHighscore();
-
+    GenFood(&apple);
     srand(time(NULL));
-
     DrawStaticGame();
-
-    GenFood();
+    DrawGame();
 }
 
 
@@ -60,7 +62,7 @@ void InitGame()
    Schlange initialisierung Übergabe als Pointer 
    Funktion soll später mehrere Objekte initialisieren
 *******************************************************/
-void InitSnake(Snake *snake, coordinates dir, color farbe, int length)
+void InitSnake(snakes *snake, coordinates dir, color farbe, int length)
 {
     int i;
     snake->length = length;
@@ -158,10 +160,10 @@ void UpdateLogic()
             }
         }
         
-        if (Jsnake.seg[0].position.x == food.x && Jsnake.seg[0].position.y == food.y)
+        if (Jsnake.seg[0].position.x == apple.rastpos.x && Jsnake.seg[0].position.y == apple.rastpos.y)
         {
             Jsnake.length++;
-            GenFood();
+            GenFood(&apple);
             score += 10;
             
             if (score > highscore)
@@ -218,21 +220,19 @@ int InputControl(coordinates *dir)
     Funktion Food für Schlange generieren
     zufallszahl im feld und nicht auf der Schlange
 *******************************************************/
-void GenFood()
+void GenFood(food *food)
 { 
     int food_x, food_y;
-    int foodpix_x, foodpix_y;
     int collesion=0;
     int i;
-    color apple = COLOR_APPLERED;
     coordinates size = { Rast - 6,Rast - 6 };
  
     do
     {
-        // Zuf�llige X-Position:
+        // Zufaellige X-Position:
         food_x = (rand() % FIELD_WIDTH) + 2;
 
-        // Zuf�llige Y-Position:
+        // Zufaellige Y-Position:
         food_y = (rand() % FIELD_HEIGHT) + 8;
 
         collesion = 0;
@@ -243,17 +243,9 @@ void GenFood()
 
     } while (collesion == 1);
 
-    food.x = food_x;
-    food.y = food_y;
-
-    foodpix_x = food.x * Rast;
-    foodpix_y = food.y * Rast;
-    
-    DrawRectFill(size, foodpix_x+3, foodpix_y+6, apple, 2);
-
-    //Apfelstiel
-    SetPen(101, 67, 33, 5);
-    DrawLine(foodpix_x + 12, foodpix_y + 8, foodpix_x + 12, foodpix_y+2);
+    food->active = 1;
+    food->rastpos.x = food_x;
+    food->rastpos.y = food_y;
 }
 
 

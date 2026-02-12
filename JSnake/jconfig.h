@@ -43,6 +43,16 @@ typedef struct Feld
 }field;
 
 
+typedef struct Essen
+{
+	coordinates rastpos;
+	coordinates size;
+	color farbe;
+	int active;
+	int value;
+}food;
+
+
 typedef struct Schlangensegmente
 {
 	coordinates position;
@@ -58,7 +68,7 @@ typedef struct Schlange
 	coordinates headpix;
 	coordinates pixtail;
 	int length;
-}Snake;
+}snakes;
 
 
 typedef struct Schaltfläche
@@ -92,7 +102,8 @@ extern DWORD sd_idInst;
 extern HSZ sd_hsz_service;
 extern HSZ sd_hsz_topic;
 
-extern Snake Jsnake;
+extern snakes Jsnake;
+extern food apple;
 
 extern button Neustart;
 extern button Pause;
@@ -116,7 +127,6 @@ extern field spielfeld;
 extern coordinates screen;
 extern coordinates client;
 extern coordinates clientcenter;
-extern coordinates food;
 
 extern color controlColor;
 extern const color COLOR_WHITE;
