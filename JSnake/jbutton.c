@@ -59,13 +59,13 @@ void InitButtons()
     coordinates bigsize = { 300,80 };
 
     //Gameoverbuttons
-    InitButton(&Neustart, COLOR_WHITE, COLOR_LIGHTGREEN, mediumsize, "Neustart", spielfeld.size.x+50, clientcenter.y - 200);
-    InitButton(&Hauptmenue, COLOR_WHITE, COLOR_LIGHTGRAY, mediumsize, "Hauptmenue", spielfeld.size.x + 50, clientcenter.y - 75);
+    InitButton(&Neustart, COLOR_WHITE, COLOR_LIGHTGREEN, mediumsize, "Neustart", spielfeld.size.x+100, spielfeld.position.y+190);
+    InitButton(&Hauptmenue, COLOR_WHITE, COLOR_LIGHTGRAY, mediumsize, "Hauptmenue", spielfeld.size.x + 100, spielfeld.position.y+300);
 
     //Hauptmenuebutton
-    InitButton(&Starten, COLOR_WHITE, COLOR_DARKGRAY, mainsize, "Spiel Starten", clientcenter.x - 125, 200);
-    InitButton(&Optionen, COLOR_WHITE, COLOR_DARKGRAY, mainsize, "Optionen", clientcenter.x - 125, 348);
-    InitButton(&Beenden, COLOR_WHITE, COLOR_APPLERED, mainsize, "Beenden", clientcenter.x - 125, 496);
+    InitButton(&Starten, COLOR_WHITE, COLOR_DARKGRAY, mainsize, "Spiel Starten", clientcenter.x - mainsize.x/2, 200);
+    InitButton(&Optionen, COLOR_WHITE, COLOR_DARKGRAY, mainsize, "Optionen", clientcenter.x - mainsize.x / 2, 348);
+    InitButton(&Beenden, COLOR_WHITE, COLOR_APPLERED, mainsize, "Beenden", clientcenter.x - mainsize.x / 2, 496);
 
     //Frabauswahlbuttons
     InitButton(&gruen, COLOR_SNAKEGREEN, COLOR_SNAKEGREEN, minisize, "", clientcenter.x - 100 - (OP_BUTTON / 2), (4 * OP_BUTTON));
@@ -76,7 +76,7 @@ void InitButtons()
     InitButton(&dunkelblau, COLOR_DARKBLUE, COLOR_DARKBLUE, minisize, "", clientcenter.x + 100 - (OP_BUTTON / 2), (6 * OP_BUTTON) + 60);
 
     //Zurück zum Hauptmenue
-    InitButton(&Hauptmenue1, COLOR_WHITE, COLOR_DARKGRAY, bigsize, "<-- zurueck", clientcenter.x - 150, (7 * OP_BUTTON) + 60);
+    InitButton(&Hauptmenue1, COLOR_WHITE, COLOR_DARKGRAY, bigsize, "<-- zurueck", clientcenter.x - (bigsize.x/2), (7 * OP_BUTTON) + 90);
 }
 
 

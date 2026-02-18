@@ -44,10 +44,6 @@ void InitGame()
     apple.size.y = Rast-8;
     apple.farbe = COLOR_APPLERED;
 
-    Rand_Links = 2 * Rast;
-    Rand_Oben = 8 * Rast;
-
-    InitField();
     InitSnake(&Jsnake, (coordinates) { 0, 0 }, controlColor, 1); 
     LoadHighscore();
     GenFood(&apple);
@@ -87,8 +83,6 @@ void InitSnake(snakes *snake, coordinates dir, color farbe, int length)
 
     snake->target.position.x = snake->seg[0].position.x;
     snake->target.position.y = snake->seg[0].position.y;
-
-    snake->target.farbe = COLOR_SNAKEGREEN;
 }
 
 

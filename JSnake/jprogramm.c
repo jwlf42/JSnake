@@ -58,14 +58,19 @@ void InitWindow()
 	clientcenter.x = client.x / 2;
 	clientcenter.y = client.y / 2;
 
+	Rand_Links = 2 * Rast;
+	Rand_Oben = 8 * Rast;
+
 	controlColor = COLOR_SNAKEGREEN;
 
 	ResizeGraphic(0, 0, client.x, client.y);
 
 	ClearGraphic();
+	
+	InitField();
 
 	InitButtons();
-
+	
 	return;
 }
 
@@ -265,7 +270,7 @@ void GameoverLoop()
 	}
 
 	PlaceText(((FIELD_WIDTH / 2) * Rast)+Rand_Links, ((FIELD_HEIGHT / 2) * Rast)+Rand_Oben, "GAME OVER");
-	PlaceTextDynamic(spielfeld.size.x + 40, spielfeld.position.y + 168, "________________________            ", richtung_L);
+	//PlaceTextDynamic(spielfeld.size.x + 40, spielfeld.position.y + 168, "________________________            ", richtung_L);
 
 	while(CheckDDE(&gamestate)==0)
 	{

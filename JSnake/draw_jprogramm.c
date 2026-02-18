@@ -109,14 +109,14 @@ void DrawGame()
     if (score != last_score)
     {
         sprintf(sbuffer, "Score: %d", score);
-        PlaceTextDynamic((spielfeld.size.x + 40), spielfeld.position.y, sbuffer, richtung_L);
+        PlaceTextDynamic((spielfeld.size.x + 100), spielfeld.position.y, sbuffer, richtung_L);
         last_score = score;
     }
 
     if (highscore != last_highscore)
     {
         sprintf(sbuffer, "Highscore %d", highscore);
-        PlaceTextDynamic(spielfeld.size.x, spielfeld.position.y + 24, sbuffer, richtung_L);
+        PlaceTextDynamic(spielfeld.size.x+100, spielfeld.position.y + 24, sbuffer, richtung_L);
         last_highscore = highscore;
     }
 
@@ -221,7 +221,7 @@ Hilfsfunktion alle statischen elemente in Initialisierung
 void DrawStaticGame()
 {
     PlaceTextDynamic(60, 100, "JSnake", richtung_M);
-    PlaceTextDynamic(spielfeld.size.x + 100, spielfeld.position.y + 168, "Spielen mit den Tasten \"W, A ,S, D\"", richtung_L);
+    PlaceTextDynamic(spielfeld.size.x + 100, spielfeld.position.y + 150, "Spielen mit den Tasten \"W, A ,S, D\"", richtung_L);
     DrawRect(spielfeld.size, spielfeld.position.x, spielfeld.position.y, COLOR_BLACK, Rast);
 
     return;
