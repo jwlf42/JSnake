@@ -86,8 +86,9 @@ void InitButtons()
 *******************************************************/
 void DrawButtons(button** buttons, int count)
 {
+    int i;
     // Durchläuft alle Buttons im Array und ruft UpdateButton und RenderButton für jeden auf
-    for (int i = 0; i < count; i++)
+    for (i = 0; i < count; i++)
     {
         // übergebe die Adresse (&) des i-ten Buttons an die DrawButton-Funktionen.
         UpdateButtonState(buttons[i]);

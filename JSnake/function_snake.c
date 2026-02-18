@@ -99,6 +99,7 @@ void InitSnake(snakes *snake, coordinates dir, color farbe, int length)
 *******************************************************/
 void UpdateAnimation()
 {
+    int i;
 
     Jsnake.headpix.x += Jsnake.seg[0].direction.x * SPEED;
     Jsnake.headpix.y += Jsnake.seg[0].direction.y * SPEED;
@@ -108,7 +109,7 @@ void UpdateAnimation()
     
     if (Jsnake.headpix.x == Jsnake.target.position.x * Rast && Jsnake.headpix.y == Jsnake.target.position.y * Rast)
     {   
-        for (int i = Jsnake.length - 1; i > 0; i--)
+        for (i = Jsnake.length - 1; i > 0; i--)
         {
              Jsnake.seg[i] = Jsnake.seg[i - 1];
         }  

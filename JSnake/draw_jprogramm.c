@@ -36,16 +36,13 @@ const color COLOR_DARKBLUE = { 25, 25, 112 };
 *******************************************************/
 int CheckDDE(gamestatus* state)
 {
+    int result;
+
     if (hConversation == NULL)
     {
         fprintf(stderr, "\nsimple draw wurde geschlossen Abfrage Neustart\n");
 
-        int result = MessageBoxA(
-            NULL,
-            "Simple Draw wurde beendet.\nMöchten Sie Simple Draw neu starten?",
-            "JSnake",
-            MB_YESNO | MB_ICONWARNING
-        );
+        result = MessageBoxA( NULL, "Simple Draw wurde beendet.\nMöchten Sie Simple Draw neu starten?", "JSnake", MB_YESNO | MB_ICONWARNING);
 
         if (result == IDYES)
         {
@@ -61,9 +58,7 @@ int CheckDDE(gamestatus* state)
             {
                 fprintf(stderr, "\nsimple draw konnte nicht gestartet werden programm wird sofort beendet\n");
 
-                MessageBoxA(NULL,
-                    "Simple Draw konnte nicht gestartet werden.\nJSnake wird beendet.",
-                    "JSnake", MB_OK | MB_ICONERROR);
+                MessageBoxA(NULL, "Simple Draw konnte nicht gestartet werden.\nJSnake wird beendet.", "JSnake", MB_OK | MB_ICONERROR);
                 exit(1);
             }
             ResizeGraphic(0, 0, client.x, client.y);
@@ -161,10 +156,11 @@ void DrawRectFill(coordinates size, int x, int y, color farbe, int w)
 {
     int x_size = x + size.x;
     int y_size = y + size.y;
+    int i;
 
     SetPen(farbe.r, farbe.g, farbe.b, w);
 
-    for (int i = y; i < y_size; i += w)
+    for (i = y; i < y_size; i += w)
     {
         DrawLine(x, i, x_size, i);
     }

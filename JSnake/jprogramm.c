@@ -79,8 +79,9 @@ void MenueLoop()
 {
 	button* MenueButtons[] = { &Starten, &Beenden, &Optionen };
 	const int NUM_GO_BUTTONS = 3;
+	int i;
 
-	for (int i = 0; i < NUM_GO_BUTTONS; i++)
+	for (i = 0; i < NUM_GO_BUTTONS; i++)
 	{
 		MenueButtons[i]->needsredraw = 1;
 	}
@@ -126,8 +127,9 @@ void GameReadyLoop()
 	button* GameReadyButtons[] = {&Hauptmenue};
 	coordinates taste = {0,0};
 	const int NUM_GO_BUTTONS = 1;
+	int i;
 
-	for (int i = 0; i < NUM_GO_BUTTONS; i++)
+	for (i = 0; i < NUM_GO_BUTTONS; i++)
 	{
 		GameReadyButtons[i]->needsredraw = 1;
 	}
@@ -190,8 +192,9 @@ void OptionLoop()
 	button* OptionButtons[] = { &gruen, &blau, &lila, &rot, &hellgrau, &dunkelblau, &Hauptmenue1 };
 	const int NUM_GO_BUTTONS = 7;
 	coordinates size = { OP_BUTTON,OP_BUTTON };
+	int i;
 
-	for (int i = 0; i < NUM_GO_BUTTONS; i++)
+	for (i = 0; i < NUM_GO_BUTTONS; i++)
 	{
 		OptionButtons[i]->needsredraw = 1;
 	}
@@ -254,8 +257,9 @@ void GameoverLoop()
 {
 	button* GameOverButtons[] = {&Neustart, &Hauptmenue};
 	const int NUM_GO_BUTTONS = 2;
+	int i;
 
-	for (int i = 0; i < NUM_GO_BUTTONS; i++)
+	for (i = 0; i < NUM_GO_BUTTONS; i++)
 	{
 		GameOverButtons[i]->needsredraw = 1;
 	}
