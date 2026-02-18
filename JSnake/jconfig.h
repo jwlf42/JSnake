@@ -40,6 +40,8 @@ typedef struct Feld
 {
 	coordinates position;
 	coordinates size;
+	color farbe;
+	int draw;
 }field;
 
 

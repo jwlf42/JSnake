@@ -91,6 +91,8 @@ void InitField()
     spielfeld.position.x -= (Rast / 2)-1;
     spielfeld.position.y -= (Rast / 2)+1;
 
+    spielfeld.draw = 1;
+
     return;
 }
 
@@ -132,17 +134,18 @@ void DrawGame()
 
         apple.active = 0;
     }
+
+    if (spielfeld.draw == 1)
+    {
+        DrawRect(spielfeld.size, spielfeld.position.x, spielfeld.position.y, spielfeld.farbe, Rast);
+    }
     
     //Schlangenblock uebermalen
     DrawRectFill(snakesize, Jsnake.pixtail.x, Jsnake.pixtail.y, COLOR_WHITE, 2);
 
     //Schlangenkopf malen
     DrawRectFill(snakesize, Jsnake.headpix.x, Jsnake.headpix.y, Jsnake.seg[0].farbe, 2);
-
-    if (Jsnake.seg[Jsnake.length - 1].position.x == 2 || Jsnake.seg[Jsnake.length - 1].position.x == FIELD_WIDTH + 1 || Jsnake.seg[Jsnake.length - 1].position.y == 8 || Jsnake.seg[Jsnake.length - 1].position.y == FIELD_HEIGHT + 7)
-    {
-        DrawRect(spielfeld.size, spielfeld.position.x, spielfeld.position.y, COLOR_BLACK, Rast);
-    }
+  
     return;
 }
 
