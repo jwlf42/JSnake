@@ -257,7 +257,6 @@ void GameoverLoop()
 	}
 
 	PlaceText(((FIELD_WIDTH / 2) * Rast)+Rand_Links, ((FIELD_HEIGHT / 2) * Rast)+Rand_Oben, "GAME OVER");
-	//PlaceTextDynamic(spielfeld.size.x + 40, spielfeld.position.y + 168, "________________________            ", richtung_L);
 
 	while(CheckDDE(&gamestate)==0)
 	{

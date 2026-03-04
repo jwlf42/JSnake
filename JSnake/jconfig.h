@@ -15,6 +15,26 @@
 #define B_THICK 15
 
 
+
+typedef enum Speilstatus
+{
+	menue,
+	ready,
+	running,
+	option,
+	gameover,
+	exitgame
+}gamestatus;
+
+
+typedef enum Ausrichtung
+{
+	richtung_L,
+	richtung_M,
+	richtung_R
+} richtung;
+
+
 typedef struct Koordinaten
 {
 	int x;
@@ -26,15 +46,6 @@ typedef struct Farben
 {
 	int r, g, b;
 }color;
-
-
-typedef enum Ausrichtung
-{
-	richtung_L,
-	richtung_M,
-	richtung_R
-} richtung;
-
 
 typedef struct Feld
 {
@@ -85,17 +96,6 @@ typedef struct Schaltfläche
 	int hovered;
 	int clicked;
 }button;
-
-
-typedef enum Speilstatus
-{
-	menue,
-	ready,
-	running,
-	option,
-	gameover,
-	exitgame
-}gamestatus;
 
 extern gamestatus gamestate;
 
@@ -150,5 +150,3 @@ extern int last_score;
 extern int last_highscore;
 
 #endif
-
-

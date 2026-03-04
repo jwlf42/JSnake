@@ -136,11 +136,11 @@ void UpdateLogic()
 
             Jsnake.pixtail.x = Jsnake.seg[Jsnake.length - 1].position.x * Rast - Jsnake.seg[Jsnake.length - 1].direction.x * Rast;
             Jsnake.pixtail.y = Jsnake.seg[Jsnake.length - 1].position.y * Rast - Jsnake.seg[Jsnake.length - 1].direction.y * Rast;
-
-            if (Jsnake.seg[Jsnake.length - 1].position.x == 2 || Jsnake.seg[Jsnake.length - 1].position.x == FIELD_WIDTH + 1 || Jsnake.seg[Jsnake.length - 1].position.y == 8 || Jsnake.seg[Jsnake.length - 1].position.y == FIELD_HEIGHT + 7)
-            {
-                spielfeld.draw = 1;
         }
+
+        if (Jsnake.seg[Jsnake.length - 1].position.x == 2 || Jsnake.seg[Jsnake.length - 1].position.x == FIELD_WIDTH + 1 || Jsnake.seg[Jsnake.length - 1].position.y == 8 || Jsnake.seg[Jsnake.length - 1].position.y == FIELD_HEIGHT + 7)
+        {
+            spielfeld.draw = 1;
         }
 
         if (Jsnake.target.position.x < 2 || Jsnake.target.position.x > FIELD_WIDTH || Jsnake.target.position.y <= 7 || Jsnake.target.position.y >= FIELD_HEIGHT + 7)

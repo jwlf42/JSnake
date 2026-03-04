@@ -108,8 +108,8 @@ void DrawGame()
 
 
 /******************************************************
-  Zeichnet einen Quadrat in der größe size farbe
-  und strichstärke --> beeinflusst die zeichengeschwindigkeit
+  Zeichnet ein gefülltes Quadrat in der größe size farbe
+  und strichstärke --> beeinflusst die Zeichengeschwindigkeit
 *******************************************************/
 void DrawRectFill(coordinates size, int x, int y, color farbe, int w)
 {
@@ -130,8 +130,8 @@ void DrawRectFill(coordinates size, int x, int y, color farbe, int w)
 
 
 /******************************************************
-  Zeichnet einen Quadrat in der größe size farbe
-  und strichstärke --> beeinflusst die zeichengeschwindigkeit
+  Zeichnet ein Quadrat in der größe size farbe und
+  Strichstärke w
 *******************************************************/
 void DrawRect(coordinates size, int x, int y, color farbe, int w)
 { 
@@ -176,12 +176,17 @@ void PlaceTextDynamic(int x, int y, char* text, richtung modus)
 
 /******************************************************
 Hilfsfunktion alle statischen elemente in Initialisierung
+
 *******************************************************/
 void DrawStaticGame()
 {
     PlaceTextDynamic(60, 100, "JSnake", richtung_M);
     PlaceTextDynamic(spielfeld.size.x + 100, spielfeld.position.y + 150, "Spielen mit den Tasten \"W, A ,S, D\"", richtung_L);
-    DrawRect(spielfeld.size, spielfeld.position.x, spielfeld.position.y, COLOR_BLACK, Rast);
+
+    spielfeld.draw = 1;
+    apple.active = 1;
+    last_highscore = -1;
+    last_score = -1;
 
     return;
 }
