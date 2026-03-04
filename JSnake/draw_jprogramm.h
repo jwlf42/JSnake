@@ -3,8 +3,6 @@
 
 #include "jconfig.h"
 
-int CheckDDE(gamestatus* state);
-
 void InitField();
 
 void DrawGame();

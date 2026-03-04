@@ -10,7 +10,6 @@
 
 #include <stdio.h>
 #include <stdlib.h>
-#include <windows.h>
 #include "simple_draw.h"
 #include "draw_jprogramm.h"
 
@@ -29,50 +28,6 @@ const color COLOR_LIGHTGRAY = { 211, 211, 211 };
 const color COLOR_DARKBLUE = { 25, 25, 112 };
 
 
-
-/*******************************************************
-  Üpferprüft ob die Verbindung zu Simple Draw steht.
-  gibt eine Windows fehlermeldung aus wenn nicht
-*******************************************************/
-int CheckDDE(gamestatus* state)
-{
-    int result;
-
-    if (hConversation == NULL)
-    {
-        fprintf(stderr, "\nsimple draw wurde geschlossen Abfrage Neustart\n");
-
-        result = MessageBoxA( NULL, "Simple Draw wurde beendet.\nMöchten Sie Simple Draw neu starten?", "JSnake", MB_YESNO | MB_ICONWARNING);
-
-        if (result == IDYES)
-        {
-            fprintf(stderr, "\nVersuche simple draw zu starten\n");
-
-            // Simple Draw neu starten
-            system("start \"\" \"Simple DDE Draw.exe\"");
-            Sleep(1000); // kurz warten
-
-            hConversation = DdeConnect(sd_idInst, sd_hsz_service, sd_hsz_topic, NULL);
-
-            if (hConversation == NULL)
-            {
-                fprintf(stderr, "\nsimple draw konnte nicht gestartet werden programm wird sofort beendet\n");
-
-                MessageBoxA(NULL, "Simple Draw konnte nicht gestartet werden.\nJSnake wird beendet.", "JSnake", MB_OK | MB_ICONERROR);
-                exit(1);
-            }
-            ResizeGraphic(0, 0, client.x, client.y);
-            *state=menue;
-            return 1;
-        }
-        else
-        {
-            *state=exitgame; // Nein -> sauber beenden
-            return 1;
-        }
-    }
-    return 0;
-}
 
 
 
@@ -138,6 +93,7 @@ void DrawGame()
     if (spielfeld.draw == 1)
     {
         DrawRect(spielfeld.size, spielfeld.position.x, spielfeld.position.y, spielfeld.farbe, Rast);
+        spielfeld.draw = 0;
     }
     
     //Schlangenblock uebermalen

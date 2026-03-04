@@ -16,9 +16,5 @@ void UpdateLogic();
 
 void GenFood(food* food);
 
-void SaveScore();
-
-void LoadHighscore();
-
 #endif
 

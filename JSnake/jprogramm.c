@@ -15,27 +15,14 @@
 #include "draw_jprogramm.h"
 #include "jbutton.h"
 #include "simple_draw.h"
+#include "jfile.h"
+
+
 
 gamestatus gamestate = menue;
 coordinates screen;
 coordinates client;
 coordinates clientcenter;
-
-
-
-/******************************************************
-   Bei Programmstart Anlegen einer log Datei
-   mit umgehnder umleitung des standartfehlerkanals stderr
-*******************************************************/
-void InitLog()
-{
-	FILE* datei = freopen("JSnake_errors.log", "w", stderr);
-
-	if (datei == NULL)
-		perror("InitLog: freopen fehlgeschlagen");
-	else
-		fprintf(stderr, "Programm gestartet\n");
-}
 
 
 

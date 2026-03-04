@@ -9,13 +9,10 @@
 #define _CRT_SECURE_NO_WARNINGS
 
 #include <stdio.h>
-#include <string.h>
-#include <windows.h>
 #include <time.h>
-#include "simple_draw.h"
-#include "draw_jprogramm.h"
 #include "function_snake.h"
-#include "jprogramm.h"
+#include "jfile.h"
+#include "draw_jprogramm.h"
 
 snakes Jsnake;
 field spielfeld;
@@ -105,7 +102,7 @@ void UpdateAnimation()
     {   
         for (i = Jsnake.length - 1; i > 0; i--)
         {
-             Jsnake.seg[i] = Jsnake.seg[i - 1];
+            Jsnake.seg[i] = Jsnake.seg[i - 1];
         }  
         Jsnake.seg[0].position = Jsnake.target.position;
     }
@@ -143,7 +140,7 @@ void UpdateLogic()
             if (Jsnake.seg[Jsnake.length - 1].position.x == 2 || Jsnake.seg[Jsnake.length - 1].position.x == FIELD_WIDTH + 1 || Jsnake.seg[Jsnake.length - 1].position.y == 8 || Jsnake.seg[Jsnake.length - 1].position.y == FIELD_HEIGHT + 7)
             {
                 spielfeld.draw = 1;
-            }
+        }
         }
 
         if (Jsnake.target.position.x < 2 || Jsnake.target.position.x > FIELD_WIDTH || Jsnake.target.position.y <= 7 || Jsnake.target.position.y >= FIELD_HEIGHT + 7)
@@ -247,69 +244,3 @@ void GenFood(food *food)
     food->rastpos.x = food_x;
     food->rastpos.y = food_y;
 }
-
-
-
-/******************************************************
-   Binaerdatei für Highscore lesen oder erstellen
-
-*******************************************************/
-void LoadHighscore()
-{
-    FILE* datei;
-    int readscore=highscore;
-    
-    if ((datei = fopen("snakecore", "rb")) == NULL)
-    {
-        fprintf(stderr, "\nDatei konnte nicht geöffnet werden\n");
-        fprintf(stderr, "\nDatei wird neu erstellt\n");
-
-        if ((datei = fopen("snakecore", "wb")) == NULL)
-            fprintf(stderr, "\nNeue Datei kann nicht erstellt werden\n");
-        else
-        {
-            if ((fwrite(&readscore, sizeof(int), 1, datei)) != 1)
-            {
-                fprintf(stderr, "\nNeue Datei kann nicht beschrieben werden\n");
-            }
-            fclose(datei);
-        }
-    }
-    else
-    { 
-        if (fread(&readscore, sizeof(int), 1, datei) == 1)
-        {
-            highscore = readscore;
-        }
-        else
-            fprintf(stderr, "\nDaeti konnte nicht gelesen werden\n");
-        
-        fclose(datei);
-    }
-}
-
-
-
-/******************************************************
-   Highscore speichern
-
-*******************************************************/
-void SaveScore()
-{
-    FILE* datei;
-    int writescore=highscore;
-
-    if ((datei = fopen("snakecore", "r+b")) == NULL)
-    {
-        fprintf(stderr, "\nHighscore-Datei kann nicht zum speichern geoffnet werden\n");
-    }
-    else
-    {
-        if((fwrite(&writescore, sizeof(int), 1, datei))!=1)
-        {
-            fprintf(stderr, "\nHighscore kann nicht gespeichert werden\n");
-        }
-        fclose(datei);
-    }
-}
-

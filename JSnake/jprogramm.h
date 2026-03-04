@@ -4,8 +4,6 @@
 
 #include "jconfig.h"
 
-void InitLog();
-
 void InitWindow();
 
 void MenueLoop();

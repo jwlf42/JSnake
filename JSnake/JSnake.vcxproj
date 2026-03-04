@@ -132,6 +132,7 @@
     <ClInclude Include="function_snake.h" />
     <ClInclude Include="jbutton.h" />
     <ClInclude Include="jconfig.h" />
+    <ClInclude Include="jfile.h" />
     <ClInclude Include="jprogramm.h" />
     <ClInclude Include="resource.h" />
     <ClInclude Include="simple_draw.h" />
@@ -140,6 +141,7 @@
     <ClCompile Include="draw_jprogramm.c" />
     <ClCompile Include="function_snake.c" />
     <ClCompile Include="jbutton.c" />
+    <ClCompile Include="Jfile.c" />
     <ClCompile Include="jprogramm.c" />
     <ClCompile Include="mainSnake.c" />
     <ClCompile Include="simple_draw.c" />
