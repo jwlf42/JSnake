@@ -23,6 +23,8 @@
 *******************************************************/
 void InitGame()
 {
+    score = 0;
+
     InitField(&standardfield);
     InitGameButtons();
     InitSnake(&Jsnake, (coordinates) { 0, 0 }, controlColor, 1);
@@ -43,12 +45,10 @@ void InitGame()
 void InitField(field* spielfeld)
 {
     //Ausrichtung mit Strichstärke berücksichtigen (Strichstärke = Rast)
-    spielfeld->position.x = Rand_Links;
-    spielfeld->position.y = Rand_Oben;
+    spielfeld->position.x = Rand_Links + (Rast / 2);
+    spielfeld->position.y = Rand_Oben + (Rast / 2);
     spielfeld->size.x = FIELD_WIDTH * Rast;
     spielfeld->size.y = FIELD_HEIGHT * Rast;
-    spielfeld->position.x += (Rast / 2);
-    spielfeld->position.y -= (Rast / 2);
     spielfeld->draw = 1;
 
     return;

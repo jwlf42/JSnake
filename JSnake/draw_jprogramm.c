@@ -95,7 +95,7 @@ void DrawRectFill(coordinates size, int x, int y, color farbe, int w)
 
     SetPen(farbe.r, farbe.g, farbe.b, w);
 
-    for (i = y; i <= y_size; i += w)
+    for (i = y; i < y_size; i += w)
     {
         DrawLine(x, i, x_size, i);
     }

@@ -79,15 +79,14 @@ void UpdateLogic()
             Jsnake.pixtail.y = Jsnake.seg[Jsnake.length - 1].position.y * Rast - Jsnake.seg[Jsnake.length - 1].direction.y * Rast;
         }
 
-        if (Jsnake.seg[Jsnake.length - 1].position.x == 2 || Jsnake.seg[Jsnake.length - 1].position.x == FIELD_WIDTH  || Jsnake.seg[Jsnake.length - 1].position.y == 8|| Jsnake.seg[Jsnake.length - 1].position.y == FIELD_HEIGHT + 6)
+        if (Jsnake.seg[Jsnake.length - 1].position.x <= 3 || Jsnake.seg[Jsnake.length - 1].position.x >= FIELD_WIDTH+1 || Jsnake.seg[Jsnake.length - 1].position.y <= 9| Jsnake.seg[Jsnake.length - 1].position.y >= FIELD_HEIGHT + 7)
         {
             standardfield.draw = 1;
         }
 
-        if (Jsnake.target.position.x < 2 || Jsnake.target.position.x > FIELD_WIDTH+2 || Jsnake.target.position.y <= 7 || Jsnake.target.position.y >= FIELD_HEIGHT + 7)
+        if (Jsnake.target.position.x <= 2 || Jsnake.target.position.x >= FIELD_WIDTH+2 || Jsnake.target.position.y <= 8 || Jsnake.target.position.y >= FIELD_HEIGHT + 8)
         { 
             gamestate=gameover;
-
         }
 
         for ( i = 1; i < Jsnake.length - 1; i++)
@@ -168,10 +167,10 @@ void GenFood(food *food)
     do
     {
         // Zufaellige X-Position:
-        food_x = (rand() % FIELD_WIDTH) + 1;
+        food_x = (rand() % FIELD_WIDTH) + 3;
 
         // Zufaellige Y-Position:
-        food_y = (rand() % FIELD_HEIGHT) + 7;
+        food_y = (rand() % (FIELD_HEIGHT-1)) + 9;
 
         collesion = 0;
 
