@@ -3,7 +3,9 @@
 
 #include "jconfig.h"
 
-void InitButtons();
+void InitProgrammButtons();
+
+void InitGameButtons();
 
 void DrawButtons(button** buttons, int count);
 

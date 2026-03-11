@@ -51,16 +51,11 @@ void InitButton(button* Button, color normal, color hovered, coordinates size, c
   Anlegen der Buttons mit Startwerten farbe größe etc.
   Aufrauf der zuwesiungsfunktion übergabe als zeiger
 *******************************************************/
-void InitButtons()
+void InitProgrammButtons()
 {
     coordinates mainsize = { 250,100 };
-    coordinates mediumsize = { 200,80 };
     coordinates minisize = { OP_BUTTON,OP_BUTTON };
     coordinates bigsize = { 300,80 };
-
-    //Gameoverbuttons
-    InitButton(&Neustart, COLOR_WHITE, COLOR_LIGHTGREEN, mediumsize, "Neustart", spielfeld.size.x+100, spielfeld.position.y+190);
-    InitButton(&Hauptmenue, COLOR_WHITE, COLOR_LIGHTGRAY, mediumsize, "Hauptmenue", spielfeld.size.x + 100, spielfeld.position.y+300);
 
     //Hauptmenuebutton
     InitButton(&Starten, COLOR_WHITE, COLOR_DARKGRAY, mainsize, "Spiel Starten", clientcenter.x - mainsize.x/2, 200);
@@ -77,6 +72,17 @@ void InitButtons()
 
     //Zurück zum Hauptmenue
     InitButton(&Hauptmenue1, COLOR_WHITE, COLOR_DARKGRAY, bigsize, "<-- zurueck", clientcenter.x - (bigsize.x/2), (7 * OP_BUTTON) + 90);
+}
+
+
+
+void InitGameButtons()
+{
+    coordinates mediumsize = { 200,80 };
+
+    //Gamebuttons
+    InitButton(&Neustart, COLOR_WHITE, COLOR_LIGHTGREEN, mediumsize, "Neustart", standardfield.size.x + 100, standardfield.position.y + 190);
+    InitButton(&Hauptmenue, COLOR_WHITE, COLOR_LIGHTGRAY, mediumsize, "Hauptmenue", standardfield.size.x + 100, standardfield.position.y + 300);
 }
 
 

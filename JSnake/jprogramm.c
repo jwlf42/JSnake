@@ -53,10 +53,8 @@ void InitWindow()
 	ResizeGraphic(0, 0, client.x, client.y);
 
 	ClearGraphic();
-	
-	InitField();
 
-	InitButtons();
+	InitProgrammButtons();
 	
 	return;
 }

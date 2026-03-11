@@ -10,78 +10,19 @@
 
 #include <stdio.h>
 #include <time.h>
+#include "init_sgame.h"
 #include "function_snake.h"
-#include "jfile.h"
-#include "draw_jprogramm.h"
+#include "simple_draw.h"
 
 snakes Jsnake;
-field spielfeld;
+field standardfield;
 food apple;
 color controlColor;
 
-int score;
+int score=0;
 int highscore=0;
-int last_score;
-int last_highscore;
-
-
-
-/******************************************************
-   Spiel Initialisierung
-
-*******************************************************/
-void InitGame()
-{   
-    score = 0;
-    last_score = -1;
-    last_highscore = -1;
-    apple.value = 1;
-    apple.active = 0;
-    apple.size.x = Rast-8;
-    apple.size.y = Rast-8;
-    apple.farbe = COLOR_APPLERED;
-
-    InitSnake(&Jsnake, (coordinates) { 0, 0 }, controlColor, 1); 
-    LoadHighscore();
-    GenFood(&apple);
-    srand(time(NULL));
-    DrawStaticGame();
-    DrawGame();
-}
-
-
-
-/******************************************************
-   Schlange initialisierung Übergabe als Pointer 
-   Funktion soll später mehrere Objekte initialisieren
-*******************************************************/
-void InitSnake(snakes *snake, coordinates dir, color farbe, int length)
-{
-    int i;
-    snake->length = length;
-
-    snake->target.direction.x=dir.x;
-    snake->target.direction.y=dir.y;
-
-    for (i = 0; i < MAX_SEG; i++)
-    {
-        snake->seg[i].position.x = ((FIELD_WIDTH / 2) + Rand_Links / Rast) - (dir.x * i);
-        snake->seg[i].position.y = ((FIELD_HEIGHT / 2) + Rand_Oben / Rast) - (dir.y * i);
-        snake->seg[i].direction.x = 0;
-        snake->seg[i].direction.y = 0;
-        snake->seg[i].farbe = farbe;
-    }
-
-    snake->pixtail.x = snake->seg[snake->length - 1].position.x * Rast;
-    snake->pixtail.y = snake->seg[snake->length - 1].position.y * Rast;
-
-    snake->headpix.x = snake->seg[0].position.x * Rast;
-    snake->headpix.y = snake->seg[0].position.y * Rast;
-
-    snake->target.position.x = snake->seg[0].position.x;
-    snake->target.position.y = snake->seg[0].position.y;
-}
-
+int last_score=-1;
+int last_highscore=-1;
 
 
 /******************************************************
@@ -138,12 +79,12 @@ void UpdateLogic()
             Jsnake.pixtail.y = Jsnake.seg[Jsnake.length - 1].position.y * Rast - Jsnake.seg[Jsnake.length - 1].direction.y * Rast;
         }
 
-        if (Jsnake.seg[Jsnake.length - 1].position.x == 2 || Jsnake.seg[Jsnake.length - 1].position.x == FIELD_WIDTH + 1 || Jsnake.seg[Jsnake.length - 1].position.y == 8 || Jsnake.seg[Jsnake.length - 1].position.y == FIELD_HEIGHT + 7)
+        if (Jsnake.seg[Jsnake.length - 1].position.x == 2 || Jsnake.seg[Jsnake.length - 1].position.x == FIELD_WIDTH  || Jsnake.seg[Jsnake.length - 1].position.y == 8|| Jsnake.seg[Jsnake.length - 1].position.y == FIELD_HEIGHT + 6)
         {
-            spielfeld.draw = 1;
+            standardfield.draw = 1;
         }
 
-        if (Jsnake.target.position.x < 2 || Jsnake.target.position.x > FIELD_WIDTH || Jsnake.target.position.y <= 7 || Jsnake.target.position.y >= FIELD_HEIGHT + 7)
+        if (Jsnake.target.position.x < 2 || Jsnake.target.position.x > FIELD_WIDTH+2 || Jsnake.target.position.y <= 7 || Jsnake.target.position.y >= FIELD_HEIGHT + 7)
         { 
             gamestate=gameover;
 
@@ -227,10 +168,10 @@ void GenFood(food *food)
     do
     {
         // Zufaellige X-Position:
-        food_x = (rand() % FIELD_WIDTH) + 2;
+        food_x = (rand() % FIELD_WIDTH) + 1;
 
         // Zufaellige Y-Position:
-        food_y = (rand() % FIELD_HEIGHT) + 8;
+        food_y = (rand() % FIELD_HEIGHT) + 7;
 
         collesion = 0;
 

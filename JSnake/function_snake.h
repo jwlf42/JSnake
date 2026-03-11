@@ -4,10 +4,6 @@
 
 #include "jconfig.h"
 
-void InitGame();
-
-void InitSnake(snakes* snake, coordinates dir, color farbe, int length);
-
 int InputControl(coordinates* dir);
 
 void UpdateAnimation();

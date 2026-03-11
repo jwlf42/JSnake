@@ -29,30 +29,6 @@ const color COLOR_DARKBLUE = { 25, 25, 112 };
 
 
 
-
-
-/*******************************************************
-  Speilfeld mit Strichstäre genau auf Raster ausrichten
-  Schlange genau an grenzen läuft
-*******************************************************/
-void InitField()
-{
-    //Ausrichtung mit Strichstärke berücksichtigen (Strichstärke = Rast)
-    spielfeld.position.x = Rand_Links;
-    spielfeld.position.y = Rand_Oben;
-    spielfeld.size.x = FIELD_WIDTH * Rast;
-    spielfeld.size.y = FIELD_HEIGHT * Rast;
-
-    spielfeld.position.x -= (Rast / 2)-1;
-    spielfeld.position.y -= (Rast / 2)+1;
-
-    spielfeld.draw = 1;
-
-    return;
-}
-
-
-
 /******************************************************
     Funktion Zeichnung aller dynamischen Elemnte und
 
@@ -66,14 +42,14 @@ void DrawGame()
     if (score != last_score)
     {
         sprintf(sbuffer, "Score: %d", score);
-        PlaceTextDynamic((spielfeld.size.x + 100), spielfeld.position.y, sbuffer, richtung_L);
+        PlaceTextDynamic((standardfield.size.x + 100), standardfield.position.y, sbuffer, richtung_L);
         last_score = score;
     }
 
     if (highscore != last_highscore)
     {
         sprintf(sbuffer, "Highscore %d", highscore);
-        PlaceTextDynamic(spielfeld.size.x+100, spielfeld.position.y + 24, sbuffer, richtung_L);
+        PlaceTextDynamic(standardfield.size.x+100, standardfield.position.y + 24, sbuffer, richtung_L);
         last_highscore = highscore;
     }
 
@@ -90,10 +66,10 @@ void DrawGame()
         apple.active = 0;
     }
 
-    if (spielfeld.draw == 1)
+    if (standardfield.draw == 1)
     {
-        DrawRect(spielfeld.size, spielfeld.position.x, spielfeld.position.y, spielfeld.farbe, Rast);
-        spielfeld.draw = 0;
+        DrawRect(standardfield.size, standardfield.position.x, standardfield.position.y, standardfield.farbe, Rast);
+        standardfield.draw = 0;
     }
     
     //Schlangenblock uebermalen
@@ -119,7 +95,7 @@ void DrawRectFill(coordinates size, int x, int y, color farbe, int w)
 
     SetPen(farbe.r, farbe.g, farbe.b, w);
 
-    for (i = y; i < y_size; i += w)
+    for (i = y; i <= y_size; i += w)
     {
         DrawLine(x, i, x_size, i);
     }
@@ -181,9 +157,9 @@ Hilfsfunktion alle statischen elemente in Initialisierung
 void DrawStaticGame()
 {
     PlaceTextDynamic(60, 100, "JSnake", richtung_M);
-    PlaceTextDynamic(spielfeld.size.x + 100, spielfeld.position.y + 150, "Spielen mit den Tasten \"W, A ,S, D\"", richtung_L);
+    PlaceTextDynamic(standardfield.size.x + 100, standardfield.position.y + 150, "Spielen mit den Tasten \"W, A ,S, D\"", richtung_L);
 
-    spielfeld.draw = 1;
+    standardfield.draw = 1;
     apple.active = 1;
     last_highscore = -1;
     last_score = -1;

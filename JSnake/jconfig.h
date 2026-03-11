@@ -124,7 +124,7 @@ extern button dunkelblau;
 extern button hellgrau;
 extern button Hauptmenue1;
 
-extern field spielfeld;
+extern field standardfield;
 
 extern coordinates screen;
 extern coordinates client;

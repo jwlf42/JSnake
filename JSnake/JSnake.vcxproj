@@ -130,6 +130,7 @@
   <ItemGroup>
     <ClInclude Include="draw_jprogramm.h" />
     <ClInclude Include="function_snake.h" />
+    <ClInclude Include="init_sgame.h" />
     <ClInclude Include="jbutton.h" />
     <ClInclude Include="jconfig.h" />
     <ClInclude Include="jfile.h" />
@@ -140,6 +141,7 @@
   <ItemGroup>
     <ClCompile Include="draw_jprogramm.c" />
     <ClCompile Include="function_snake.c" />
+    <ClCompile Include="init_sgame.c" />
     <ClCompile Include="jbutton.c" />
     <ClCompile Include="Jfile.c" />
     <ClCompile Include="jprogramm.c" />

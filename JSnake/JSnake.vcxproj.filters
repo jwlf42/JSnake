@@ -39,6 +39,9 @@
     <ClInclude Include="jfile.h">
       <Filter>Headerdateien</Filter>
     </ClInclude>
+    <ClInclude Include="init_sgame.h">
+      <Filter>Headerdateien</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="simple_draw.c">
@@ -60,6 +63,9 @@
       <Filter>Quelldateien</Filter>
     </ClCompile>
     <ClCompile Include="Jfile.c">
+      <Filter>Quelldateien</Filter>
+    </ClCompile>
+    <ClCompile Include="init_sgame.c">
       <Filter>Quelldateien</Filter>
     </ClCompile>
   </ItemGroup>

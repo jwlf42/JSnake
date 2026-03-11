@@ -3,8 +3,6 @@
 
 #include "jconfig.h"
 
-void InitField();
-
 void DrawGame();
 
 void DrawStaticGame();
