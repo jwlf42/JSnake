@@ -12,7 +12,7 @@
 #define MAX_SEG 690
 #define MASX_BUT 10
 #define OP_BUTTON 60
-#define B_THICK 15
+#define B_THICK 12
 
 
 

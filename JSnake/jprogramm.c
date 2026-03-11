@@ -11,11 +11,11 @@
 #include <stdio.h>
 #include <windows.h>
 #include "jprogramm.h"
-#include "function_snake.h"
+#include "jfile.h"
+#include "init_sgame.h"
 #include "draw_jprogramm.h"
 #include "jbutton.h"
 #include "simple_draw.h"
-#include "jfile.h"
 
 
 

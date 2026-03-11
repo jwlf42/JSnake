@@ -139,20 +139,22 @@ void UpdateButtonState(button* b)
 void RenderButton(button* b)
 {
     color c;
-    int textWidth = strlen(b->text) * 6;
-    int textHeight = 8;
-    int center_x = b->position.x + (b->size.x - textWidth) / 2;
-    int center_y = b->position.y + (b->size.y - textHeight) / 2;
+    coordinates tsize, center;
 
-    if (b->needsredraw == 0)
+    if (!b->needsredraw)
         return;
+
+    tsize.x = (int)strlen(b->text) * 6;
+    tsize.y = 8;
+    center.x = b->position.x + (b->size.x - tsize.x) / 2;
+    center.y = b->position.y + (b->size.y - tsize.y) / 2;
    
     c = b->hovered ? b->hoveredcolor : b->normalcolor;
     
     DrawRectFill(b->size, b->position.x, b->position.y, c, B_THICK);
     DrawRect(b->size, b->position.x, b->position.y, b->hoveredcolor, B_THICK);
-    DrawRect(b->size, b->position.x, b->position.y, COLOR_BLACK, 5);
-    PlaceText(center_x, center_y, b->text);
+    DrawRect((coordinates) { b->size.x + (B_THICK / 2), b->size.y + (B_THICK / 2)}, b->position.x - (B_THICK / 4), b->position.y - (B_THICK / 4), COLOR_BLACK, (B_THICK / 2));
+    PlaceText(center.x, center.y, b->text);
 
     b->needsredraw = 0;
 
