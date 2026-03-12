@@ -24,7 +24,7 @@ typedef enum Speilstatus
 	option,
 	gameover,
 	exitgame
-}gamestatus;
+}gamestatus_t;
 
 
 typedef enum Ausrichtung
@@ -32,14 +32,14 @@ typedef enum Ausrichtung
 	richtung_L,
 	richtung_M,
 	richtung_R
-} richtung;
+} richtung_t;
 
 
 typedef struct Koordinaten
 {
 	int x;
 	int y;
-}coordinates;
+}coordinates_t;
 
 
 typedef struct Farben
@@ -50,8 +50,8 @@ typedef struct Farben
 
 typedef struct Feld
 {
-	coordinates pos;
-	coordinates rastsize;
+	coordinates_t pos;
+	coordinates_t rastsize;
 	color_t color;
 	int offset;
 	int draw;
@@ -62,73 +62,65 @@ typedef struct Essen
 {
 	rast_t rast;
 	int value;
-}food;
-
-
-/*typedef struct Schlangensegmente
-{
-	coordinates position;
-	coordinates direction;
-	color_t farbe;
-}snakeseg;*/
+}food_t;
 
 
 typedef struct Schlange
 {
 	rast_t seg[MAX_SEG];
 	rast_t target;
-	coordinates dir;
-	coordinates headpix;
-	coordinates pixtail;
+	coordinates_t dir;
+	coordinates_t headpix;
+	coordinates_t pixtail;
 	int length;
-}snakes;
+}snake_t;
 
 
 typedef struct Schaltfläche
 {
-	coordinates position;
-	coordinates size;
-	richtung alignment;
+	coordinates_t position;
+	coordinates_t size;
+	richtung_t alignment;
 	color_t normalcolor;
 	color_t hoveredcolor;
 	const char* text;
 	int needsredraw;
 	int hovered;
 	int clicked;
-}button;
+}button_t;
 
-extern gamestatus gamestate;
+extern gamestatus_t gamestate;
 
 extern HCONV hConversation;
 extern DWORD sd_idInst;
 extern HSZ sd_hsz_service;
 extern HSZ sd_hsz_topic;
 
-extern snakes Jsnake;
-extern food apple;
+extern snake_t Jsnake;
+extern food_t apple;
 
-extern button Neustart;
-extern button Pause;
-extern button Hauptmenue;
+extern button_t Neustart;
+extern button_t Pause;
+extern button_t Hauptmenue;
 
-extern button Starten;
-extern button Optionen;
-extern button Beenden;
+extern button_t Starten;
+extern button_t Optionen;
+extern button_t Beenden;
 
-extern button gruen;
-extern button blau;
-extern button grau;
-extern button rot;
-extern button lila;
-extern button dunkelblau;
-extern button hellgrau;
-extern button Hauptmenue1;
+extern button_t gruen;
+extern button_t blau;
+extern button_t grau;
+extern button_t rot;
+extern button_t lila;
+extern button_t dunkelblau;
+extern button_t hellgrau;
+extern button_t Hauptmenue1;
 
 extern rast_t standardfield;
 
-extern coordinates screen;
-extern coordinates client;
-extern coordinates clientcenter;
+extern coordinates_t screen;
+extern coordinates_t client;
+extern coordinates_t clientcenter;
 
 extern color_t controlColor;
 extern const color_t COLOR_WHITE;

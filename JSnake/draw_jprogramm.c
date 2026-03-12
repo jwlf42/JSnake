@@ -36,8 +36,8 @@ const color_t COLOR_DARKBLUE = { 25, 25, 112 };
 void DrawGame()
 {
     char sbuffer[20];
-    coordinates snakesize = { Rast,Rast };
-    coordinates pix;
+    coordinates_t snakesize = { Rast,Rast };
+    coordinates_t pix;
 
     if (score != last_score)
     {
@@ -86,7 +86,7 @@ void DrawGame()
   Zeichnet ein gefülltes Quadrat in der größe size farbe
   und strichstärke --> beeinflusst die Zeichengeschwindigkeit
 *******************************************************/
-void DrawRectFill(coordinates size, int x, int y, color_t farbe, int w)
+void DrawRectFill(coordinates_t size, int x, int y, color_t farbe, int w)
 {
     int x_size = x + size.x;
     int y_size = y + size.y;
@@ -108,7 +108,7 @@ void DrawRectFill(coordinates size, int x, int y, color_t farbe, int w)
   Zeichnet ein Quadrat in der größe size farbe und
   Strichstärke w
 *******************************************************/
-void DrawRect(coordinates size, int x, int y, color_t farbe, int w)
+void DrawRect(coordinates_t size, int x, int y, color_t farbe, int w)
 { 
     SetPen(farbe.r, farbe.g, farbe.b, w);
     MoveTo(x, y);
@@ -119,17 +119,17 @@ void DrawRect(coordinates size, int x, int y, color_t farbe, int w)
 }
 
 
-void DrawRectFillRast(coordinates size, coordinates pos, color_t farbe, int w)
+void DrawRectFillRast(coordinates_t size, coordinates_t pos, color_t farbe, int w)
 {
-    coordinates pix;
+    coordinates_t pix;
 
     pix = RastToPix(pos);
     DrawRectFill(size, pix.x, pix.y, farbe, w);
 }
 
-void DrawRectRast(coordinates size, coordinates pos, color_t farbe, int w)
+void DrawRectRast(coordinates_t size, coordinates_t pos, color_t farbe, int w)
 {
-    coordinates pix;
+    coordinates_t pix;
 
     pix = RastToPix(pos);
     DrawRect(size, pix.x, pix.y, farbe, w);
@@ -141,7 +141,7 @@ void DrawRectRast(coordinates size, coordinates pos, color_t farbe, int w)
  Hilfsfunktion Textausrichtung steureung mit typdef enum
  rechts / mittig / links Buendig
 *******************************************************/
-void PlaceTextDynamic(int x, int y, char* text, richtung modus)
+void PlaceTextDynamic(int x, int y, char* text, richtung_t modus)
 {
 
     int textWidth = strlen(text) * 7;
@@ -183,9 +183,9 @@ void DrawStaticGame()
     return;
 }
 
-coordinates RastToPix(coordinates pos)
+coordinates_t RastToPix(coordinates_t pos)
 {
-    coordinates pix;
+    coordinates_t pix;
 
     pix.x = pos.x * Rast;
     pix.y = pos.y * Rast;

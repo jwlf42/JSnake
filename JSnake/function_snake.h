@@ -4,13 +4,13 @@
 
 #include "jconfig.h"
 
-int InputControl(coordinates* dir);
+int InputControl(coordinates_t* dir);
 
 void UpdateAnimation();
 
 void UpdateLogic();
 
-void GenFood(food* food);
+void GenFood(food_t* food);
 
 #endif
 

@@ -14,9 +14,9 @@
 #include "function_snake.h"
 #include "simple_draw.h"
 
-snakes Jsnake;
+snake_t Jsnake;
 rast_t standardfield;
-food apple;
+food_t apple;
 color_t controlColor;
 
 int score=0;
@@ -115,9 +115,9 @@ void UpdateLogic()
     Steuerung mit "W,A,S,D" Tasten. Gibt 0 zurück, wenn 
     keine Taste gedrückt oder die gegenteilige gedrückt wurde
 *******************************************************/
-int InputControl(coordinates *dir)
+int InputControl(coordinates_t *dir)
 {
-    coordinates current = *dir;
+    coordinates_t current = *dir;
     int taste;
 
     // Steuerung mit "W,S,A,D" Tasten 
@@ -157,7 +157,7 @@ int InputControl(coordinates *dir)
     Funktion Food für Schlange generieren
     zufallszahl im feld und nicht auf der Schlange
 *******************************************************/
-void GenFood(food *food)
+void GenFood(food_t *food)
 { 
     int food_x, food_y;
     int collesion=0;

@@ -20,10 +20,10 @@
 
 
 
-gamestatus gamestate = menue;
-coordinates screen;
-coordinates client;
-coordinates clientcenter;
+gamestatus_t gamestate = menue;
+coordinates_t screen;
+coordinates_t client;
+coordinates_t clientcenter;
 
 
 
@@ -68,7 +68,7 @@ void InitWindow()
 *******************************************************/
 void MenueLoop()
 {
-	button* MenueButtons[] = { &Starten, &Beenden, &Optionen };
+	button_t* MenueButtons[] = { &Starten, &Beenden, &Optionen };
 	const int NUM_GO_BUTTONS = 3;
 	int i;
 
@@ -115,8 +115,8 @@ void MenueLoop()
 *******************************************************/
 void GameReadyLoop()
 {
-	button* GameReadyButtons[] = {&Hauptmenue};
-	coordinates taste = {0,0};
+	button_t* GameReadyButtons[] = {&Hauptmenue};
+	coordinates_t taste = {0,0};
 	const int NUM_GO_BUTTONS = 1;
 	int i;
 
@@ -180,9 +180,9 @@ void GameLoop()
 *******************************************************/
 void OptionLoop()
 {
-	button* OptionButtons[] = { &gruen, &blau, &lila, &rot, &hellgrau, &dunkelblau, &Hauptmenue1 };
+	button_t* OptionButtons[] = { &gruen, &blau, &lila, &rot, &hellgrau, &dunkelblau, &Hauptmenue1 };
 	const int NUM_GO_BUTTONS = 7;
-	coordinates size = { OP_BUTTON,OP_BUTTON };
+	coordinates_t size = { OP_BUTTON,OP_BUTTON };
 	int i;
 
 	for (i = 0; i < NUM_GO_BUTTONS; i++)
@@ -246,7 +246,7 @@ void OptionLoop()
 *******************************************************/
 void GameoverLoop()
 {
-	button* GameOverButtons[] = {&Neustart, &Hauptmenue};
+	button_t* GameOverButtons[] = {&Neustart, &Hauptmenue};
 	const int NUM_GO_BUTTONS = 2;
 	int i;
 

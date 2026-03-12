@@ -10,21 +10,21 @@
 #include "simple_draw.h"
 #include "draw_jprogramm.h"
 
-button Neustart;
-button Pause;
-button Hauptmenue;
+button_t Neustart;
+button_t Pause;
+button_t Hauptmenue;
 
-button Starten;
-button Optionen;
-button Beenden;
+button_t Starten;
+button_t Optionen;
+button_t Beenden;
 
-button gruen;
-button blau;
-button rot;
-button lila;
-button hellgrau;
-button dunkelblau;
-button Hauptmenue1;
+button_t gruen;
+button_t blau;
+button_t rot;
+button_t lila;
+button_t hellgrau;
+button_t dunkelblau;
+button_t Hauptmenue1;
 
 
 
@@ -32,7 +32,7 @@ button Hauptmenue1;
   Zuweisung der Buttons mit Startwerten im struct
   zeiger auf buttons
 *******************************************************/
-void InitButton(button* Button, color_t normal, color_t hovered, coordinates size, const char* text, int x, int y)
+void InitButton(button_t* Button, color_t normal, color_t hovered, coordinates_t size, const char* text, int x, int y)
 {
     Button->position.x = x;
     Button->position.y = y;
@@ -53,9 +53,9 @@ void InitButton(button* Button, color_t normal, color_t hovered, coordinates siz
 *******************************************************/
 void InitProgrammButtons()
 {
-    coordinates mainsize = { 250,100 };
-    coordinates minisize = { OP_BUTTON,OP_BUTTON };
-    coordinates bigsize = { 300,80 };
+    coordinates_t mainsize = { 250,100 };
+    coordinates_t minisize = { OP_BUTTON,OP_BUTTON };
+    coordinates_t bigsize = { 300,80 };
 
     //Hauptmenuebutton
     InitButton(&Starten, COLOR_WHITE, COLOR_DARKGRAY, mainsize, "Spiel Starten", clientcenter.x - mainsize.x/2, 200);
@@ -78,7 +78,7 @@ void InitProgrammButtons()
 
 void InitGameButtons()
 {
-    coordinates mediumsize = { 200,80 };
+    coordinates_t mediumsize = { 200,80 };
 
     //Gamebuttons
     InitButton(&Neustart, COLOR_WHITE, COLOR_LIGHTGREEN, mediumsize, "Neustart", standardfield.rastsize.x + 100, standardfield.pos.y + 190);
@@ -90,7 +90,7 @@ void InitGameButtons()
 /******************************************************
   Bekommt ein feld von Button Adressen. 
 *******************************************************/
-void DrawButtons(button** buttons, int count)
+void DrawButtons(button_t** buttons, int count)
 {
     int i;
     // Durchläuft alle Buttons im Array und ruft UpdateButton und RenderButton für jeden auf
@@ -108,7 +108,7 @@ void DrawButtons(button** buttons, int count)
   Aktualisiert nur den Zustand des Buttons
   (hovered, clicked)
 *******************************************************/
-void UpdateButtonState(button* b)
+void UpdateButtonState(button_t* b)
 {
     int x_mouse = GetMouseX();
     int y_mouse = GetMouseY();
@@ -136,10 +136,10 @@ void UpdateButtonState(button* b)
   Rendert einen Button, wenn sich sein Zustand ändert.
   benötigt die adresse des Buttons
 *******************************************************/
-void RenderButton(button* b)
+void RenderButton(button_t* b)
 {
     color_t c;
-    coordinates tsize, center;
+    coordinates_t tsize, center;
 
     if (!b->needsredraw)
         return;
@@ -153,7 +153,7 @@ void RenderButton(button* b)
     
     DrawRectFill(b->size, b->position.x, b->position.y, c, B_THICK);
     DrawRect(b->size, b->position.x, b->position.y, b->hoveredcolor, B_THICK);
-    DrawRect((coordinates) { b->size.x + (B_THICK / 2), b->size.y + (B_THICK / 2)}, b->position.x - (B_THICK / 4), b->position.y - (B_THICK / 4), COLOR_BLACK, (B_THICK / 2));
+    DrawRect((coordinates_t) { b->size.x + (B_THICK / 2), b->size.y + (B_THICK / 2)}, b->position.x - (B_THICK / 4), b->position.y - (B_THICK / 4), COLOR_BLACK, (B_THICK / 2));
     PlaceText(center.x, center.y, b->text);
 
     b->needsredraw = 0;

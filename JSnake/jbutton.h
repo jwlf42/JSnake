@@ -7,12 +7,12 @@ void InitProgrammButtons();
 
 void InitGameButtons();
 
-void DrawButtons(button** buttons, int count);
+void DrawButtons(button_t** buttons, int count);
 
-void RenderButton(button* b);
+void RenderButton(button_t* b);
 
-void UpdateButtonState(button* b);
+void UpdateButtonState(button_t* b);
 
-void InitButton(button* Button, color_t normal, color_t hovered, coordinates size, const char* text, int x, int y);
+void InitButton(button_t* Button, color_t normal, color_t hovered, coordinates_t size, const char* text, int x, int y);
 
 #endif

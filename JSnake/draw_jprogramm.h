@@ -7,16 +7,16 @@ void DrawGame();
 
 void DrawStaticGame();
 
-void DrawRectFill(coordinates size, int x, int y, color_t farbe, int w);
+void DrawRectFill(coordinates_t size, int x, int y, color_t farbe, int w);
 
-void DrawRect(coordinates size, int x, int y, color_t farbe, int w);
+void DrawRect(coordinates_t size, int x, int y, color_t farbe, int w);
 
-void DrawRectFillRast(coordinates size, coordinates pos, color_t farbe, int w);
+void DrawRectFillRast(coordinates_t size, coordinates_t pos, color_t farbe, int w);
 
-void DrawRectRast(coordinates size, coordinates pos, color_t farbe, int w);
+void DrawRectRast(coordinates_t size, coordinates_t pos, color_t farbe, int w);
 
-void PlaceTextDynamic(int x, int y, char* text, richtung modus);
+void PlaceTextDynamic(int x, int y, char* text, richtung_t modus);
 
-coordinates RastToPix(coordinates pos);
+coordinates_t RastToPix(coordinates_t pos);
 
 #endif

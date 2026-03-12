@@ -27,7 +27,7 @@ void InitGame()
 
     InitField(&standardfield);
     InitGameButtons();
-    InitSnake(&Jsnake, (coordinates) { 0, 0 }, controlColor, 1);
+    InitSnake(&Jsnake, (coordinates_t) { 0, 0 }, controlColor, 1);
     InitFood(&apple);
     LoadHighscore();
     srand(time(NULL));
@@ -56,7 +56,7 @@ void InitField(rast_t* spielfeld)
 
 
 
-void InitFood(food* f)
+void InitFood(food_t* f)
 {
     f->value = 1;
     f->rast.draw = 0;
@@ -71,7 +71,7 @@ void InitFood(food* f)
    Schlange initialisierung Übergabe als Pointer
    Funktion soll später mehrere Objekte initialisieren
 *******************************************************/
-void InitSnake(snakes* snake, coordinates dir, color_t farbe, int length)
+void InitSnake(snake_t* snake, coordinates_t dir, color_t farbe, int length)
 {
     int i;
     snake->length = length;

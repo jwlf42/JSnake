@@ -17,7 +17,7 @@
   Üpferprüft ob die Verbindung zu Simple Draw steht.
   gibt eine Windows fehlermeldung aus wenn nicht
 *******************************************************/
-int CheckDDE(gamestatus* state)
+int CheckDDE(gamestatus_t* state)
 {
     int result;
 

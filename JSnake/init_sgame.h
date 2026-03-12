@@ -7,8 +7,8 @@ void InitGame();
 
 void InitField(rast_t* spielfeld);
 
-void InitFood(food* f);
+void InitFood(food_t* f);
 
-void InitSnake(snakes* snake, coordinates dir, color_t farbe, int length);
+void InitSnake(snake_t* snake, coordinates_t dir, color_t farbe, int length);
 
 #endif
