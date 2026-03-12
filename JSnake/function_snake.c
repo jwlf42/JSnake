@@ -166,7 +166,7 @@ void GenFood(food *food)
     do
     {
         // Zufaellige X-Position:
-        food_x = (rand() % FIELD_WIDTH) + 3;
+        food_x = (rand() % FIELD_WIDTH-1) + 3;
 
         // Zufaellige Y-Position:
         food_y = (rand() % (FIELD_HEIGHT-1)) + 9;
