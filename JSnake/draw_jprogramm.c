@@ -71,11 +71,11 @@ void DrawGame()
     
     //Schlangenblock uebermalen
     //DrawRectFill(snakesize, Jsnake.pixtail.x, Jsnake.pixtail.y, COLOR_WHITE, 2);
-    DrawRectFillRast(snakesize, Jsnake.seg[Jsnake.length-1].position, COLOR_WHITE, 2);
+    DrawRectFillRast(snakesize, Jsnake.seg[Jsnake.length-1].pos, COLOR_WHITE, 2);
 
     //Schlangenkopf malen
     //DrawRectFill(snakesize, Jsnake.headpix.x, Jsnake.headpix.y, Jsnake.seg[0].farbe, 2);
-    DrawRectFillRast(snakesize, Jsnake.seg[0].position, Jsnake.seg[0].farbe, 2);
+    DrawRectFillRast(snakesize, Jsnake.seg[0].pos, Jsnake.seg[0].color, 2);
   
     return;
 }
