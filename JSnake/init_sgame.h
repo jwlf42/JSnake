@@ -5,10 +5,10 @@
 
 void InitGame();
 
-void InitField(field* spielfeld);
+void InitField(rast_t* spielfeld);
 
 void InitFood(food* f);
 
-void InitSnake(snakes* snake, coordinates dir, color farbe, int length);
+void InitSnake(snakes* snake, coordinates dir, color_t farbe, int length);
 
 #endif

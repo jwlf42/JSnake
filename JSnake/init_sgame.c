@@ -42,13 +42,13 @@ void InitGame()
   Speilfeld mit Strichstäre genau auf Raster ausrichten
   Schlange genau an grenzen läuft
 *******************************************************/
-void InitField(field* spielfeld)
+void InitField(rast_t* spielfeld)
 {
     //Ausrichtung mit Strichstärke berücksichtigen (Strichstärke = Rast)
-    spielfeld->position.x = Rand_Links + (Rast / 2);
-    spielfeld->position.y = Rand_Oben + (Rast / 2);
-    spielfeld->size.x = FIELD_WIDTH * Rast;
-    spielfeld->size.y = FIELD_HEIGHT * Rast;
+    spielfeld->pos.x = Rand_Links + (Rast / 2);
+    spielfeld->pos.y = Rand_Oben + (Rast / 2);
+    spielfeld->rastsize.x = FIELD_WIDTH * Rast;
+    spielfeld->rastsize.y = FIELD_HEIGHT * Rast;
     spielfeld->draw = 1;
 
     return;
@@ -59,10 +59,10 @@ void InitField(field* spielfeld)
 void InitFood(food* f)
 {
     f->value = 1;
-    f->active = 0;
-    f->size.x = Rast - 8;
-    f->size.y = Rast - 8;
-    f->farbe = COLOR_APPLERED;
+    f->rast.draw = 0;
+    f->rast.rastsize.x = Rast - 8;
+    f->rast.rastsize.y = Rast - 8;
+    f->rast.color = COLOR_APPLERED;
 }
 
 
@@ -71,7 +71,7 @@ void InitFood(food* f)
    Schlange initialisierung Übergabe als Pointer
    Funktion soll später mehrere Objekte initialisieren
 *******************************************************/
-void InitSnake(snakes* snake, coordinates dir, color farbe, int length)
+void InitSnake(snakes* snake, coordinates dir, color_t farbe, int length)
 {
     int i;
     snake->length = length;

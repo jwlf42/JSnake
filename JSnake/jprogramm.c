@@ -13,6 +13,7 @@
 #include "jprogramm.h"
 #include "jfile.h"
 #include "init_sgame.h"
+#include "function_snake.h"
 #include "draw_jprogramm.h"
 #include "jbutton.h"
 #include "simple_draw.h"
@@ -166,7 +167,7 @@ void GameLoop()
 			break;
 		UpdateAnimation();
 		DrawGame();
-		Sleep(14);
+		Sleep(5);
 	}
 	return;
 }

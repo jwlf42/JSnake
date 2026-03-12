@@ -32,7 +32,7 @@ button Hauptmenue1;
   Zuweisung der Buttons mit Startwerten im struct
   zeiger auf buttons
 *******************************************************/
-void InitButton(button* Button, color normal, color hovered, coordinates size, const char* text, int x, int y)
+void InitButton(button* Button, color_t normal, color_t hovered, coordinates size, const char* text, int x, int y)
 {
     Button->position.x = x;
     Button->position.y = y;
@@ -81,8 +81,8 @@ void InitGameButtons()
     coordinates mediumsize = { 200,80 };
 
     //Gamebuttons
-    InitButton(&Neustart, COLOR_WHITE, COLOR_LIGHTGREEN, mediumsize, "Neustart", standardfield.size.x + 100, standardfield.position.y + 190);
-    InitButton(&Hauptmenue, COLOR_WHITE, COLOR_LIGHTGRAY, mediumsize, "Hauptmenue", standardfield.size.x + 100, standardfield.position.y + 300);
+    InitButton(&Neustart, COLOR_WHITE, COLOR_LIGHTGREEN, mediumsize, "Neustart", standardfield.rastsize.x + 100, standardfield.pos.y + 190);
+    InitButton(&Hauptmenue, COLOR_WHITE, COLOR_LIGHTGRAY, mediumsize, "Hauptmenue", standardfield.rastsize.x + 100, standardfield.pos.y + 300);
 }
 
 
@@ -133,12 +133,12 @@ void UpdateButtonState(button* b)
 
 
 /******************************************************
-  Zeichnung von einem button bei zustands änderung
-  Zustand des Buttons gepeichert im button struct
+  Rendert einen Button, wenn sich sein Zustand ändert.
+  benötigt die adresse des Buttons
 *******************************************************/
 void RenderButton(button* b)
 {
-    color c;
+    color_t c;
     coordinates tsize, center;
 
     if (!b->needsredraw)

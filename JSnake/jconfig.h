@@ -45,23 +45,21 @@ typedef struct Koordinaten
 typedef struct Farben
 {
 	int r, g, b;
-}color;
+}color_t;
 
 typedef struct Feld
 {
-	coordinates position;
-	coordinates size;
-	color farbe;
+	coordinates pos;
+	coordinates rastsize;
+	color_t color;
+	int offset;
 	int draw;
-}field;
+}rast_t;
 
 
 typedef struct Essen
 {
-	coordinates rastpos;
-	coordinates size;
-	color farbe;
-	int active;
+	rast_t rast;
 	int value;
 }food;
 
@@ -70,7 +68,7 @@ typedef struct Schlangensegmente
 {
 	coordinates position;
 	coordinates direction;
-	color farbe;
+	color_t farbe;
 }snakeseg;
 
 
@@ -89,8 +87,8 @@ typedef struct Schaltfläche
 	coordinates position;
 	coordinates size;
 	richtung alignment;
-	color normalcolor;
-	color hoveredcolor;
+	color_t normalcolor;
+	color_t hoveredcolor;
 	const char* text;
 	int needsredraw;
 	int hovered;
@@ -124,23 +122,23 @@ extern button dunkelblau;
 extern button hellgrau;
 extern button Hauptmenue1;
 
-extern field standardfield;
+extern rast_t standardfield;
 
 extern coordinates screen;
 extern coordinates client;
 extern coordinates clientcenter;
 
-extern color controlColor;
-extern const color COLOR_WHITE;
-extern const color COLOR_BLACK;
-extern const color COLOR_LIGHTGREEN;
-extern const color COLOR_DARKGRAY;
-extern const color COLOR_SNAKEGREEN;
-extern const color COLOR_APPLERED;
-extern const color COLOR_HELBLUE;
-extern const color COLOR_LILA;
-extern const color COLOR_LIGHTGRAY;
-extern const color COLOR_DARKBLUE;
+extern color_t controlColor;
+extern const color_t COLOR_WHITE;
+extern const color_t COLOR_BLACK;
+extern const color_t COLOR_LIGHTGREEN;
+extern const color_t COLOR_DARKGRAY;
+extern const color_t COLOR_SNAKEGREEN;
+extern const color_t COLOR_APPLERED;
+extern const color_t COLOR_HELBLUE;
+extern const color_t COLOR_LILA;
+extern const color_t COLOR_LIGHTGRAY;
+extern const color_t COLOR_DARKBLUE;
 
 extern int Rand_Links;
 extern int Rand_Oben;

@@ -15,9 +15,9 @@
 #include "simple_draw.h"
 
 snakes Jsnake;
-field standardfield;
+rast_t standardfield;
 food apple;
-color controlColor;
+color_t controlColor;
 
 int score=0;
 int highscore=0;
@@ -97,7 +97,7 @@ void UpdateLogic()
             }
         }
         
-        if (Jsnake.seg[0].position.x == apple.rastpos.x && Jsnake.seg[0].position.y == apple.rastpos.y)
+        if (Jsnake.seg[0].position.x == apple.rast.pos.x && Jsnake.seg[0].position.y == apple.rast.pos.y)
         {
             Jsnake.length++;
             GenFood(&apple);
@@ -162,7 +162,6 @@ void GenFood(food *food)
     int food_x, food_y;
     int collesion=0;
     int i;
-    coordinates size = { Rast - 6,Rast - 6 };
  
     do
     {
@@ -180,7 +179,7 @@ void GenFood(food *food)
 
     } while (collesion == 1);
 
-    food->active = 1;
-    food->rastpos.x = food_x;
-    food->rastpos.y = food_y;
+    food->rast.draw = 1;
+    food->rast.pos.x = food_x;
+    food->rast.pos.y = food_y;
 }
