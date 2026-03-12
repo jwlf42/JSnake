@@ -120,6 +120,23 @@ void DrawRect(coordinates size, int x, int y, color farbe, int w)
 }
 
 
+void DrawRectFillRast(coordinates size, coordinates pos, color_t farbe, int w)
+{
+    coordinates pix;
+
+    pix = RastToPix(pos);
+    DrawRectFill(size, pix.x, pix.y, farbe, w);
+}
+
+void DrawRectRast(coordinates size, coordinates pos, color_t farbe, int w)
+{
+    coordinates pix;
+
+    pix = RastToPix(pos);
+    DrawRect(size, pix.x, pix.y, farbe, w);
+}
+
+
 
 /******************************************************
  Hilfsfunktion Textausrichtung steureung mit typdef enum
@@ -165,4 +182,14 @@ void DrawStaticGame()
     last_score = -1;
 
     return;
+}
+
+coordinates RastToPix(coordinates pos)
+{
+    coordinates pix;
+
+    pix.x = pos.x * Rast;
+    pix.y = pos.y * Rast;
+
+    return pix;
 }

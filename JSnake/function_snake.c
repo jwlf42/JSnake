@@ -69,7 +69,7 @@ void UpdateLogic()
         Jsnake.target.position.y = Jsnake.seg[0].position.y + Jsnake.seg[0].direction.y;
 
         //Schwanz verschiebung für schönere animation
-        if (Jsnake.seg[Jsnake.length - 1].direction.x != Jsnake.seg[Jsnake.length - 2].direction.x || Jsnake.seg[Jsnake.length - 1].direction.y != Jsnake.seg[Jsnake.length - 2].direction.y)
+        /*if (Jsnake.seg[Jsnake.length - 1].direction.x != Jsnake.seg[Jsnake.length - 2].direction.x || Jsnake.seg[Jsnake.length - 1].direction.y != Jsnake.seg[Jsnake.length - 2].direction.y)
         {
             Jsnake.seg[Jsnake.length - 1].direction = Jsnake.seg[Jsnake.length - 2].direction;
             
@@ -77,7 +77,7 @@ void UpdateLogic()
 
             Jsnake.pixtail.x = Jsnake.seg[Jsnake.length - 1].position.x * Rast - Jsnake.seg[Jsnake.length - 1].direction.x * Rast;
             Jsnake.pixtail.y = Jsnake.seg[Jsnake.length - 1].position.y * Rast - Jsnake.seg[Jsnake.length - 1].direction.y * Rast;
-        }
+        }*/
 
         if (Jsnake.seg[Jsnake.length - 1].position.x <= 3 || Jsnake.seg[Jsnake.length - 1].position.x >= FIELD_WIDTH+1 || Jsnake.seg[Jsnake.length - 1].position.y <= 9| Jsnake.seg[Jsnake.length - 1].position.y >= FIELD_HEIGHT + 7)
         {
