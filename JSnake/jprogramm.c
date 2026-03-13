@@ -167,7 +167,7 @@ void GameLoop()
 			break;
 		UpdateAnimation();
 		DrawGame();
-		Sleep(5);
+		Sleep(14);
 	}
 	return;
 }

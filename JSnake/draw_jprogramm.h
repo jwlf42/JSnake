@@ -11,7 +11,7 @@ void DrawRectFill(coordinates_t size, int x, int y, color_t farbe, int w);
 
 void DrawRect(coordinates_t size, int x, int y, color_t farbe, int w);
 
-void DrawRectFillRast(coordinates_t size, coordinates_t pos, color_t farbe, int w);
+void DrawRectFillRast(coordinates_t size, coordinates_t pos,coordinates_t offset, color_t farbe, int w);
 
 void DrawRectRast(coordinates_t size, coordinates_t pos, color_t farbe, int w);
 

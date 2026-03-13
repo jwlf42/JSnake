@@ -75,26 +75,18 @@ void InitSnake(snake_t* snake, coordinates_t dir, color_t farbe, int length)
 {
     int i;
     snake->length = length;
-
-    //snake->target.direction.x = dir.x;
-    //snake->target.direction.y = dir.y;
     snake->dir = dir;
 
-    for (i = 0; i < MAX_SEG; i++)
+    for (i = 0; i < length; i++)
     {
         snake->seg[i].pos.x = ((FIELD_WIDTH / 2) + Rand_Links / Rast) - (dir.x * i);
         snake->seg[i].pos.y = ((FIELD_HEIGHT / 2) + Rand_Oben / Rast) - (dir.y * i);
-        //snake->seg[i].direction.x = 0;
-        //snake->seg[i].direction.y = 0;
+        snake->seg[i].offset.x = 0;
+        snake->seg[i].offset.y = 0;
         snake->seg[i].color = farbe;
     }
 
-    snake->pixtail.x = snake->seg[snake->length - 1].pos.x * Rast;
-    snake->pixtail.y = snake->seg[snake->length - 1].pos.y * Rast;
-
-    snake->headpix.x = snake->seg[0].pos.x * Rast;
-    snake->headpix.y = snake->seg[0].pos.y * Rast;
-
-    snake->target.pos.x = snake->seg[0].pos.x;
-    snake->target.pos.y = snake->seg[0].pos.y;
+    snake->progress = 0;
+    snake->target.pos.x = snake->seg[0].pos.x + snake->dir.x;
+    snake->target.pos.y = snake->seg[0].pos.y + snake->dir.y;
 }

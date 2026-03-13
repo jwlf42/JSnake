@@ -56,7 +56,7 @@ void DrawGame()
     if (apple.rast.draw == 1)
     {
         pix = RastToPix(apple.rast.pos);
-        DrawRectFillRast(apple.rast.rastsize, apple.rast.pos, apple.rast.color, 2);
+        DrawRectFillRast(apple.rast.rastsize, apple.rast.pos, (coordinates_t) { 0, 0 }, apple.rast.color, 2);
         SetPen(101, 67, 33, 5);
         DrawLine(pix.x + 12, pix.y + 8, pix.x + 12, pix.y + 2);
 
@@ -70,12 +70,10 @@ void DrawGame()
     }
     
     //Schlangenblock uebermalen
-    //DrawRectFill(snakesize, Jsnake.pixtail.x, Jsnake.pixtail.y, COLOR_WHITE, 2);
-    DrawRectFillRast(snakesize, Jsnake.seg[Jsnake.length-1].pos, COLOR_WHITE, 2);
+    DrawRectFillRast(snakesize, Jsnake.seg[Jsnake.length-1].pos,Jsnake.seg[Jsnake.length-1].offset, COLOR_WHITE, 2);
 
     //Schlangenkopf malen
-    //DrawRectFill(snakesize, Jsnake.headpix.x, Jsnake.headpix.y, Jsnake.seg[0].farbe, 2);
-    DrawRectFillRast(snakesize, Jsnake.seg[0].pos, Jsnake.seg[0].color, 2);
+    DrawRectFillRast(snakesize, Jsnake.seg[0].pos, Jsnake.seg[0].offset, Jsnake.seg[0].color, 2);
   
     return;
 }
@@ -119,11 +117,13 @@ void DrawRect(coordinates_t size, int x, int y, color_t farbe, int w)
 }
 
 
-void DrawRectFillRast(coordinates_t size, coordinates_t pos, color_t farbe, int w)
+void DrawRectFillRast(coordinates_t size, coordinates_t pos, coordinates_t offset, color_t farbe, int w)
 {
     coordinates_t pix;
 
     pix = RastToPix(pos);
+    pix.x += offset.x;
+    pix.y += offset.y;
     DrawRectFill(size, pix.x, pix.y, farbe, w);
 }
 

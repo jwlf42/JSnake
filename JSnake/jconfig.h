@@ -52,8 +52,8 @@ typedef struct Feld
 {
 	coordinates_t pos;
 	coordinates_t rastsize;
+	coordinates_t offset;
 	color_t color;
-	int offset;
 	int draw;
 }rast_t;
 
@@ -70,9 +70,8 @@ typedef struct Schlange
 	rast_t seg[MAX_SEG];
 	rast_t target;
 	coordinates_t dir;
-	coordinates_t headpix;
-	coordinates_t pixtail;
 	int length;
+	int progress;
 }snake_t;
 
 
