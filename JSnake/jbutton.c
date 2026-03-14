@@ -10,22 +10,6 @@
 #include "simple_draw.h"
 #include "draw_jprogramm.h"
 
-button_t Neustart;
-button_t Pause;
-button_t Hauptmenue;
-
-button_t Starten;
-button_t Optionen;
-button_t Beenden;
-
-button_t gruen;
-button_t blau;
-button_t rot;
-button_t lila;
-button_t hellgrau;
-button_t dunkelblau;
-button_t Hauptmenue1;
-
 
 
 /******************************************************
@@ -53,36 +37,30 @@ void InitButton(button_t* Button, color_t normal, color_t hovered, coordinates_t
 *******************************************************/
 void InitProgrammButtons()
 {
-    coordinates_t mainsize = { 250,100 };
-    coordinates_t minisize = { OP_BUTTON,OP_BUTTON };
-    coordinates_t bigsize = { 300,80 };
-
     //Hauptmenuebutton
-    InitButton(&Starten, COLOR_WHITE, COLOR_DARKGRAY, mainsize, "Spiel Starten", clientcenter.x - mainsize.x/2, 200);
-    InitButton(&Optionen, COLOR_WHITE, COLOR_DARKGRAY, mainsize, "Optionen", clientcenter.x - mainsize.x / 2, 348);
-    InitButton(&Beenden, COLOR_WHITE, COLOR_APPLERED, mainsize, "Beenden", clientcenter.x - mainsize.x / 2, 496);
+    InitButton(&Starten, COLOR_WHITE, COLOR_DARKGRAY, MAIN_B_SIZE, "Spiel Starten", clientcenter.x - MAIN_B_SIZE.x/2, 200);
+    InitButton(&Optionen, COLOR_WHITE, COLOR_DARKGRAY, MAIN_B_SIZE, "Optionen", clientcenter.x - MAIN_B_SIZE.x / 2, 348);
+    InitButton(&Beenden, COLOR_WHITE, COLOR_APPLERED, MAIN_B_SIZE, "Beenden", clientcenter.x - MAIN_B_SIZE.x / 2, 496);
 
     //Frabauswahlbuttons
-    InitButton(&gruen, COLOR_SNAKEGREEN, COLOR_SNAKEGREEN, minisize, "", clientcenter.x - 100 - (OP_BUTTON / 2), (4 * OP_BUTTON));
-    InitButton(&blau, COLOR_HELBLUE, COLOR_HELBLUE, minisize, "", clientcenter.x - 100 - (OP_BUTTON / 2), (5 * OP_BUTTON) + 30);
-    InitButton(&lila, COLOR_LILA, COLOR_LILA, minisize, "", clientcenter.x - 100 - (OP_BUTTON / 2), (6 * OP_BUTTON) + 60);
-    InitButton(&rot, COLOR_APPLERED, COLOR_APPLERED, minisize, "", clientcenter.x + 100 - (OP_BUTTON / 2), (4 * OP_BUTTON));
-    InitButton(&hellgrau, COLOR_LIGHTGRAY, COLOR_LIGHTGRAY, minisize, "", clientcenter.x + 100 - (OP_BUTTON / 2), (5 * OP_BUTTON) + 30);
-    InitButton(&dunkelblau, COLOR_DARKBLUE, COLOR_DARKBLUE, minisize, "", clientcenter.x + 100 - (OP_BUTTON / 2), (6 * OP_BUTTON) + 60);
+    InitButton(&gruen, COLOR_SNAKEGREEN, COLOR_SNAKEGREEN, OP_B_SIZE, "", clientcenter.x - 100 - (OP_BUTTON / 2), (4 * OP_BUTTON));
+    InitButton(&blau, COLOR_HELBLUE, COLOR_HELBLUE, OP_B_SIZE, "", clientcenter.x - 100 - (OP_BUTTON / 2), (5 * OP_BUTTON) + 30);
+    InitButton(&lila, COLOR_LILA, COLOR_LILA, OP_B_SIZE, "", clientcenter.x - 100 - (OP_BUTTON / 2), (6 * OP_BUTTON) + 60);
+    InitButton(&rot, COLOR_APPLERED, COLOR_APPLERED, OP_B_SIZE, "", clientcenter.x + 100 - (OP_BUTTON / 2), (4 * OP_BUTTON));
+    InitButton(&hellgrau, COLOR_LIGHTGRAY, COLOR_LIGHTGRAY, OP_B_SIZE, "", clientcenter.x + 100 - (OP_BUTTON / 2), (5 * OP_BUTTON) + 30);
+    InitButton(&dunkelblau, COLOR_DARKBLUE, COLOR_DARKBLUE, OP_B_SIZE, "", clientcenter.x + 100 - (OP_BUTTON / 2), (6 * OP_BUTTON) + 60);
 
     //Zurück zum Hauptmenue
-    InitButton(&Hauptmenue1, COLOR_WHITE, COLOR_DARKGRAY, bigsize, "<-- zurueck", clientcenter.x - (bigsize.x/2), (7 * OP_BUTTON) + 90);
+    InitButton(&Back, COLOR_WHITE, COLOR_DARKGRAY, BACK_B_SIZE, "<-- zurueck", clientcenter.x - (BACK_B_SIZE.x/2), (7 * OP_BUTTON) + 90);
 }
 
 
 
 void InitGameButtons()
 {
-    coordinates_t mediumsize = { 200,80 };
-
     //Gamebuttons
-    InitButton(&Neustart, COLOR_WHITE, COLOR_LIGHTGREEN, mediumsize, "Neustart", standardfield.rastsize.x + 100, standardfield.pos.y + 190);
-    InitButton(&Hauptmenue, COLOR_WHITE, COLOR_LIGHTGRAY, mediumsize, "Hauptmenue", standardfield.rastsize.x + 100, standardfield.pos.y + 300);
+    InitButton(&Neustart, COLOR_WHITE, COLOR_LIGHTGREEN, MEDIUM_B_SIZE, "Neustart", standardfield.rastsize.x + 100, standardfield.pos.y + 190);
+    InitButton(&Hauptmenue, COLOR_WHITE, COLOR_LIGHTGRAY, MEDIUM_B_SIZE, "Hauptmenue", standardfield.rastsize.x + 100, standardfield.pos.y + 300);
 }
 
 

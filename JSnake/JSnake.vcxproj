@@ -143,6 +143,7 @@
     <ClCompile Include="function_snake.c" />
     <ClCompile Include="init_sgame.c" />
     <ClCompile Include="jbutton.c" />
+    <ClCompile Include="jconfig.c" />
     <ClCompile Include="Jfile.c" />
     <ClCompile Include="jprogramm.c" />
     <ClCompile Include="mainSnake.c" />

@@ -14,15 +14,6 @@
 #include "function_snake.h"
 #include "simple_draw.h"
 
-snake_t Jsnake;
-rast_t standardfield;
-food_t apple;
-color_t controlColor;
-
-int score=0;
-int highscore=0;
-int last_score=-1;
-int last_highscore=-1;
 
 
 /******************************************************
@@ -34,7 +25,7 @@ void UpdateAnimation()
     int i; 
     Jsnake.progress += SPEED;
 
-    if (Jsnake.progress>=Rast)
+    if (Jsnake.progress>=RAST)
     {   
         for (i = Jsnake.length - 1; i > 0; i--)
         {

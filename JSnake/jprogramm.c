@@ -20,13 +20,6 @@
 
 
 
-gamestatus_t gamestate = menue;
-coordinates_t screen;
-coordinates_t client;
-coordinates_t clientcenter;
-
-
-
 /******************************************************
    Fenster goeße für simple draw zu Vollbild anpassen
    Spielfeld, Buttons und Highscore Initialisieren
@@ -46,8 +39,8 @@ void InitWindow()
 	clientcenter.x = client.x / 2;
 	clientcenter.y = client.y / 2;
 
-	Rand_Links = 2 * Rast;
-	Rand_Oben = 8 * Rast;
+	Rand_Links = 2 * RAST;
+	Rand_Oben = 8 * RAST;
 
 	controlColor = COLOR_SNAKEGREEN;
 
@@ -180,7 +173,7 @@ void GameLoop()
 *******************************************************/
 void OptionLoop()
 {
-	button_t* OptionButtons[] = { &gruen, &blau, &lila, &rot, &hellgrau, &dunkelblau, &Hauptmenue1 };
+	button_t* OptionButtons[] = { &gruen, &blau, &lila, &rot, &hellgrau, &dunkelblau, &Back };
 	const int NUM_GO_BUTTONS = 7;
 	coordinates_t size = { OP_BUTTON,OP_BUTTON };
 	int i;
@@ -228,7 +221,7 @@ void OptionLoop()
 			controlColor = dunkelblau.normalcolor;
 		}
 
-		if (Hauptmenue1.clicked & 2)
+		if (Back.clicked & 2)
 		{
 			ClearGraphic();
 			gamestate = menue;
@@ -255,7 +248,7 @@ void GameoverLoop()
 		GameOverButtons[i]->needsredraw = 1;
 	}
 
-	PlaceText(((FIELD_WIDTH / 2) * Rast)+Rand_Links, ((FIELD_HEIGHT / 2) * Rast)+Rand_Oben, "GAME OVER");
+	PlaceText(((FIELD_WIDTH / 2) * RAST)+Rand_Links, ((FIELD_HEIGHT / 2) * RAST)+Rand_Oben, "GAME OVER");
 
 	while(CheckDDE(&gamestate)==0)
 	{

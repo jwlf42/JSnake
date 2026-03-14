@@ -7,6 +7,7 @@
 */
 
 #define _CRT_SECURE_NO_WARNINGS
+
 #include <stdio.h>
 #include <time.h>
 #include "init_sgame.h"
@@ -45,10 +46,10 @@ void InitGame()
 void InitField(rast_t* spielfeld)
 {
     //Ausrichtung mit Strichstärke berücksichtigen (Strichstärke = Rast)
-    spielfeld->pos.x = Rand_Links + (Rast / 2);
-    spielfeld->pos.y = Rand_Oben + (Rast / 2);
-    spielfeld->rastsize.x = FIELD_WIDTH * Rast;
-    spielfeld->rastsize.y = FIELD_HEIGHT * Rast;
+    spielfeld->pos.x = Rand_Links + (RAST / 2);
+    spielfeld->pos.y = Rand_Oben + (RAST / 2);
+    spielfeld->rastsize.x = FIELD_WIDTH * RAST;
+    spielfeld->rastsize.y = FIELD_HEIGHT * RAST;
     spielfeld->draw = 1;
 
     return;
@@ -60,8 +61,10 @@ void InitFood(food_t* f)
 {
     f->value = 1;
     f->rast.draw = 0;
-    f->rast.rastsize.x = Rast - 8;
-    f->rast.rastsize.y = Rast - 8;
+    f->rast.rastsize.x = RAST - 8;
+    f->rast.rastsize.y = RAST - 8;
+    f->rast.offset.x = 4;
+    f->rast.offset.y = 8;
     f->rast.color = COLOR_APPLERED;
 }
 
@@ -79,8 +82,9 @@ void InitSnake(snake_t* snake, coordinates_t dir, color_t farbe, int length)
 
     for (i = 0; i < length; i++)
     {
-        snake->seg[i].pos.x = ((FIELD_WIDTH / 2) + Rand_Links / Rast) - (dir.x * i);
-        snake->seg[i].pos.y = ((FIELD_HEIGHT / 2) + Rand_Oben / Rast) - (dir.y * i);
+        snake->seg[i].rastsize = RASTSIZE;
+        snake->seg[i].pos.x = ((FIELD_WIDTH / 2) + Rand_Links / RAST) - (dir.x * i);
+        snake->seg[i].pos.y = ((FIELD_HEIGHT / 2) + Rand_Oben / RAST) - (dir.y * i);
         snake->seg[i].offset.x = 0;
         snake->seg[i].offset.y = 0;
         snake->seg[i].color = farbe;

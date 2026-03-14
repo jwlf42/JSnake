@@ -13,20 +13,6 @@
 #include "simple_draw.h"
 #include "draw_jprogramm.h"
 
-int Rand_Links;
-int Rand_Oben;
-
-const color_t COLOR_WHITE = { 255, 255, 255 };
-const color_t COLOR_BLACK = { 0,0,0 };
-const color_t COLOR_LIGHTGREEN = { 144, 238, 144 };
-const color_t COLOR_DARKGRAY = { 50, 50, 50 };
-const color_t COLOR_SNAKEGREEN = { 50, 205, 50 };
-const color_t COLOR_APPLERED = { 255, 0, 0 };
-const color_t COLOR_HELBLUE = { 173, 216, 230 }; 
-const color_t COLOR_LILA = { 186, 85, 211 };     
-const color_t COLOR_LIGHTGRAY = { 211, 211, 211 };
-const color_t COLOR_DARKBLUE = { 25, 25, 112 };
-
 
 
 /******************************************************
@@ -36,7 +22,6 @@ const color_t COLOR_DARKBLUE = { 25, 25, 112 };
 void DrawGame()
 {
     char sbuffer[20];
-    coordinates_t snakesize = { Rast,Rast };
     coordinates_t pix;
 
     if (score != last_score)
@@ -56,7 +41,7 @@ void DrawGame()
     if (apple.rast.draw == 1)
     {
         pix = RastToPix(apple.rast.pos);
-        DrawRectFillRast(apple.rast.rastsize, apple.rast.pos, (coordinates_t) { 0, 0 }, apple.rast.color, 2);
+        DrawRectFillRast(apple.rast.rastsize, apple.rast.pos, apple.rast.offset, apple.rast.color, 2);
         SetPen(101, 67, 33, 5);
         DrawLine(pix.x + 12, pix.y + 8, pix.x + 12, pix.y + 2);
 
@@ -65,15 +50,15 @@ void DrawGame()
 
     if (standardfield.draw == 1)
     {
-        DrawRect(standardfield.rastsize, standardfield.pos.x, standardfield.pos.y, standardfield.color, Rast);
+        DrawRect(standardfield.rastsize, standardfield.pos.x, standardfield.pos.y, standardfield.color, RAST);
         standardfield.draw = 0;
     }
     
     //Schlangenblock uebermalen
-    DrawRectFillRast(snakesize, Jsnake.seg[Jsnake.length-1].pos,Jsnake.seg[Jsnake.length-1].offset, COLOR_WHITE, 2);
+    DrawRectFillRast(Jsnake.seg[0].rastsize, Jsnake.seg[Jsnake.length - 1].pos, Jsnake.seg[Jsnake.length - 1].offset, COLOR_WHITE, 2);
 
     //Schlangenkopf malen
-    DrawRectFillRast(snakesize, Jsnake.seg[0].pos, Jsnake.seg[0].offset, Jsnake.seg[0].color, 2);
+    DrawRectFillRast(Jsnake.seg[Jsnake.length-1].rastsize, Jsnake.seg[0].pos, Jsnake.seg[0].offset, Jsnake.seg[0].color, 2);
   
     return;
 }
@@ -187,8 +172,8 @@ coordinates_t RastToPix(coordinates_t pos)
 {
     coordinates_t pix;
 
-    pix.x = pos.x * Rast;
-    pix.y = pos.y * Rast;
+    pix.x = pos.x * RAST;
+    pix.y = pos.y * RAST;
 
     return pix;
 }

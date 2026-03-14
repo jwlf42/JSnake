@@ -13,6 +13,7 @@
 #include "jfile.h"
 
 
+
 /*******************************************************
   Üpferprüft ob die Verbindung zu Simple Draw steht.
   gibt eine Windows fehlermeldung aus wenn nicht

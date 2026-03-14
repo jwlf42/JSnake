@@ -68,6 +68,9 @@
     <ClCompile Include="init_sgame.c">
       <Filter>Quelldateien</Filter>
     </ClCompile>
+    <ClCompile Include="jconfig.c">
+      <Filter>Quelldateien</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="Resource.rc">
