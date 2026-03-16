@@ -35,13 +35,14 @@ void InitGame()
     GenFood(&apple);
     DrawStaticGame();
     DrawGame();
+
+    return;
 }
 
 
 
 /*******************************************************
-  Speilfeld mit Strichstäre genau auf Raster ausrichten
-  damit Schlange genau an grenzen läuft
+  Speilfeld Initialisierung
 *******************************************************/
 void InitField(rast_t* spielfeld)
 {
@@ -58,8 +59,9 @@ void InitField(rast_t* spielfeld)
 }
 
 
+
 /*******************************************************
-  Essen Initialisierung ueber Zeiger 
+  Essen Initialisierung
 
 *******************************************************/
 void InitFood(food_t* f)
@@ -71,17 +73,22 @@ void InitFood(food_t* f)
     f->rast.offset.x = 4;
     f->rast.offset.y = 8;
     f->rast.color = COLOR_APPLERED;
+
+    return;
 }
 
 
 
 /******************************************************
-   Schlange Initialisierung Übergabe als Pointer
+   Schlange initialisieren Übergabe als Pointer
    Funktion soll später mehrere Objekte initialisieren
 *******************************************************/
 void InitSnake(snake_t* snake, coordinates_t dir, color_t farbe, int length)
 {
     int i;
+
+    if (length < 1)
+        return;
 
     snake->length = length;
     snake->dir = dir;
@@ -97,8 +104,10 @@ void InitSnake(snake_t* snake, coordinates_t dir, color_t farbe, int length)
         snake->seg[i].rast.color = farbe;
     }
 
-    snake->seg[length-1].rast.color=COLOR_WHITE;
+    snake->seg[length - 1].rast.color = COLOR_WHITE;
     snake->progress = 0;
     snake->target.pos.x = snake->seg[0].rast.pos.x + snake->dir.x;
     snake->target.pos.y = snake->seg[0].rast.pos.y + snake->dir.y;
+
+    return;
 }

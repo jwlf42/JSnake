@@ -13,7 +13,7 @@
 
 
 /******************************************************
-  Zuweisung der Buttons mit Startwerten im struct
+  Zuweisung der Buttons mit Startwerten
   zeiger auf buttons
 *******************************************************/
 void InitButton(button_t* Button, color_t normal, color_t hovered, coordinates_t size, const char* text, int x, int y)
@@ -27,13 +27,15 @@ void InitButton(button_t* Button, color_t normal, color_t hovered, coordinates_t
     Button->hovered = 0;
     Button->clicked = 0;
     Button->needsredraw = 1;
+
+    return;
 }
 
 
 
 /******************************************************
   Anlegen der Buttons mit Startwerten farbe größe etc.
-  Aufrauf der zuwesiungsfunktion übergabe als zeiger
+  Aufrauf der Zuwesiungsfunktion übergabe der Adresse
 *******************************************************/
 void InitProgrammButtons()
 {
@@ -52,6 +54,8 @@ void InitProgrammButtons()
 
     //Zurück zum Hauptmenue
     InitButton(&Back, COLOR_WHITE, COLOR_DARKGRAY, BACK_B_SIZE, "<-- zurueck", clientcenter.x - (BACK_B_SIZE.x/2), (7 * OP_BUTTON) + 90);
+
+    return;
 }
 
 
@@ -61,6 +65,8 @@ void InitGameButtons()
     //Gamebuttons
     InitButton(&Neustart, COLOR_WHITE, COLOR_LIGHTGREEN, MEDIUM_B_SIZE, "Neustart", standardfield.size.x + 100, standardfield.pos.y + 190);
     InitButton(&Hauptmenue, COLOR_WHITE, COLOR_LIGHTGRAY, MEDIUM_B_SIZE, "Hauptmenue", standardfield.size.x + 100, standardfield.pos.y + 300);
+
+    return;
 }
 
 
@@ -78,6 +84,7 @@ void DrawButtons(button_t** buttons, int count)
         UpdateButtonState(buttons[i]);
         RenderButton(buttons[i]);
     }
+    return;
 }
 
 
@@ -106,6 +113,8 @@ void UpdateButtonState(button_t* b)
     }
     if (washov != b->hovered)
         b->needsredraw = 1;
+
+    return;
 }
 
 

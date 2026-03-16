@@ -77,6 +77,8 @@ void DrawRectFillRast(rast_t rast, int w)
     pix.x += rast.offset.x;
     pix.y += rast.offset.y;
     DrawRectFill(rast.size, pix.x, pix.y, rast.color, w);
+
+    return;
 }
 
 
@@ -93,6 +95,8 @@ void DrawRectRast(rast_t rast, int w)
     pix.x += rast.offset.x;
     pix.y += rast.offset.y;
     DrawRect(rast.size, pix.x, pix.y, rast.color, w);
+
+    return;
 }
 
 
@@ -131,6 +135,8 @@ void DrawRect(coordinates_t size, int x, int y, color_t farbe, int w)
     DrawTo(x+size.x,y+size.y);
     DrawTo(x,y+size.y);
     DrawTo(x,y);
+
+    return;
 }
 
 
@@ -171,8 +177,8 @@ coordinates_t RastToPix(coordinates_t pos)
 
 
 /******************************************************
- Hilfsfunktion Textausrichtung
-
+  Hilfsfunktion Textausrichtung 
+  (Linksbündig, mittig, Rechtsbuendig)
 *******************************************************/
 void PlaceTextDynamic(int x, int y, char* text, richtung_t modus)
 {
@@ -180,17 +186,14 @@ void PlaceTextDynamic(int x, int y, char* text, richtung_t modus)
     int textWidth = strlen(text) * 7;
     if (modus == richtung_L)
     {
-        //printf("\nTextausrichtung modus Links");
         PlaceText(x, y, text);
     }
     if (modus == richtung_M)
     {
-        //printf("\nTextausrichtung modus Mitte");
         PlaceText(client.x / 2 - textWidth / 2, y, text);
     }
     if (modus == richtung_R)
     {
-        //printf("\nTextaurichtung modus Rechts");
         PlaceText(client.x - x - textWidth, y, text);
     }
 

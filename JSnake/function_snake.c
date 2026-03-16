@@ -41,6 +41,8 @@ void UpdateAnimation()
 
     if (Jsnake.seg[Jsnake.length - 1].dir.y != 0)
         Jsnake.seg[Jsnake.length - 1].rast.size.y = Jsnake.progress;
+
+    return;
   }
 
 
@@ -96,6 +98,7 @@ void UpdateLogic()
                 highscore = score;
         } 
     }
+    return;
 }
 
 
@@ -171,4 +174,6 @@ void GenFood(food_t *food)
     food->rast.draw = 1;
     food->rast.pos.x = food_x;
     food->rast.pos.y = food_y;
+
+    return;
 }
