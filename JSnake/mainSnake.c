@@ -17,7 +17,9 @@
 
 int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine, int nCmdShow)
 {
-	InitLog();
+	if (InitLog())
+		return 1;
+
 	InitWindow();
 	
 	while(gamestate!=exitgame)

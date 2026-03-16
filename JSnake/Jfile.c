@@ -16,7 +16,7 @@
 
 /*******************************************************
   Üpferprüft ob die Verbindung zu Simple Draw steht.
-  gibt eine Windows fehlermeldung aus wenn nicht
+  gibt eine Windows Fehlermeldung aus wenn nicht
 *******************************************************/
 int CheckDDE(gamestatus_t* state)
 {
@@ -64,14 +64,16 @@ int CheckDDE(gamestatus_t* state)
    Bei Programmstart Anlegen einer log Datei
    mit umgehnder umleitung des standartfehlerkanals stderr
 *******************************************************/
-void InitLog()
+int InitLog()
 {
-    FILE* datei = freopen("JSnake_errors.log", "w", stderr);
+    if (freopen("JSnake_errors.log", "w", stderr) == NULL)
+    {
+        MessageBoxA(NULL, "Logdatei konnte nicht geöffnet werden.", "Startfehler", MB_OK | MB_ICONERROR);
+        return 1;
+    }
 
-    if (datei == NULL)
-        perror("InitLog: freopen fehlgeschlagen");
-    else
-        fprintf(stderr, "Programm gestartet\n");
+    fprintf(stderr, "Programm gestartet\n");
+    return 0;
 }
 
 
@@ -112,6 +114,7 @@ void LoadHighscore()
 
         fclose(datei);
     }
+    return;
 }
 
 

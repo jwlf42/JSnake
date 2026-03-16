@@ -5,7 +5,7 @@
 
 int CheckDDE(gamestatus_t* state);
 
-void InitLog();
+int InitLog();
 
 void SaveScore();
 
