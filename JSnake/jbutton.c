@@ -59,8 +59,8 @@ void InitProgrammButtons()
 void InitGameButtons()
 {
     //Gamebuttons
-    InitButton(&Neustart, COLOR_WHITE, COLOR_LIGHTGREEN, MEDIUM_B_SIZE, "Neustart", standardfield.rastsize.x + 100, standardfield.pos.y + 190);
-    InitButton(&Hauptmenue, COLOR_WHITE, COLOR_LIGHTGRAY, MEDIUM_B_SIZE, "Hauptmenue", standardfield.rastsize.x + 100, standardfield.pos.y + 300);
+    InitButton(&Neustart, COLOR_WHITE, COLOR_LIGHTGREEN, MEDIUM_B_SIZE, "Neustart", standardfield.size.x + 100, standardfield.pos.y + 190);
+    InitButton(&Hauptmenue, COLOR_WHITE, COLOR_LIGHTGRAY, MEDIUM_B_SIZE, "Hauptmenue", standardfield.size.x + 100, standardfield.pos.y + 300);
 }
 
 

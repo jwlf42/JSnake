@@ -61,7 +61,7 @@ typedef struct Farben
 typedef struct Feld
 {
 	coordinates_t pos;
-	coordinates_t rastsize;
+	coordinates_t size;
 	coordinates_t offset;
 	color_t color;
 	int draw;
@@ -75,9 +75,16 @@ typedef struct Essen
 }food_t;
 
 
+typedef struct Schlangensegment
+{
+	rast_t rast;
+	coordinates_t dir;
+}snakeseg_t;
+
+
 typedef struct Schlange
 {
-	rast_t seg[MAX_SEG];
+	snakeseg_t seg[MAX_SEG];
 	rast_t target;
 	coordinates_t dir;
 	int length;

@@ -41,28 +41,33 @@ void InitGame()
 
 /*******************************************************
   Speilfeld mit Strichstäre genau auf Raster ausrichten
-  Schlange genau an grenzen läuft
+  damit Schlange genau an grenzen läuft
 *******************************************************/
 void InitField(rast_t* spielfeld)
 {
     //Ausrichtung mit Strichstärke berücksichtigen (Strichstärke = Rast)
     spielfeld->pos.x = Rand_Links + (RAST / 2);
-    spielfeld->pos.y = Rand_Oben + (RAST / 2);
-    spielfeld->rastsize.x = FIELD_WIDTH * RAST;
-    spielfeld->rastsize.y = FIELD_HEIGHT * RAST;
+    spielfeld->pos.y = Rand_Oben + (RAST / 2)-1;
+    spielfeld->offset.x = (RAST / 2);
+    spielfeld->offset.y = (RAST / 2);
+    spielfeld->size.x = FIELD_WIDTH*RAST+1;
+    spielfeld->size.y = FIELD_HEIGHT*RAST;
     spielfeld->draw = 1;
 
     return;
 }
 
 
+/*******************************************************
+  Essen Initialisierung ueber Zeiger 
 
+*******************************************************/
 void InitFood(food_t* f)
 {
     f->value = 1;
     f->rast.draw = 0;
-    f->rast.rastsize.x = RAST - 8;
-    f->rast.rastsize.y = RAST - 8;
+    f->rast.size.x = RAST - 8;
+    f->rast.size.y = RAST - 8;
     f->rast.offset.x = 4;
     f->rast.offset.y = 8;
     f->rast.color = COLOR_APPLERED;
@@ -71,7 +76,7 @@ void InitFood(food_t* f)
 
 
 /******************************************************
-   Schlange initialisierung Übergabe als Pointer
+   Schlange Initialisierung Übergabe als Pointer
    Funktion soll später mehrere Objekte initialisieren
 *******************************************************/
 void InitSnake(snake_t* snake, coordinates_t dir, color_t farbe, int length)
@@ -82,15 +87,16 @@ void InitSnake(snake_t* snake, coordinates_t dir, color_t farbe, int length)
 
     for (i = 0; i < length; i++)
     {
-        snake->seg[i].rastsize = RASTSIZE;
-        snake->seg[i].pos.x = ((FIELD_WIDTH / 2) + Rand_Links / RAST) - (dir.x * i);
-        snake->seg[i].pos.y = ((FIELD_HEIGHT / 2) + Rand_Oben / RAST) - (dir.y * i);
-        snake->seg[i].offset.x = 0;
-        snake->seg[i].offset.y = 0;
-        snake->seg[i].color = farbe;
+        snake->seg[i].rast.size = RASTSIZE;
+        snake->seg[i].rast.pos.x = ((FIELD_WIDTH / 2) + Rand_Links / RAST) - (dir.x * i);
+        snake->seg[i].rast.pos.y = ((FIELD_HEIGHT / 2) + Rand_Oben / RAST) - (dir.y * i);
+        snake->seg[i].rast.offset.x = 0;
+        snake->seg[i].rast.offset.y = 0;
+        snake->seg[i].dir = snake->dir;
+        snake->seg[i].rast.color = farbe;
     }
 
     snake->progress = 0;
-    snake->target.pos.x = snake->seg[0].pos.x + snake->dir.x;
-    snake->target.pos.y = snake->seg[0].pos.y + snake->dir.y;
+    snake->target.pos.x = snake->seg[0].rast.pos.x + snake->dir.x;
+    snake->target.pos.y = snake->seg[0].rast.pos.y + snake->dir.y;
 }

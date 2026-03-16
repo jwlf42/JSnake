@@ -23,24 +23,25 @@
 void UpdateAnimation()
 {
     int i; 
+
     Jsnake.progress += SPEED;
+    Jsnake.seg[Jsnake.length - 1].rast.offset = (coordinates_t){ 0,0 };
 
-    if (Jsnake.progress>=RAST)
-    {   
-        for (i = Jsnake.length - 1; i > 0; i--)
-        {
-            Jsnake.seg[i] = Jsnake.seg[i - 1];
-        }
-        Jsnake.seg[0].pos = Jsnake.target.pos;
-        Jsnake.progress = 0;
-    }
-   
-    Jsnake.seg[0].offset.x = (Jsnake.target.pos.x - Jsnake.seg[0].pos.x) * Jsnake.progress;
-    Jsnake.seg[0].offset.y = (Jsnake.target.pos.y - Jsnake.seg[0].pos.y) * Jsnake.progress;
+    Jsnake.seg[0].rast.offset.x = (Jsnake.seg[0].dir.x) * Jsnake.progress;
+    Jsnake.seg[0].rast.offset.y = (Jsnake.seg[0].dir.y) * Jsnake.progress;
 
-    Jsnake.seg[Jsnake.length - 1].offset.x = (Jsnake.seg[Jsnake.length - 2].pos.x - Jsnake.seg[Jsnake.length - 1].pos.x) * Jsnake.progress;
-    Jsnake.seg[Jsnake.length - 1].offset.y = (Jsnake.seg[Jsnake.length - 2].pos.y - Jsnake.seg[Jsnake.length - 1].pos.y) * Jsnake.progress;  
-}
+    if (Jsnake.seg[Jsnake.length-1].dir.x < 0)
+        Jsnake.seg[Jsnake.length - 1].rast.offset.x = RAST - Jsnake.progress;
+
+    if (Jsnake.seg[Jsnake.length - 1].dir.y < 0)
+        Jsnake.seg[Jsnake.length - 1].rast.offset.y = RAST - Jsnake.progress;
+
+    if (Jsnake.seg[Jsnake.length - 1].dir.x != 0)
+        Jsnake.seg[Jsnake.length - 1].rast.size.x = Jsnake.progress;
+
+    if (Jsnake.seg[Jsnake.length - 1].dir.y != 0)
+        Jsnake.seg[Jsnake.length - 1].rast.size.y = Jsnake.progress;
+  }
 
 
 
@@ -51,44 +52,39 @@ void UpdateAnimation()
 void UpdateLogic()
 {
     int i;
-    
+
+    if (Jsnake.progress >= RAST)
+    {
+        for (i = Jsnake.length - 1; i > 0; i--)
+        {
+            Jsnake.seg[i] = Jsnake.seg[i - 1];
+        }
+        Jsnake.seg[0].rast.pos = Jsnake.target.pos;
+        Jsnake.progress = 0;
+    }
+
     InputControl(&Jsnake.dir);
 
-    if (Jsnake.seg[0].pos.x == Jsnake.target.pos.x && Jsnake.seg[0].pos.y == Jsnake.target.pos.y)
+    if (Jsnake.seg[0].rast.pos.x == Jsnake.target.pos.x && Jsnake.seg[0].rast.pos.y == Jsnake.target.pos.y)
     {
-        Jsnake.target.pos.x = Jsnake.seg[0].pos.x + Jsnake.dir.x;
-        Jsnake.target.pos.y = Jsnake.seg[0].pos.y + Jsnake.dir.y;
-
-        //Schwanz verschiebung für schönere animation
-        /**if (Jsnake.seg[Jsnake.length - 1].dir.x != Jsnake.seg[Jsnake.length - 2].dir.x || Jsnake.seg[Jsnake.length - 1].dir.y != Jsnake.seg[Jsnake.length - 2].dir.y)
-        {
-            Jsnake.seg[Jsnake.length - 1].dir = Jsnake.seg[Jsnake.length - 2].dir;
-            
-            Jsnake.seg[Jsnake.length - 1].pos = Jsnake.seg[Jsnake.length - 2].pos;
-
-            Jsnake.pixtail.x = Jsnake.seg[Jsnake.length - 1].pos.x * Rast - Jsnake.seg[Jsnake.length - 1].dir.x * Rast;
-            Jsnake.pixtail.y = Jsnake.seg[Jsnake.length - 1].pos.y * Rast - Jsnake.seg[Jsnake.length - 1].dir.y * Rast;
-        }
-
-        if (Jsnake.seg[Jsnake.length - 1].pos.x <= 3 || Jsnake.seg[Jsnake.length - 1].pos.x >= FIELD_WIDTH+1 || Jsnake.seg[Jsnake.length - 1].pos.y <= 9 || Jsnake.seg[Jsnake.length - 1].pos.y >= FIELD_HEIGHT + 7)
-        {
-            standardfield.draw = 1;
-        }*/
+        Jsnake.seg[0].dir = Jsnake.dir;
+        Jsnake.target.pos.x = Jsnake.seg[0].rast.pos.x + Jsnake.dir.x;
+        Jsnake.target.pos.y = Jsnake.seg[0].rast.pos.y + Jsnake.dir.y;
 
         if (Jsnake.target.pos.x <= 2 || Jsnake.target.pos.x >= FIELD_WIDTH+2 || Jsnake.target.pos.y <= 8 || Jsnake.target.pos.y >= FIELD_HEIGHT + 8)
         { 
             gamestate=gameover;
         }
 
-        for ( i = 1; i < Jsnake.length - 1; i++)
+        for ( i = 1; i <= Jsnake.length - 1; i++)
         {
-            if (Jsnake.target.pos.x == Jsnake.seg[i].pos.x && Jsnake.target.pos.y == Jsnake.seg[i].pos.y)
+            if (Jsnake.target.pos.x == Jsnake.seg[i].rast.pos.x && Jsnake.target.pos.y == Jsnake.seg[i].rast.pos.y)
             {
                 gamestate = gameover;
             }
         }
         
-        if (Jsnake.seg[0].pos.x == apple.rast.pos.x && Jsnake.seg[0].pos.y == apple.rast.pos.y)
+        if (Jsnake.seg[0].rast.pos.x == apple.rast.pos.x && Jsnake.seg[0].rast.pos.y == apple.rast.pos.y)
         {
             Jsnake.length++;
             Jsnake.seg[Jsnake.length - 1] = Jsnake.seg[Jsnake.length - 2];
@@ -166,7 +162,7 @@ void GenFood(food_t *food)
         collesion = 0;
 
         for (i = 1; i <= Jsnake.length - 1; i++)
-            if (food_x == Jsnake.seg[i].pos.x && food_y == Jsnake.seg[i].pos.y)
+            if (food_x == Jsnake.seg[i].rast.pos.x && food_y == Jsnake.seg[i].rast.pos.y)
                 collesion = 1;
 
     } while (collesion == 1);
