@@ -59,6 +59,7 @@ void UpdateLogic()
         {
             Jsnake.seg[i] = Jsnake.seg[i - 1];
         }
+        Jsnake.seg[Jsnake.length - 1].rast.color = COLOR_WHITE;
         Jsnake.seg[0].rast.pos = Jsnake.target.pos;
         Jsnake.progress = 0;
     }

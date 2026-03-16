@@ -11,9 +11,9 @@ void DrawRectFill(coordinates_t size, int x, int y, color_t farbe, int w);
 
 void DrawRect(coordinates_t size, int x, int y, color_t farbe, int w);
 
-void DrawRectFillRast(coordinates_t size, coordinates_t pos,coordinates_t offset, color_t farbe, int w);
+void DrawRectFillRast(rast_t rast, int w);
 
-void DrawRectRast(coordinates_t size, coordinates_t pos, coordinates_t offset, color_t farbe, int w);
+void DrawRectRast(rast_t, int w);
 
 void PlaceTextDynamic(int x, int y, char* text, richtung_t modus);
 

@@ -28,7 +28,7 @@ void InitGame()
 
     InitField(&standardfield);
     InitGameButtons();
-    InitSnake(&Jsnake, (coordinates_t) { 0, 0 }, controlColor, 1);
+    InitSnake(&Jsnake, (coordinates_t) { 0, 0 }, controlColor, 2);
     InitFood(&apple);
     LoadHighscore();
     srand(time(NULL));
@@ -82,6 +82,7 @@ void InitFood(food_t* f)
 void InitSnake(snake_t* snake, coordinates_t dir, color_t farbe, int length)
 {
     int i;
+
     snake->length = length;
     snake->dir = dir;
 
@@ -96,6 +97,7 @@ void InitSnake(snake_t* snake, coordinates_t dir, color_t farbe, int length)
         snake->seg[i].rast.color = farbe;
     }
 
+    snake->seg[length-1].rast.color=COLOR_WHITE;
     snake->progress = 0;
     snake->target.pos.x = snake->seg[0].rast.pos.x + snake->dir.x;
     snake->target.pos.y = snake->seg[0].rast.pos.y + snake->dir.y;
