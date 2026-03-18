@@ -89,10 +89,13 @@ void UpdateLogic()
         
         if (Jsnake.seg[0].rast.pos.x == apple.rast.pos.x && Jsnake.seg[0].rast.pos.y == apple.rast.pos.y)
         {
-            Jsnake.length++;
-            Jsnake.seg[Jsnake.length - 1] = Jsnake.seg[Jsnake.length - 2];
+            Jsnake.length+=apple.value;
+            for (i = 1; i <= apple.value; i++)
+            {
+                Jsnake.seg[Jsnake.length - i] = Jsnake.seg[Jsnake.length - apple.value-1];
+            }
             GenFood(&apple);
-            score += 10;
+            score += apple.value;
             
             if (score > highscore)
                 highscore = score;
@@ -158,7 +161,7 @@ void GenFood(food_t *food)
     do
     {
         // Zufaellige X-Position:
-        food_x = (rand() % FIELD_WIDTH-1) + 3;
+        food_x = (rand() % (FIELD_WIDTH-1))+3;
 
         // Zufaellige Y-Position:
         food_y = (rand() % (FIELD_HEIGHT-1)) + 9;
