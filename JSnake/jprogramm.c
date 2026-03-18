@@ -248,6 +248,7 @@ void GameoverLoop()
 		GameOverButtons[i]->needsredraw = 1;
 	}
 
+	SaveScore();
 	PlaceText(((FIELD_WIDTH / 2) * RAST)+Rand_Links, ((FIELD_HEIGHT / 2) * RAST)+Rand_Oben, "GAME OVER");
 
 	while(CheckDDE(&gamestate)==0)

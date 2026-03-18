@@ -46,7 +46,6 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine
 			gamestate = menue;
 		}
 	}
-	SaveScore();
 	fprintf(stderr, "\nProgramm beendet\n");
 	return 0;
 }
