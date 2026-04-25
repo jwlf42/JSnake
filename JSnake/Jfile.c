@@ -11,6 +11,7 @@
 #include <stdio.h>
 #include <windows.h>
 #include "jfile.h"
+#include "simple_draw.h"
 
 
 
