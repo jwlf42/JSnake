@@ -168,7 +168,7 @@ void GenFood(food_t *food)
 
         collesion = 0;
 
-        for (i = 1; i <= Jsnake.length - 1; i++)
+        for (i = 0; i <= Jsnake.length - 1; i++)
             if (food_x == Jsnake.seg[i].rast.pos.x && food_y == Jsnake.seg[i].rast.pos.y)
                 collesion = 1;
 

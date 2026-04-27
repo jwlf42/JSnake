@@ -54,7 +54,7 @@ typedef struct Koordinaten
 
 typedef struct Farben
 {
-	int r, g, b;
+	unsigned char r, g, b;
 }color_t;
 
 
