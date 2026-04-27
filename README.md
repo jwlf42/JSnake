@@ -1,14 +1,14 @@
 # JSnake
 
-JSnake is a Snake game written in C for Windows, rendered with **Simple Draw (DDE)**.
+JSnake is a Snake game written in C for Windows, rendered with **Simple Draw (DDE)** 
 
-The project focuses on a clean separation of game logic, animation, and rendering, plus robust handling of the external DDE-based renderer.
+The project demonstrates a modular architecture with an external DDE-based graphics process and runtime monitoring.
 
 ## Features
-- Classic Snake gameplay: movement, collisions, growth logic, and animation
+- Classic Snake gameplay
 - Score + persistent highscore
   - Highscore is stored in a small binary file (read/write)
-- Game states:
+- Game states architecture:
   - Menu, Ready, Running, Game Over, Options
 - Options menu:
   - Change the snake color at runtime
@@ -19,6 +19,15 @@ The project focuses on a clean separation of game logic, animation, and renderin
   - Simple Draw runs as a separate renderer process
   - JSnake detects disconnects and shows a graphical message to the user
   - JSnake can auto-start Simple Draw (retries up to 3 times) and then exits cleanly if it fails
+
+  ## Download
+
+- **Latest Version:** v1.1.0  
+- **Platform:** Windows  
+
+👉 https://github.com/jwlf42/JSnake/releases/latest
+
+Requires `Simple DDE Draw.exe` (see build & run section).
 
 ## Screenshots
 
@@ -31,26 +40,11 @@ The project focuses on a clean separation of game logic, animation, and renderin
 ### Game Over
 ![Game Over](screenshots/gameover.png)
 
-
-## Project History
-Early development milestones created before Git was used are archived in [`legacy_pre_git/`](legacy_pre_git).
-
-## Download
-A prebuilt Windows executable will be provided via **GitHub Releases**, once published.
-
 ## Build & Run (Windows / Visual Studio)
 
 ### Requirements
 - Visual Studio (C toolchain)
 - **Simple DDE Draw (Win32)**
-
-### Notes about Simple Draw integration (important)
-The THM ZIP also includes a `simple_draw.c` and `simple_draw.h`.  
-**Do not use those files.**
-
-This repository contains the correct integration files that were adjusted to support DDE monitoring and proper DDE handle cleanup (prevents issues after longer runtimes):
-- `simple_draw.c`
-- `simple_draw.h`
 
 ### Run-time setup
 - `Simple DDE Draw.exe` must be located in the **same folder** as `JSnake.exe`.
@@ -63,6 +57,16 @@ This repository contains the correct integration files that were adjusted to sup
 3. Select **Release** configuration.
 4. Build the solution.
 5. Copy/ensure `Simple DDE Draw.exe` is in the same directory as the built `JSnake.exe`.
+
+### Notes about Simple Draw integration (important)
+The THM ZIP also includes a `simple_draw.c` and `simple_draw.h`.  
+**Do not use those files.**
+This repository contains the correct integration files that were adjusted to support DDE monitoring and proper DDE handle cleanup (prevents issues after longer runtimes):
+- `simple_draw.c`
+- `simple_draw.h`
+
+## Project History
+Early development milestones created before Git was used are archived in [`legacy_pre_git/`](legacy_pre_git).
 
 ## Credits
 This project uses **Simple Draw**, created by Prof. Dr. Martin Gräfe (THM), for educational purposes.
