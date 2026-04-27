@@ -22,7 +22,7 @@ The project demonstrates a modular architecture with an external DDE-based graph
 
   ## Download
 
-- **Latest Version:** v1.1.0  
+- **Latest Version:** v1.1.1  
 - **Platform:** Windows  
 
 👉 https://github.com/jwlf42/JSnake/releases/latest
