@@ -17,30 +17,21 @@
 
 
 /******************************************************
-  Animations update pro frame und berechnung.
-  prüfung ob schlange zum raster animiert wurde
+  Animationsupadate, Berechnung offset
+
 *******************************************************/
-void UpdateAnimation()
+void UpdateAnimation(snake_t *snake)
 {
-    int i; 
+    snake->progress += SPEED;
 
-    Jsnake.progress += SPEED;
-    Jsnake.seg[Jsnake.length - 1].rast.offset = (coordinates_t){ 0,0 };
+    snake->seg[0].rast.offset.x = (snake->seg[0].dir.x) * snake->progress;
+    snake->seg[0].rast.offset.y = (snake->seg[0].dir.y) * snake->progress;
 
-    Jsnake.seg[0].rast.offset.x = (Jsnake.seg[0].dir.x) * Jsnake.progress;
-    Jsnake.seg[0].rast.offset.y = (Jsnake.seg[0].dir.y) * Jsnake.progress;
+    snake->seg[snake->length - 1].rast.size.x = RAST - abs(snake->seg[snake->length - 1].dir.x) * (RAST - snake->progress);
+    snake->seg[snake->length - 1].rast.size.y = RAST - abs(snake->seg[snake->length - 1].dir.y) * (RAST - snake->progress);
 
-    if (Jsnake.seg[Jsnake.length-1].dir.x < 0)
-        Jsnake.seg[Jsnake.length - 1].rast.offset.x = RAST - Jsnake.progress;
-
-    if (Jsnake.seg[Jsnake.length - 1].dir.y < 0)
-        Jsnake.seg[Jsnake.length - 1].rast.offset.y = RAST - Jsnake.progress;
-
-    if (Jsnake.seg[Jsnake.length - 1].dir.x != 0)
-        Jsnake.seg[Jsnake.length - 1].rast.size.x = Jsnake.progress;
-
-    if (Jsnake.seg[Jsnake.length - 1].dir.y != 0)
-        Jsnake.seg[Jsnake.length - 1].rast.size.y = Jsnake.progress;
+    snake->seg[snake->length - 1].rast.offset.x = (snake->seg[snake->length - 1].dir.x < 0) * (RAST - snake->progress);
+    snake->seg[snake->length - 1].rast.offset.y = (snake->seg[snake->length - 1].dir.y < 0) * (RAST - snake->progress);
 
     return;
   }

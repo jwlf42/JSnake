@@ -6,7 +6,7 @@
 
 int InputControl(coordinates_t* dir);
 
-void UpdateAnimation();
+void UpdateAnimation(snake_t* snake);
 
 void UpdateLogic();
 

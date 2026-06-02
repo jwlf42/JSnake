@@ -158,7 +158,7 @@ void GameLoop()
 		UpdateLogic();
 		if (gamestate != running)
 			break;
-		UpdateAnimation();
+		UpdateAnimation(&Jsnake);
 		DrawGame();
 		Sleep(14);
 	}
