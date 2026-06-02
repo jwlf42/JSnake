@@ -155,7 +155,7 @@ void GameLoop()
 
 	while(CheckDDE(&gamestate)==0)
 	{
-		UpdateLogic();
+		UpdateLogic(&Jsnake);
 		if (gamestate != running)
 			break;
 		UpdateAnimation(&Jsnake);

@@ -42,59 +42,64 @@ void UpdateAnimation(snake_t *snake)
     Funktion update Rasterlogik und steuerung.
     Kollisionsprüfung und wachstumsprüfung
 *******************************************************/
-void UpdateLogic()
+void UpdateLogic(snake_t* snake)
 {
     int i;
 
-    if (Jsnake.progress >= RAST)
+    if (snake->progress >= RAST)
     {
-        for (i = Jsnake.length - 1; i > 0; i--)
+        for (i = snake->length - 1; i > 0; i--)
         {
-            Jsnake.seg[i] = Jsnake.seg[i - 1];
+            snake->seg[i] = snake->seg[i - 1];
         }
-        Jsnake.seg[Jsnake.length - 1].rast.color = COLOR_WHITE;
-        Jsnake.seg[0].rast.pos = Jsnake.target.pos;
-        Jsnake.progress = 0;
+
+        snake->seg[snake->length - 1].rast.color = COLOR_WHITE;
+        snake->seg[0].rast.pos = snake->target.pos;
+        snake->progress = 0;
     }
 
-    InputControl(&Jsnake.dir);
+    InputControl(&snake->dir);
 
-    if (Jsnake.seg[0].rast.pos.x == Jsnake.target.pos.x && Jsnake.seg[0].rast.pos.y == Jsnake.target.pos.y)
+    if (snake->seg[0].rast.pos.x == snake->target.pos.x &&
+        snake->seg[0].rast.pos.y == snake->target.pos.y)
     {
-        Jsnake.seg[0].dir = Jsnake.dir;
-        Jsnake.target.pos.x = Jsnake.seg[0].rast.pos.x + Jsnake.dir.x;
-        Jsnake.target.pos.y = Jsnake.seg[0].rast.pos.y + Jsnake.dir.y;
+        snake->seg[0].dir = snake->dir;
 
-        if (Jsnake.target.pos.x <= 2 || Jsnake.target.pos.x >= FIELD_WIDTH+2 || Jsnake.target.pos.y <= 8 || Jsnake.target.pos.y >= FIELD_HEIGHT + 8)
-        { 
-            gamestate=gameover;
+        snake->target.pos.x = snake->seg[0].rast.pos.x + snake->dir.x;
+        snake->target.pos.y = snake->seg[0].rast.pos.y + snake->dir.y;
+
+        if (snake->target.pos.x <= 2 || snake->target.pos.x >= FIELD_WIDTH + 2 || snake->target.pos.y <= 8 || snake->target.pos.y >= FIELD_HEIGHT + 8)
+        {
+            gamestate = gameover;
         }
 
-        for ( i = 1; i <= Jsnake.length - 1; i++)
+        for (i = 1; i <= snake->length - 1; i++)
         {
-            if (Jsnake.target.pos.x == Jsnake.seg[i].rast.pos.x && Jsnake.target.pos.y == Jsnake.seg[i].rast.pos.y)
+            if (snake->target.pos.x == snake->seg[i].rast.pos.x && snake->target.pos.y == snake->seg[i].rast.pos.y)
             {
                 gamestate = gameover;
             }
         }
-        
-        if (Jsnake.seg[0].rast.pos.x == apple.rast.pos.x && Jsnake.seg[0].rast.pos.y == apple.rast.pos.y)
+
+        if (snake->seg[0].rast.pos.x == apple.rast.pos.x && snake->seg[0].rast.pos.y == apple.rast.pos.y)
         {
-            Jsnake.length+=apple.value;
+            snake->length += apple.value;
+
             for (i = 1; i <= apple.value; i++)
             {
-                Jsnake.seg[Jsnake.length - i] = Jsnake.seg[Jsnake.length - apple.value-1];
+                snake->seg[snake->length - i] = snake->seg[snake->length - apple.value - 1];
             }
+
             GenFood(&apple);
             score += apple.value;
-            
+
             if (score > highscore)
                 highscore = score;
-        } 
+        }
     }
+
     return;
 }
-
 
 
 /******************************************************

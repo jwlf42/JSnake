@@ -8,7 +8,7 @@ int InputControl(coordinates_t* dir);
 
 void UpdateAnimation(snake_t* snake);
 
-void UpdateLogic();
+void UpdateLogic(snake_t* snake);
 
 void GenFood(food_t* food);
 
